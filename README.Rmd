@@ -1,0 +1,8 @@
+---
+output: github_document
+---
+
+# Statistical Rethinking colearning 2022
+
+
+
