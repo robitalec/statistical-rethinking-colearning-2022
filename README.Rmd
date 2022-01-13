@@ -2,6 +2,9 @@
 output: github_document
 ---
 
+```{r include = FALSE}
+knitr::opts_chunk$set( fig.path = "graphics/" )
+```
 # Statistical Rethinking colearning 2022
 
 This repository contains resources and information for a colearning group
