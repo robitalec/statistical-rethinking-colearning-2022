@@ -71,26 +71,24 @@ Also, Alec’s notes and solutions of the 2019 material:
 
 ## Installation
 
-Some packages and install notes. We’ll update these as we go!
+Package specific install directions. We’ll update these as we go!
 
-### Rethinking
+Rethinking
 
 -   [`rethinking`](https://github.com/rmcelreath/rethinking#installation)
 
-### Stan
+Stan
 
 -   [`cmdstanr`](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
 -   [`RStan`](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
 -   [`brms`](r/brms/#how-do-i-install-brms)
 
-### Targets
+Targets
 
 -   [`targets`](https://github.com/ropensci/targets/#installation)
 -   [`stantargets`](https://github.com/ropensci/stantargets/#installation)
 
-### V8
-
-(The V8 package is needed for dagitty)
+V8, needed for the `dagitty` package
 
 -   [`V8`](https://github.com/jeroen/v8#installation)
 
