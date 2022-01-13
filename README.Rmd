@@ -27,6 +27,14 @@ share your notes and/or homework solutions.
 
 
 
+## Thanks
+
+Many thanks to Richard McElreath for a continued emphasis on teaching 
+Bayesian statistics and for providing this incredible resource of lectures
+and homework assignments free for everyone. 
+
+Also thank you to the developers of R, Stan and innumerous R packages that 
+allow us to pursue this interest. 
 
 
 
