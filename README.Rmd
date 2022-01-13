@@ -17,7 +17,26 @@ and `notes/` folder for notes. For folks joining in the colearning group,
 you are encouraged to make your own branch in this repository and
 share your notes and/or homework solutions. 
 
+The `R/` folder can be used to store reusable functions useful across
+homework solutions and your own model situations. 
 
+For example, the `dag_plot` function makes a DAG plot from a DAG: 
+
+
+```{r}
+library(ggdag)
+library(ggplot2)
+library(dagitty)
+
+dag <- dagify(
+    awards ~ index_gender + index_discipline,
+    index_discipline ~ index_gender,
+    exposure = 'index_gender',
+    outcome = 'awards'
+)
+
+dag_plot(dag)
+```
 
 ## Resources
 
