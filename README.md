@@ -6,6 +6,47 @@ group meeting regularly to discuss lectures and homework assignments
 from the [Statistical Rethinking
 2022](https://github.com/rmcelreath/stat_rethinking_2022) course.
 
+## Project structure
+
+This repository is structured with a `homework/` folder for homework
+solutions, and `notes/` folder for notes. For folks joining in the
+colearning group, you are encouraged to make your own branch in this
+repository and share your notes and/or homework solutions.
+
+The `R/` folder can be used to store reusable functions useful across
+homework solutions and your own model situations.
+
+For example, the `dag_plot` function makes a DAG plot from a DAG:
+
+``` r
+library(ggplot2)
+library(ggdag)
+```
+
+    ## 
+    ## Attaching package: 'ggdag'
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     filter
+
+``` r
+library(dagitty)
+
+source('R/dag_plot.R')
+
+dag <- dagify(
+    Z ~ A + B,
+    B ~ A,
+    exposure = 'A',
+    outcome = 'Z'
+)
+
+dag_plot(dag)
+```
+
+![](graphics/readme_dag-1.png)<!-- -->
+
 ## Resources
 
 -   Lectures:
@@ -13,12 +54,40 @@ from the [Statistical Rethinking
 -   Homework:
     <https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework>
 
-## Project structure
+Additional material using other packages or languages
 
-This repository is structured with a `homework/` folder for homework
-solutions, and `notes/` folder for notes. For folks joining in the
-colearning group, you are encouraged to make your own branch in this
-repository and share your notes and/or homework solutions.
+-   Original R: <https://github.com/rmcelreath/rethinking/>
+-   R + Tidyverse + ggplot2 + brms: <https://bookdown.org/content/4857/>
+-   Python and PyMC3: Python/PyMC3
+-   Julia and Turing: <https://github.com/StatisticalRethinkingJulia>
+    and <https://github.com/StatisticalRethinkingJulia/TuringModels.jl>
+
+See Richard’s comments about these here:
+<https://github.com/rmcelreath/stat_rethinking_2022#original-r-flavor>
+
+Also, Alec’s notes and solutions of the 2019 material:
+<https://github.com/robitalec/statistical-rethinking> and
+<https://www.statistical-rethinking.robitalec.ca/>
+
+## Installation
+
+Some packages and install notes. We’ll update these as we go!
+
+### Rethinking
+
+-   [`rethinking`](https://github.com/rmcelreath/rethinking#installation)
+
+### Stan
+
+-   [`cmdstanr`](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
+-   [`RStan`](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
+-   [`brms`](r/brms/#how-do-i-install-brms)
+
+### V8
+
+(The V8 package is needed for dagitty)
+
+-   [`V8`](https://github.com/jeroen/v8#installation)
 
 ## Thanks
 
