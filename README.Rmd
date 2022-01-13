@@ -18,6 +18,16 @@ course.
 
 
 
+## Project structure
+
+This repository is structured with a `homework/` folder for homework solutions, 
+and `notes/` folder for notes. For folks joining in the colearning group, 
+you are encouraged to make your own branch in this repository and
+share your notes and/or homework solutions. 
+
+
+
+
 
 
 ## Code of Conduct
