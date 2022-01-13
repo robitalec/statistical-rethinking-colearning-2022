@@ -26,16 +26,18 @@ homework solutions and your own model situations.
 For example, the `dag_plot` function makes a DAG plot from a DAG: 
 
 
-```{r}
-library(ggdag)
+```{r readme_dag}
 library(ggplot2)
+library(ggdag)
 library(dagitty)
 
+source('R/dag_plot.R')
+
 dag <- dagify(
-    awards ~ index_gender + index_discipline,
-    index_discipline ~ index_gender,
-    exposure = 'index_gender',
-    outcome = 'awards'
+    Z ~ A + B,
+    B ~ A,
+    exposure = 'A',
+    outcome = 'Z'
 )
 
 dag_plot(dag)
