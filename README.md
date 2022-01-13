@@ -83,6 +83,11 @@ Some packages and install notes. We’ll update these as we go!
 -   [`RStan`](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
 -   [`brms`](r/brms/#how-do-i-install-brms)
 
+### Targets
+
+-   [`targets`](https://github.com/ropensci/targets/#installation)
+-   [`stantargets`](https://github.com/ropensci/stantargets/#installation)
+
 ### V8
 
 (The V8 package is needed for dagitty)
