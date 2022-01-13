@@ -60,7 +60,25 @@ Also, Alec's notes and solutions of the 2019 material: https://github.com/robita
 
 ## Installation
 
-Some packages and install notes. We'll update these as we go 
+Some packages and install notes. We'll update these as we go!
+
+### Rethinking
+
+* [`rethinking`](https://github.com/rmcelreath/rethinking#installation)
+
+### Stan
+
+* [`cmdstanr`](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
+* [`RStan`](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
+* [`brms`](r/brms/#how-do-i-install-brms)
+
+### V8
+
+(The V8 package is needed for dagitty)
+
+* [`V8`](https://github.com/jeroen/v8#installation)
+
+
 
 
 ## Thanks
