@@ -26,7 +26,7 @@ homework solutions and your own model situations.
 For example, the `dag_plot` function makes a DAG plot from a DAG: 
 
 
-```{r readme_dag}
+```{r readme_dag, cache = TRUE}
 library(ggplot2)
 library(ggdag)
 library(dagitty)
