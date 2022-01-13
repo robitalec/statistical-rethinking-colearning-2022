@@ -11,6 +11,12 @@ course.
 
 
 
+## Resources
+
+* Lectures: https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline
+* Homework: https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework
+
+
 
 
 
