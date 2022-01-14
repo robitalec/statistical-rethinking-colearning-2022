@@ -16,6 +16,8 @@ meeting regularly to discuss lectures and homework assignments from the
 [Statistical Rethinking 2022](https://github.com/rmcelreath/stat_rethinking_2022)
 course. 
 
+
+
 ## Schedule
 
 Adjusting from Richard's schedule for our pace:
@@ -32,6 +34,7 @@ Adjusting from Richard's schedule for our pace:
 |  | (15) Varying Slopes, (16) Gaussian Processes | Chapter 14 |  |
 |  | (17) Measurement Error, (18) Missing Data | Chapter 15 |  |
 |  | (19) Beyond GLMs: State-space Models, ODEs, (19) Horoscopes | Chapters 16 and 17 |  |
+
 
 
 ## Resources

@@ -1,51 +1,36 @@
+Statistical Rethinking colearning 2022
+================
 
-# Statistical Rethinking colearning 2022
+-   [Schedule](#schedule)
+-   [Resources](#resources)
+-   [Installation](#installation)
+-   [Project structure](#project-structure)
+-   [Thanks](#thanks)
+-   [Code of Conduct](#code-of-conduct)
+
+------------------------------------------------------------------------
 
 This repository contains resources and information for a colearning
 group meeting regularly to discuss lectures and homework assignments
 from the [Statistical Rethinking
 2022](https://github.com/rmcelreath/stat_rethinking_2022) course.
 
-## Project structure
+## Schedule
 
-This repository is structured with a `homework/` folder for homework
-solutions, and `notes/` folder for notes. For folks joining in the
-colearning group, you are encouraged to make your own branch in this
-repository and share your notes and/or homework solutions.
+Adjusting from Richard’s schedule for our pace:
 
-The `R/` folder can be used to store reusable functions useful across
-homework solutions and your own model situations.
-
-For example, the `dag_plot` function makes a DAG plot from a DAG:
-
-``` r
-library(ggplot2)
-library(ggdag)
-```
-
-    ## 
-    ## Attaching package: 'ggdag'
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-
-``` r
-library(dagitty)
-
-source('R/dag_plot.R')
-
-dag <- dagify(
-    Z ~ A + B,
-    B ~ A,
-    exposure = 'A',
-    outcome = 'Z'
-)
-
-dag_plot(dag)
-```
-
-![](graphics/readme_dag-1.png)<!-- -->
+| Meeting date | Lectures                                                                                                                                                                       | Reading               | Homework   |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|------------|
+| 2022-01-13   | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2) | Chapters 1, 2 and 3   | Homework 1 |
+|              | \(3\) Basic Regression, (4) Categories & Curves                                                                                                                                | Chapter 4             |            |
+|              | \(5\) Confounding, (6) Even Worse Confounding                                                                                                                                  | Chapters 5 and 6      |            |
+|              | \(7\) Overfitting, (8) Interactions                                                                                                                                            | Chapters 7 and 8      |            |
+|              | \(9\) Markov chain Monte Carlo, (10) Binomial GLMs                                                                                                                             | Chapters 9, 10 and 11 |            |
+|              | \(11\) Poisson GLMs, (12) Ordered Categories                                                                                                                                   | Chapters 11 and 12    |            |
+|              | \(13\) Multilevel Models, (14) Multi-Multilevel Models                                                                                                                         | Chapter 13            |            |
+|              | \(15\) Varying Slopes, (16) Gaussian Processes                                                                                                                                 | Chapter 14            |            |
+|              | \(17\) Measurement Error, (18) Missing Data                                                                                                                                    | Chapter 15            |            |
+|              | \(19\) Beyond GLMs: State-space Models, ODEs, (19) Horoscopes                                                                                                                  | Chapters 16 and 17    |            |
 
 ## Resources
 
@@ -91,6 +76,47 @@ Targets
 V8, needed for the `dagitty` package
 
 -   [`V8`](https://github.com/jeroen/v8#installation)
+
+## Project structure
+
+This repository is structured with a `homework/` folder for homework
+solutions, and `notes/` folder for notes. For folks joining in the
+colearning group, you are encouraged to make your own branch in this
+repository and share your notes and/or homework solutions.
+
+The `R/` folder can be used to store reusable functions useful across
+homework solutions and your own model situations.
+
+For example, the `dag_plot` function makes a DAG plot from a DAG:
+
+``` r
+library(ggplot2)
+library(ggdag)
+```
+
+    ## 
+    ## Attaching package: 'ggdag'
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     filter
+
+``` r
+library(dagitty)
+
+source('R/dag_plot.R')
+
+dag <- dagify(
+    Z ~ A + B,
+    B ~ A,
+    exposure = 'A',
+    outcome = 'Z'
+)
+
+dag_plot(dag)
+```
+
+![](graphics/readme_dag-1.png)<!-- -->
 
 ## Thanks
 
