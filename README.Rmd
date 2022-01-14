@@ -1,5 +1,8 @@
 ---
-output: github_document
+title: Statistical Rethinking colearning 2022
+output: 
+  github_document: 
+    toc: true
 ---
 
 ```{r include = FALSE}
