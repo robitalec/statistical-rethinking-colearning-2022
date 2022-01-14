@@ -17,7 +17,9 @@ from the [Statistical Rethinking
 
 ## Schedule
 
-Adjusting from Richard’s schedule for our pace:
+Adjusting from Richard’s schedule for our pace. Note these are meeting
+dates indicating when lectures, readings and homework are **assigned**,
+to be discussed on/completed by the next meeting.
 
 | Meeting date | Lectures                                                                                                                                                                       | Reading               | Homework   |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|------------|
