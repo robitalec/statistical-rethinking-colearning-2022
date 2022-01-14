@@ -90,6 +90,39 @@ V8, needed for the `dagitty` package
 
 
 
+## Project structure
+
+This repository is structured with a `homework/` folder for homework solutions, 
+and `notes/` folder for notes. For folks joining in the colearning group, 
+you are encouraged to make your own branch in this repository and
+share your notes and/or homework solutions. 
+
+The `R/` folder can be used to store reusable functions useful across
+homework solutions and your own model situations. 
+
+For example, the `dag_plot` function makes a DAG plot from a DAG: 
+
+
+```{r readme_dag, cache = TRUE}
+library(ggplot2)
+library(ggdag)
+library(dagitty)
+
+source('R/dag_plot.R')
+
+dag <- dagify(
+    Z ~ A + B,
+    B ~ A,
+    exposure = 'A',
+    outcome = 'Z'
+)
+
+dag_plot(dag)
+```
+
+
+
+
 ## Thanks
 
 Many thanks to Richard McElreath for a continued emphasis on teaching 
