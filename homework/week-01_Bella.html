@@ -207,8 +207,9 @@ plot(p_grid, posterior, type = &quot;b&quot;,
 <p><em>HPDI Intervals:</em></p>
 <pre><code>##     |0.89     0.89| 
 ## 0.5263158 0.8421053</code></pre>
-<p>Response: The percentile interval is wider than the HPDI interval. This is because the percentile interval assigns the same probability mass to each <strong>tail</strong> whereas the HPDI interval calculates the narrowest interval possible containing the specified probability mass (0.89). The interval does not capture the distribution of values so by interpreting only the interval you may misinterpret and believe that the distribution of probabilities follows a normal distribution within the interval provided.</p>
-<p><strong>Question 4:</strong> OPTIONAL CHALLENGE. Suppose there is bias in sampling so that Land is more likely than Water to be recorded. Specifically, assume that 1-in-5 (20%) of Water samples are accidentally recorded instead of as “Land”. First, write a generative simulation of this sampling process. Assuming the true proportion of Water is 0.70, what proportion does your simulation tend to produce instead? Second, using a simulated sample of 20 tosses, compute the unbiased posterior distribution of the true proportion of water.</p>
+<p>Response: The percentile interval is wider than the HPDI interval. This is because the percentile interval assigns the same probability mass to each <strong>tail</strong> whereas the HPDI interval calculates the narrowest interval possible containing the specified probability mass (0.89). The interval does not capture the distribution of values so by interpreting only the interval you may misinterpret the probability of certain parameter values.</p>
+<p><strong>Question 4:</strong> OPTIONAL CHALLENGE. Suppose there is bias in sampling so that Land is more likely than Water to be recorded. Specifically, assume that 1-in-5 (20%) of Water samples are accidentally recorded instead as “Land”. First, write a generative simulation of this sampling process. Assuming the true proportion of Water is 0.70, what proportion does your simulation tend to produce instead? Second, using a simulated sample of 20 tosses, compute the unbiased posterior distribution of the true proportion of water.</p>
+<p>Response: There is a binomial response of 0 (land) and 1 (water) with a false-negative rate of 0.2 Pr(W|N,<em>p</em>)</p>
 </div>
 
 
