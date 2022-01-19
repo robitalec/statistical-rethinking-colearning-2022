@@ -4,7 +4,10 @@ Levi Newediuk
 
 ``` r
 library(tidyverse)
+library(rethinking)
 ```
+
+    ## Warning: package 'cmdstanr' was built under R version 4.0.5
 
 ### **Question 1** Suppose the globe tossing data (Chapter 2) had turned out to be 4 water and 11 land. Construct the posterior distribution, using grid approximation. Use the same flat prior as in the book.
 
@@ -64,3 +67,50 @@ plot_posterior(probs_df_2)
 ```
 
 ![](01-homework_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+### **Question 3** For the posterior distribution from 2, compute 89% percentile and HPDI intervals. Compare the widths of these intervals. Which is wider? Why? If you had only the information in the interval, what might you misunderstand about the shape of the posterior distribution?
+
+``` r
+# Draw 10,000 samples from the posterior
+samples_2 <- sample(probs_df_2$prob, 
+                    prob = probs_df_2$std_post, 
+                    size = 10000, replace = T)
+
+# Taking a quick look at the samples...
+head(samples_2)
+```
+
+    ## [1] 0.7373737 0.5858586 0.7777778 0.5757576 0.7878788 0.6666667
+
+``` r
+# Calculate percentile intervals
+samples_2_PI <- PI(samples_2, prob = 0.89)
+
+# And HPDI
+samples_2_HPDI <- HPDI(samples_2, prob = 0.89)
+```
+
+The percentile interval assigns the probability mass to the centre of
+the distribution, i.e., 5.5% in each tail. It is wider because it places
+the interval with respect to the centre of the distribution and not the
+best representation of the data. Because the probability mass is pushed
+to the centre, may miss the most probable parameter value. The HPDI
+assigns the interval to the narrowest interval containing the
+probability mass, so it better represents the data and more likely to
+capture the most likely parameter value. The intervals are mostly
+similar if the distribution is normal, but when it is skewed the HPDI is
+a better representation of the data.
+
+In the plot, the HPDI interval is shown in red and the percentile
+interval in blue. The percentil interval is wider and potentially misses
+values at the lower end because the distribution is skewed
+
+``` r
+ggplot(data.frame(values = samples_2), aes(x = values)) +
+  geom_density() +
+  annotate('rect', xmin = samples_2_HPDI[1], xmax = samples_2_HPDI[2], ymin = 0, ymax = Inf, alpha = 0.3, colour = 'red', fill = 'red', linetype = 'dashed') +
+  annotate('rect', xmin = samples_2_PI[1], xmax = samples_2_PI[2], ymin = 0, ymax = Inf, alpha = 0.3, colour = 'blue', fill = 'blue', linetype = 'dashed') +
+  xlab('Proportion water')
+```
+
+![](01-homework_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->

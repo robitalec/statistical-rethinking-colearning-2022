@@ -9,6 +9,7 @@ output:
 ```{r message = F}
 
 library(tidyverse)
+library(rethinking)
 
 ```
 
@@ -72,3 +73,41 @@ probs_df_2 <- probs_df %>%
 plot_posterior(probs_df_2)
 
 ```
+
+### __Question 3__ For the posterior distribution from 2, compute 89% percentile and HPDI intervals. Compare the widths of these intervals. Which is wider? Why? If you had only the information in the interval, what might you misunderstand about the shape of the posterior distribution?
+
+```{r}
+
+# Draw 10,000 samples from the posterior
+samples_2 <- sample(probs_df_2$prob, 
+                    prob = probs_df_2$std_post, 
+                    size = 10000, replace = T)
+
+# Taking a quick look at the samples...
+head(samples_2)
+
+# Calculate percentile intervals
+samples_2_PI <- PI(samples_2, prob = 0.89)
+
+# And HPDI
+samples_2_HPDI <- HPDI(samples_2, prob = 0.89)
+
+```
+
+The percentile interval assigns the probability mass to the centre of the distribution, i.e., 5.5% in each tail. It is wider because it places the interval with respect to the centre of the distribution and not the best representation of the data. Because the probability mass is pushed to the centre, may miss the most probable parameter value. The HPDI assigns the interval to the narrowest interval containing the probability mass, so it better represents the data and more likely to capture the most likely parameter value. The intervals are mostly similar if the distribution is normal, but when it is skewed the HPDI is a better representation of the data.
+
+In the  plot, the HPDI interval is shown in red and the percentile interval in blue. The percentil interval is wider and potentially misses values at the lower end because the distribution is skewed
+
+```{r}
+
+# Plot a density distribution of the sample and the intervals
+ggplot(data.frame(values = samples_2), aes(x = values)) +
+  geom_density() +
+  annotate('rect', xmin = samples_2_HPDI[1], xmax = samples_2_HPDI[2], ymin = 0, ymax = Inf, alpha = 0.3, colour = 'red', fill = 'red', linetype = 'dashed') +
+  annotate('rect', xmin = samples_2_PI[1], xmax = samples_2_PI[2], ymin = 0, ymax = Inf, alpha = 0.3, colour = 'blue', fill = 'blue', linetype = 'dashed') +
+  xlab('Proportion water')
+
+```
+
+### __Question 4__ OPTIONALCHALLENGE. Suppose there is bias in sampling so that Land is more likely than Water to be recorded. Specifically, assume that 1-in-5 (20%) of Water samples are accidentally recorded instead as ”Land”. First, write a generative simulation of this sampling process. Assuming the true proportion of Water is 0.70, what proportion does your simulation tend to produce instead? Second, using a simulated sample of 20 tosses, compute the unbiased posterior distribution of the true proportion of water.
+
