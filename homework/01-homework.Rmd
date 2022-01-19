@@ -8,7 +8,7 @@ output:
     html_preview: yes
 ---
 
-```{r echo = F, message = F}
+```{r message = F}
 
 library(tidyverse)
 
@@ -38,7 +38,7 @@ probs_df <- data.frame(prob = p_grid,
 
 ```
 
-``` {r echo = F}
+``` {r}
 
 # Plot the distribution of posterior probabilities for each parameter value (proportion water)
 
