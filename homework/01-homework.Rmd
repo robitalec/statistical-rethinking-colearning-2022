@@ -2,10 +2,8 @@
 title: "Statistical Rethinking homework wk 1"
 author: "Levi Newediuk"
 output:
-  html_document:
-    df_print: paged
   github_document:
-    html_preview: yes
+    html_preview: false
 ---
 
 ```{r message = F}
