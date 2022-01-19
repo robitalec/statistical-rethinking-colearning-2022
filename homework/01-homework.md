@@ -2,6 +2,10 @@ Statistical Rethinking homework wk 1
 ================
 Levi Newediuk
 
+``` r
+library(tidyverse)
+```
+
 ### **Question 1** Suppose the globe tossing data (Chapter 2) had turned out to be 4 water and 11 land. Construct the posterior distribution, using grid approximation. Use the same flat prior as in the book.
 
 ``` r
@@ -22,6 +26,21 @@ probs_df <- data.frame(prob = p_grid,
                        post = likelihood * prior) %>%
   # Standardize the posterior
   mutate(std_post = post/sum(post))
+```
+
+``` r
+# Plot the distribution of posterior probabilities for each parameter value (proportion water)
+
+# Define function for plot
+plot_posterior <- function(dat) {
+  ggplot(dat, aes(x = p_grid, y = std_post)) +
+    geom_point() +
+    ylab('Posterior probability') +
+    xlab('Proportion water')
+}
+
+# Plot
+plot_posterior(probs_df)
 ```
 
 ![](01-homework_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
