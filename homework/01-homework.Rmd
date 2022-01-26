@@ -38,8 +38,8 @@ data_prob <- dbinom(water, water + land, prob = prior_grid)
 
 # Wrap as DT
 DT_q01 <- data.table(prop_water = prior_grid,
-                 prior_water = prior_prob,
-                 prob_water = data_prob)
+                     prior_water = prior_prob,
+                     prob_water = data_prob)
 
 # Calculate the posterior numerator by multiplying prior and data probability
 DT_q01[, posterior_num := prior_water * prob_water]
@@ -80,8 +80,8 @@ data_prob <- dbinom(water, water + land, prob = prior_grid)
 
 # Wrap as DT
 DT_q02 <- data.table(prop_water = prior_grid,
-                 prior_water = prior_prob,
-                 prob_water = data_prob)
+                     prior_water = prior_prob,
+                     prob_water = data_prob)
 
 # Calculate the posterior numerator by multiplying prior and data probability
 DT_q02[, posterior_num := prior_water * prob_water]
@@ -91,5 +91,50 @@ DT_q02[, posterior := posterior_num / sum(posterior_num)]
 
 
 # Plot -------------------------------------------------------------------------
-plot(DT$prop_water, DT$posterior, type = 'l')
+plot(DT_q02$prop_water, DT_q02$posterior, type = 'l')
 ```
+
+
+## Question 3
+
+> For the posterior distribution from 2, compute 89% percentile and HPDI
+intervals. Compare the widths of these intervals. Which is wider? Why? If you
+had only the information in the interval, what might you misunderstand about the
+shape of the posterior distribution?
+
+
+
+```{r w01_q03}
+# Packages ---------------------------------------------------------------------
+library(rethinking)
+library(ggplot2)
+
+
+# Samples ----------------------------------------------------------------------
+# Sample from posterior
+samples <- DT_q02[, sample(prop_water, size = gridsize, prob = posterior, replace = TRUE)]
+mean(samples)
+PI(samples, 0.89)
+HPDI(samples, 0.89)
+
+DT_q03 <- data.table(rbind(t(PI(samples, 0.89)), t(HPDI(samples, 0.89))), c('PI', 'HDPI'))
+setnames(DT_q03, c('low', 'high', 'type'))
+
+
+# Plot -------------------------------------------------------------------------
+ggplot() +
+  geom_line(aes(prop_water, posterior), data = DT_q02) +
+  geom_linerange(aes(xmin = low, xmax = high, y = 0.0033, color = 'PI'), 
+                 size = 3, data = DT_q03[type == 'PI']) +
+  geom_linerange(aes(xmin = low, xmax = high, y = 0.0035, color = 'HDPI'), 
+                 size = 3, data = DT_q03[type == 'HDPI']) +
+  scale_color_manual(values = list('PI' = 'green', 'HDPI' = 'purple'),
+                     name = 'Interval type')
+```
+
+* PI: percentile intervals
+* HDPI: highest posterior density interval 
+
+Percentile intervals assign equal probability mass to each tail whereas 
+highest posterior density intervals return the interval with the highest posterior
+probability. 
