@@ -31,8 +31,7 @@ prior_grid <- seq(0, 1, length.out = gridsize)
 # Prior probability (all 1)
 prior_prob <- rep(1, gridsize)
 
-# Data probability
-#  given 4/15, using binomial distribution
+# Data probability, using binomial distribution
 water <- 4
 land <- 11
 data_prob <- dbinom(water, water + land, prob = prior_grid)
@@ -43,7 +42,7 @@ DT <- data.table(prop_water = prior_grid,
                  prob_water = data_prob)
 
 # Calculate the posterior numerator by multiplying prior and data probability
-DT[, posterior_num := prop_water * prob_water]
+DT[, posterior_num := prior_water * prob_water]
 
 # Standardize by sum of posterior numerator
 DT[, posterior := posterior_num / sum(posterior_num)]
@@ -51,5 +50,6 @@ DT[, posterior := posterior_num / sum(posterior_num)]
 
 # Plot -------------------------------------------------------------------------
 plot(DT$prop_water, DT$posterior, type = 'l')
-
 ```
+
+
