@@ -37,19 +37,19 @@ land <- 11
 data_prob <- dbinom(water, water + land, prob = prior_grid)
 
 # Wrap as DT
-DT <- data.table(prop_water = prior_grid,
+DT_q01 <- data.table(prop_water = prior_grid,
                  prior_water = prior_prob,
                  prob_water = data_prob)
 
 # Calculate the posterior numerator by multiplying prior and data probability
-DT[, posterior_num := prior_water * prob_water]
+DT_q01[, posterior_num := prior_water * prob_water]
 
 # Standardize by sum of posterior numerator
-DT[, posterior := posterior_num / sum(posterior_num)]
+DT_q01[, posterior := posterior_num / sum(posterior_num)]
 
 
 # Plot -------------------------------------------------------------------------
-plot(DT$prop_water, DT$posterior, type = 'l')
+plot(DT_q01$prop_water, DT_q01$posterior, type = 'l')
 ```
 
 
@@ -79,15 +79,15 @@ land <- 2
 data_prob <- dbinom(water, water + land, prob = prior_grid)
 
 # Wrap as DT
-DT <- data.table(prop_water = prior_grid,
+DT_q02 <- data.table(prop_water = prior_grid,
                  prior_water = prior_prob,
                  prob_water = data_prob)
 
 # Calculate the posterior numerator by multiplying prior and data probability
-DT[, posterior_num := prior_water * prob_water]
+DT_q02[, posterior_num := prior_water * prob_water]
 
 # Standardize by sum of posterior numerator
-DT[, posterior := posterior_num / sum(posterior_num)]
+DT_q02[, posterior := posterior_num / sum(posterior_num)]
 
 
 # Plot -------------------------------------------------------------------------
