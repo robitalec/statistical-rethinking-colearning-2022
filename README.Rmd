@@ -113,6 +113,16 @@ dag <- dagify(
 dag_plot(dag)
 ```
 
+## Branches
+
+See the full list of [branches](https://github.com/robitalec/statistical-rethinking-colearning-2022/branches). 
+
+* [Matteo](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/matteo)
+* [Jillian](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/jillian)
+* [Alec](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/alec)
+* [Levi](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/levi)
+* [Katrien](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/katrien)
+* [Bella](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/bella)
 
 
 

@@ -5,6 +5,7 @@ Statistical Rethinking colearning 2022
 -   [Resources](#resources)
 -   [Installation](#installation)
 -   [Project structure](#project-structure)
+-   [Branches](#branches)
 -   [Thanks](#thanks)
 -   [Code of Conduct](#code-of-conduct)
 
@@ -24,7 +25,7 @@ to be discussed on/completed by the next meeting.
 | Meeting date | Lectures                                                                                                                                                                       | Reading               | Homework                                                                                       |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------|
 | 2022-01-13   | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2) | Chapters 1, 2 and 3   | [Homework 1](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week01.pdf) |
-|              | \(3\) Basic Regression, (4) Categories & Curves                                                                                                                                | Chapter 4             |                                                                                                |
+| 2022-01-26   | \(3\) Basic Regression, (4) Categories & Curves                                                                                                                                | Chapter 4             | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week02.pdf) |
 |              | \(5\) Confounding, (6) Even Worse Confounding                                                                                                                                  | Chapters 5 and 6      |                                                                                                |
 |              | \(7\) Overfitting, (8) Interactions                                                                                                                                            | Chapters 7 and 8      |                                                                                                |
 |              | \(9\) Markov chain Monte Carlo, (10) Binomial GLMs                                                                                                                             | Chapters 9, 10 and 11 |                                                                                                |
@@ -119,6 +120,18 @@ dag_plot(dag)
 ```
 
 ![](graphics/readme_dag-1.png)<!-- -->
+
+## Branches
+
+See the full list of
+[branches](https://github.com/robitalec/statistical-rethinking-colearning-2022/branches).
+
+-   [Matteo](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/matteo)
+-   [Jillian](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/jillian)
+-   [Alec](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/alec)
+-   [Levi](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/levi)
+-   [Katrien](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/katrien)
+-   [Bella](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/bella)
 
 ## Thanks
 
