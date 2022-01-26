@@ -1,15 +1,22 @@
-Homework Week 01
-================
-Alec L. Robitaille
-2022-01-26
+---
+output: github_document
+title: Homework Week 01
+author: Alec L. Robitaille
+date: 2022-01-26
+---
+
+
+
+
 
 # Question 1
 
-> Suppose the globe tossing data had turned out to be 4 water and 11
-> land. Construct the posterior distribution, using grid approximation.
-> Use the same flat prior as in the book.
+> Suppose the globe tossing data had turned out to be 4 water and 11 land.
+Construct the posterior distribution, using grid approximation. Use the same
+flat prior as in the book.
 
-``` r
+
+```{r w01_q01}
 # Packages --------------------------------------------------------------------
 library(data.table)
 
@@ -44,6 +51,5 @@ DT[, posterior := posterior_num / sum(posterior_num)]
 
 # Plot -------------------------------------------------------------------------
 plot(DT$prop_water, DT$posterior, type = 'l')
-```
 
-![](01-homework_files/figure-gfm/w01_q01-1.png)<!-- -->
+```
