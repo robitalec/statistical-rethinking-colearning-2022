@@ -8,8 +8,8 @@
 
 
 
-![](full-luxury-moms-dag.png)
+![](../notes/full-luxury-moms-dag.png)
 
-![](full-luxury-bay-moms-formulas.png)
+![](../notes/full-luxury-bay-moms-formulas.png)
 
-![](full-luxury-bay-moms-coefs.png)
+![](../notes/full-luxury-bay-moms-coefs.png)

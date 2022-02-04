@@ -15,7 +15,7 @@ Process models are precise and causal. However, different process models can yie
 
 Statistical models strictly examine associations, not causation. 
 
-![](hypo-proces-stat-models.png)
+![](../notes/hypo-proces-stat-models.png)
 
 ## Null models
 
