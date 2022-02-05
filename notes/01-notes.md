@@ -4,7 +4,7 @@
 
 * powerful
 * no intent
-* require careful instructinos
+* require careful instructions
 
 ## Hypotheses - Process models - Statistical models
 
