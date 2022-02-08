@@ -56,7 +56,8 @@ targets_homework_02 <- c(
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
     )
-
+  ),
+  
 
   # Question 2 --------------------------------------------------------------
   # Data
@@ -64,7 +65,35 @@ targets_homework_02 <- c(
     DT_h02_q02,
     data_Howell1()[age < 13]
   ),
+  
+  # Simulation
+  tar_target(
+    DT_sims_h02_q02,
+    {sims <- data.table(
+      alpha = 10,
+      beta_height = 3,
+      beta_age = 3,
+      sigma = 2,
+      height = runif(N_generate, 70, 150),
+      age = runif(N_generate, 1, 12)
     )
+    sims[, mu := alpha + beta_height * (height - mean(height)) + 
+           beta_age * (age - mean(age))
+         ]
+    sims[, weight := rnorm(.N, mu, sigma)]
+    }),
+  
+  # Model simulation
+  tar_stan_mcmc(
+    model_sims_h02_q02,
+    file.path('stan', 'model_h02_q02.stan'),
+    list(height = DT_sims_h02_q02$height - mean(DT_sims_h02_q02$height),
+         age = DT_sims_h02_q02$age - mean(DT_sims_h02_q02$age),
+         weight = DT_sims_h02_q02$weight, 
+         N = N_generate),
+    chains = 1,
+    dir = compiled_dir
+  )
 )
 
 # brm(
