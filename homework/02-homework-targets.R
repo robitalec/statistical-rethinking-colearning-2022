@@ -10,7 +10,9 @@ targets_homework_02 <- c(
   # As list
   tar_target(
     DT_list_h02_q01,
-    as.list(DT_h02_q01, N = nrow(DT_h02_q01))
+    c(as.list(
+      DT_h02_q01[, height := height - mean(height)][]),
+      N = nrow(DT_h02_q01))
   ),
   
   # Simulated
@@ -26,7 +28,7 @@ targets_homework_02 <- c(
   sims[, weight := rnorm(.N, mu, sigma)]
   }),
   
-  # Model
+  # Model simulation
   tar_stan_mcmc(
     model_sims_h02_q01,
     file.path('stan', 'model_h02_q01.stan'),
@@ -45,6 +47,7 @@ targets_homework_02 <- c(
     chains = 1,
     dir = compiled_dir
   )
+  
 )
 
 
