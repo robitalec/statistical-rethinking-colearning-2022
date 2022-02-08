@@ -1,5 +1,3 @@
-N_generate <- 1e3
-
 targets_homework_02 <- c(
   # Question 1 --------------------------------------------------------------
   # Data
@@ -18,7 +16,8 @@ targets_homework_02 <- c(
   # Simulated
   tar_target(
     DT_sims_h02_q01,
-  {sims <- data.table(
+  {N_generate <- 1e3
+   sims <- data.table(
       alpha = 25,
       beta = 3,
       sigma = 2,
@@ -30,19 +29,19 @@ targets_homework_02 <- c(
   
   # Model simulation
   tar_stan_mcmc(
-    model_sims_h02_q01,
-    file.path('stan', 'model_h02_q01.stan'),
+    q01_sims,
+    file.path('stan', 'h02_q01.stan'),
     list(height = DT_sims_h02_q01$height - mean(DT_sims_h02_q01$height),
          weight = DT_sims_h02_q01$weight, 
-         N = N_generate),
+         N = nrow(DT_sims_h02_q01)),
     chains = 1,
     dir = compiled_dir
   ),
   
   # Model Howell1
   tar_stan_mcmc(
-    model_h02_q01,
-    file.path('stan', 'model_h02_q01.stan'),
+    q01,
+    file.path('stan', 'h02_q01.stan'),
     DT_list_h02_q01,
     chains = 1,
     dir = compiled_dir
@@ -52,7 +51,7 @@ targets_homework_02 <- c(
   tar_target(
     predict_h02_q01,
     predict_heights(
-      model_h02_q01_draws_model_h02_q01,
+      q01_sims_draws_h02_q01,
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
     )
@@ -68,11 +67,11 @@ targets_homework_02 <- c(
   # Priors
   tar_target(
     DT_priors_h02_q02,
-    {priors <- data.table(
-      alpha = rnorm(N_generate, 90, 10),
+    {N_generate <- 1e2
+     priors <- data.table(
+      alpha = rnorm(N_generate, 10, 5),
       beta_age = rlnorm(N_generate, 0, 1),
       sigma = rexp(N_generate, 1),
-      height = runif(N_generate, 70, 120),
       age = runif(N_generate, 1, 12)
     )
     priors[, mu := alpha + beta_age * (age - mean(age))]
@@ -82,7 +81,8 @@ targets_homework_02 <- c(
   # Simulation
   tar_target(
     DT_sims_h02_q02,
-    {sims <- data.table(
+    {N_generate <- 1e2
+     sims <- data.table(
       alpha = 10,
       beta_age = 3,
       sigma = 2,
@@ -95,11 +95,11 @@ targets_homework_02 <- c(
   
   # Model simulation
   tar_stan_mcmc(
-    model_sims_h02_q02,
-    file.path('stan', 'model_h02_q02.stan'),
+    q02_sims,
+    file.path('stan', 'h02_q02.stan'),
     list(age = DT_sims_h02_q02$age - mean(DT_sims_h02_q02$age),
          weight = DT_sims_h02_q02$weight, 
-         N = N_generate),
+         N = nrow(DT_sims_h02_q02)),
     chains = 1,
     dir = compiled_dir
   )
