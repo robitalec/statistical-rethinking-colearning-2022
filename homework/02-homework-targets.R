@@ -56,7 +56,15 @@ targets_homework_02 <- c(
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
     )
-  )
+
+
+  # Question 2 --------------------------------------------------------------
+  # Data
+  tar_target(
+    DT_h02_q02,
+    data_Howell1()[age < 13]
+  ),
+    )
 )
 
 # brm(
