@@ -99,3 +99,6 @@ po/*~
 
 ## Targets
 _targets/
+
+## Stan
+stan/compiled
