@@ -23,3 +23,11 @@ targets_homework_02 <- c(
     )
   ),
   
+  # Model
+  tar_stan_mcmc(
+    model_prior_h02_q01,
+    file.path('stan', 'model_h02_q01.stan'),
+    prior_h02_q01,
+    chains = 1
+  )
+)
