@@ -72,3 +72,11 @@ adjustmentSets(dag, effect = 'total')
 > Use a linear regression to estimate the total (not just direct) causal effect
 of each year of growth on weight. Be sure to carefully consider the priors. Try
 using prior predictive simulation to assess what they imply.
+
+
+```{r priors_h02_q02}
+ggplot(tar_read(DT_priors_h02_q02), aes(age, weight)) + 
+  xlim(0, 14) + ylim(0, 50) + 
+  geom_abline(aes(intercept = age, slope = beta_age))
+
+```
