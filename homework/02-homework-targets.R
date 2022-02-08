@@ -33,6 +33,7 @@ targets_homework_02 <- c(
     list(height = DT_sims_h02_q01$height - mean(DT_sims_h02_q01$height),
          weight = DT_sims_h02_q01$weight, 
          N = N_generate),
-    chains = 1
+    chains = 1,
+    dir = compiled_dir
   )
 )
