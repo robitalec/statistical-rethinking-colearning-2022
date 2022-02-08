@@ -66,6 +66,23 @@ targets_homework_02 <- c(
     data_Howell1()[age < 13]
   ),
   
+  # Priors
+  tar_target(
+    DT_priors_h02_q02,
+    {priors <- data.table(
+      alpha = rnorm(N_generate, 90, 10),
+      beta_height = rlnorm(N_generate, 0, 0.5),
+      beta_age = rlnorm(N_generate, 0, 0.25),
+      sigma = rexp(N_generate, 1),
+      height = runif(N_generate, 70, 120),
+      age = runif(N_generate, 1, 12)
+    )
+    priors[, mu := alpha + beta_height * (height - mean(height)) + 
+           beta_age * (age - mean(age))
+    ]
+    priors[, weight := rnorm(.N, mu, sigma)]
+    }),
+  
   # Simulation
   tar_target(
     DT_sims_h02_q02,
