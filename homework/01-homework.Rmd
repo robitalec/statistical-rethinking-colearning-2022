@@ -5,6 +5,13 @@ author: Alec L. Robitaille
 date: 2022-01-26
 ---
 
+```{r}
+#| include = FALSE
+
+knitr::opts_chunk$set(
+	fig.path = '../graphics/homework/'
+)
+```
 
 
 

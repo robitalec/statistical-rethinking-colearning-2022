@@ -45,7 +45,7 @@ DT_q01[, posterior := posterior_num / sum(posterior_num)]
 plot(DT_q01$prop_water, DT_q01$posterior, type = 'l')
 ```
 
-![](01-homework_files/figure-gfm/w01_q01-1.png)<!-- -->
+![](../graphics/homework/w01_q01-1.png)<!-- -->
 
 ## Question 2
 
@@ -87,7 +87,7 @@ DT_q02[, posterior := posterior_num / sum(posterior_num)]
 plot(DT_q02$prop_water, DT_q02$posterior, type = 'l')
 ```
 
-![](01-homework_files/figure-gfm/w01_q02-1.png)<!-- -->
+![](../graphics/homework/w01_q02-1.png)<!-- -->
 
 ## Question 3
 
@@ -107,19 +107,37 @@ library(rethinking)
 
     ## Loading required package: ggplot2
 
-    ## rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)
+    ## rstan (Version 2.21.3, GitRev: 2e1f913d3ca3)
 
     ## For execution on a local, multicore CPU with excess RAM we recommend calling
     ## options(mc.cores = parallel::detectCores()).
     ## To avoid recompilation of unchanged Stan programs, we recommend calling
     ## rstan_options(auto_write = TRUE)
 
+    ## Loading required package: cmdstanr
+
+    ## This is cmdstanr version 0.4.0.9001
+
+    ## - CmdStanR documentation and vignettes: mc-stan.org/cmdstanr
+
+    ## - CmdStan path: /home/alecr/.cmdstan/cmdstan-2.27.0
+
+    ## - CmdStan version: 2.27.0
+
+    ## 
+    ## A newer version of CmdStan is available. See ?install_cmdstan() to install it.
+    ## To disable this check set option or environment variable CMDSTANR_NO_VER_CHECK=TRUE.
+
     ## Loading required package: parallel
 
-    ## rethinking (Version 2.13)
+    ## rethinking (Version 2.21)
 
     ## 
     ## Attaching package: 'rethinking'
+
+    ## The following object is masked from 'package:rstan':
+    ## 
+    ##     stan
 
     ## The following object is masked from 'package:stats':
     ## 
@@ -135,21 +153,21 @@ samples <- DT_q02[, sample(prop_water, size = gridsize, prob = posterior, replac
 mean(samples)
 ```
 
-    ## [1] 0.6899109
+    ## [1] 0.6867237
 
 ``` r
 PI(samples, 0.89)
 ```
 
     ##        5%       94% 
-    ## 0.5195195 0.8748749
+    ## 0.5295295 0.8729279
 
 ``` r
 HPDI(samples, 0.89)
 ```
 
     ##     |0.89     0.89| 
-    ## 0.5005005 0.8468468
+    ## 0.5055055 0.8388388
 
 ``` r
 DT_q03 <- data.table(rbind(t(PI(samples, 0.89)), t(HPDI(samples, 0.89))), c('PI', 'HDPI'))
@@ -167,7 +185,7 @@ ggplot() +
                      name = 'Interval type')
 ```
 
-![](01-homework_files/figure-gfm/w01_q03-1.png)<!-- -->
+![](../graphics/homework/w01_q03-1.png)<!-- -->
 
 -   PI: percentile intervals
 -   HDPI: highest posterior density interval
