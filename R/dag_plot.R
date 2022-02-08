@@ -12,7 +12,9 @@ dag_plot <- function(dag) {
 	stat$data$status[is.na(stat$data$status)] <- 'intermediate'
 	ggplot(stat, aes(x = x, y = y, xend = xend, yend = yend)) +
 		geom_dag_point(aes(color = status), alpha = 0.5, size = 15) +
-		geom_dag_edges() +
+		geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(10, "pt"), 
+		                                            type = "closed"),
+) +
 		labs(color = '') +
 		geom_dag_text(color = 'black') +
 		scale_color_manual(values = list('exposure' = '#35608DFF',
