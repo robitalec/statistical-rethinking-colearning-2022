@@ -46,24 +46,21 @@ targets_homework_02 <- c(
     DT_list_h02_q01,
     chains = 1,
     dir = compiled_dir
-  )
+  ),
   
+  # Predict Howell1
+  tar_target(
+    predict_h02_q01,
+    predict_heights(
+      model_h02_q01_draws_model_h02_q01,
+      c(140, 160, 175),
+      mean(DT_sims_h02_q01$height)
+    )
+  )
 )
 
+# brm(
+#   weight ~ height,
+#   data = tar_read(DT_list_h02_q01)
+# )
 
-post <- tar_read(model_h02_q01_draws_model_h02_q01)
-setDT(post)
-
-
-mean_height <- mean(DT_sims_h02_q01$height)
-new_values <- data.table(height = c(140, 160, 175))
-
-pred <- new_values[, 
-  post[, rnorm(.N, alpha + beta_height * (.BY[[1]] - mean_height), sigma)],
-  by = height]
-
-pred[, height := factor(height)]
-setnames(pred, 'V1', 'weight')
-ggplot(pred, aes(x = height, y = weight)) + 
-  stat_halfeye()
-  
