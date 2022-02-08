@@ -1,0 +1,8 @@
+
+
+
+```{r}
+ggplot(tar_read(predict_h02_q01), aes(x = factor(height), y = weight)) +
+      stat_halfeye() + theme_bw()
+
+```
