@@ -28,9 +28,11 @@ targets_homework_02 <- c(
   
   # Model
   tar_stan_mcmc(
-    model_prior_h02_q01,
+    model_sims_h02_q01,
     file.path('stan', 'model_h02_q01.stan'),
-    prior_h02_q01,
+    list(height = DT_sims_h02_q01$height - mean(DT_sims_h02_q01$height),
+         weight = DT_sims_h02_q01$weight, 
+         N = N_generate),
     chains = 1
   )
 )
