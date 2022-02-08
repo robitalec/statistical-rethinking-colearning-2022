@@ -46,3 +46,21 @@ targets_homework_02 <- c(
     dir = compiled_dir
   )
 )
+
+
+post <- tar_read(model_h02_q01_draws_model_h02_q01)
+setDT(post)
+
+
+mean_height <- mean(DT_sims_h02_q01$height)
+new_values <- data.table(height = c(140, 160, 175))
+
+pred <- new_values[, 
+  post[, rnorm(.N, alpha + beta_height * (.BY[[1]] - mean_height), sigma)],
+  by = height]
+
+pred[, height := factor(height)]
+setnames(pred, 'V1', 'weight')
+ggplot(pred, aes(x = height, y = weight)) + 
+  stat_halfeye()
+  
