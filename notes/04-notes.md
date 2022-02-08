@@ -9,7 +9,7 @@ Options:
 1. Indicator variables (0, 1, 1, 0, ...)
 2. Index variables (1, 2, 3, 4, 5, ...)
 
-Index variables are prefered and more easily extent to multilevel models. 
+Index variables are preferred and more easily extent to multilevel models. 
 
 ## Priors
 
@@ -32,7 +32,7 @@ contrast directly.
 
 Include the full causal model in one statistical model
 
-See other note where this is expande on
+See other note where this is expanded on
 
 ## Curves
 
@@ -47,7 +47,7 @@ Splines and GAMs are generally preferred.
 
 Include a higher order polynomial term to add a curvature to the linear model. 
 These models are geocentric and symmetrical, which generally doesn't match
-scientific background or theory. They are also very error prone ourside 
+scientific background or theory. They are also very error prone outside 
 of the scope of the data. 
 
 Note: It is always an improvement of fit to include another polynomial term. 
