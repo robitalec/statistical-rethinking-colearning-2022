@@ -35,5 +35,14 @@ targets_homework_02 <- c(
          N = N_generate),
     chains = 1,
     dir = compiled_dir
+  ),
+  
+  # Model Howell1
+  tar_stan_mcmc(
+    model_h02_q01,
+    file.path('stan', 'model_h02_q01.stan'),
+    DT_list_h02_q01,
+    chains = 1,
+    dir = compiled_dir
   )
 )
