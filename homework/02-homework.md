@@ -25,7 +25,13 @@ Alec L. Robitaille
 
 ![](../graphics/homework/dag_h02_q02-1.png)<!-- -->
 
+    ## [1] "Variables to include to measure total effect of age on weight:"
+
+    ##  {}
+
 > Use a linear regression to estimate the total (not just direct) causal
 > effect of each year of growth on weight. Be sure to carefully consider
 > the priors. Try using prior predictive simulation to assess what they
 > imply.
+
+![](../graphics/homework/priors_h02_q02-1.png)<!-- -->
