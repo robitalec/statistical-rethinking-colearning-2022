@@ -12,3 +12,14 @@ targets_homework_02 <- c(
     DT_list_h02_q01,
     as.list(DT_h02_q01, N = nrow(DT_h02_q01))
   ),
+  
+  # Prior
+  tar_target(
+    DT_prior_h02_q01,
+    data.table(
+      alpha = generate(dist_normal(60, 10), times = N_generate)[[1]],
+      beta_height = generate(dist_lognormal(0, 1), times = N_generate)[[1]],
+      sigma = generate(dist_exponential(1), times = N_generate)[[1]]
+    )
+  ),
+  
