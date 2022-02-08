@@ -1,19 +1,22 @@
 ---
-output: github_document
+output: 
+  github_document:
+    html_preview: false
 title: Homework Week 02
 author: Alec L. Robitaille
 date: 2022-02-07
 ---
 
 
+```{r}
+#| include = FALSE
+knitr::opts_knit$set(root.dir = '../.')
+```
 
 ```{r}
 #| include = FALSE
-
-knitr::opts_knit$set(root.dir = '../.')
-
-source('../R/packages.R')
-source('../R/dag_plot.R')
+source('R/packages.R')
+source('R/dag_plot.R')
 
 knitr::opts_chunk$set(
 	echo = FALSE,
