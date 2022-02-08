@@ -3,14 +3,7 @@ targets_homework_02 <- c(
   # Data
   tar_target(
     DT_h02_q01,
-    data_Howell1()[age > 18]
-  ),
-  # As list
-  tar_target(
-    DT_list_h02_q01,
-    c(as.list(
-      DT_h02_q01[, height := height - mean(height)][]),
-      N = nrow(DT_h02_q01))
+    data_Howell1()[age >= 18]
   ),
   
   # Simulated
@@ -18,12 +11,12 @@ targets_homework_02 <- c(
     DT_sims_h02_q01,
   {N_generate <- 1e3
    sims <- data.table(
-      alpha = 25,
-      beta = 3,
-      sigma = 2,
+      alpha = 100,
+      beta_height = 2,
+      sigma = 1.5,
       height = runif(N_generate, 130, 170)
     )
-  sims[, mu := alpha + beta * (height - mean(height))]
+  sims[, mu := alpha + beta_height * (height - mean(height))]
   sims[, weight := rnorm(.N, mu, sigma)]
   }),
   
@@ -42,7 +35,9 @@ targets_homework_02 <- c(
   tar_stan_mcmc(
     q01,
     file.path('stan', 'h02_q01.stan'),
-    DT_list_h02_q01,
+    list(height = DT_h02_q01$height - mean(DT_h02_q01$height),
+         weight = DT_h02_q01$weight,
+         N = nrow(DT_h02_q01)),
     chains = 1,
     dir = compiled_dir
   ),
@@ -51,7 +46,7 @@ targets_homework_02 <- c(
   tar_target(
     predict_h02_q01,
     predict_heights(
-      q01_sims_draws_h02_q01,
+      q01_draws_h02_q01,
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
     )
@@ -102,7 +97,16 @@ targets_homework_02 <- c(
          N = nrow(DT_sims_h02_q02)),
     chains = 1,
     dir = compiled_dir
+  ),
+  
+
+  # Render ------------------------------------------------------------------
+  tar_render(
+    render_h02,
+    'homework/02-homework.Rmd'
   )
+
+  
 )
 
 # brm(
