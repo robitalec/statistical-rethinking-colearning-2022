@@ -37,7 +37,8 @@ stan_files <- dir(model_dir_stan, '.stan', full.names = TRUE)
 
 
 
-
+# Homework ----------------------------------------------------------------
+source(file.path('homework', '02-homework-targets.R'))
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
