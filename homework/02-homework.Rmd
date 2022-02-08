@@ -1,8 +1,35 @@
+---
+output: github_document
+title: Homework Week 02
+author: Alec L. Robitaille
+date: 2022-02-07
+---
 
 
 
 ```{r}
-ggplot(tar_read(predict_h02_q01), aes(x = factor(height), y = weight)) +
-      stat_halfeye() + theme_bw()
+#| include = FALSE
 
+knitr::opts_knit$set(root.dir = '../.')
+
+source('../R/packages.R')
+knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.path = '../graphics/homework/'
+)
+
+
+theme_set(theme_bw(base_size = 16))
+```
+
+# Question 1
+
+
+```{r predict_h02_q01}
+ggplot(tar_read(predict_h02_q01), 
+       aes(x = factor(height), y = weight)) +
+  labs(x = 'height', y = 'predicted weight') + 
+  guides(fill = "none") + 
+  stat_halfeye(aes(fill = stat(cut_cdf_qi(cdf, .width = c(.89, 1))))) + 
+  scale_fill_grey(start = 0.4, end = 0.6)
 ```
