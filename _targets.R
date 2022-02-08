@@ -34,3 +34,13 @@ stan_files <- dir(model_dir_stan, '.stan', full.names = TRUE)
 # threads_per_chain = 4,
 # dir = compiled_dir,
 # output_dir = output_stan_dir
+
+
+
+
+
+# Targets: all ------------------------------------------------------------
+# Automatically grab all the "targets_*" lists above
+lapply(grep('targets', ls(), value = TRUE), get)
+
+
