@@ -10,6 +10,7 @@ library(data.table)
 
 library(stantargets)
 library(cmdstanr)
+library(distributional)
 
 library(ggplot2)
 library(ggdist)
