@@ -10,6 +10,8 @@
 library(ggplot2)
 library(ggdist)
 library(patchwork)
+library(distributional)
+library(data.table)
 
 
 # Variables ---------------------------------------------------------------
@@ -55,11 +57,21 @@ plot_distribution <- function(x, xlab = NULL) {
 plot_distribution(rnorm(N, 70, 15))
 
 # Eg. maybe if we want to stack options, for the std, to see how it impacts the prior
+# Note with patchwork, the & symbol allows you to set graph settings for all
+#  elements. So here we set the xlim to 0-150 for all three plots
 plot_distribution(rnorm(N, 70, 5), xlab = 'Weight ~ Normal(70, 5)') / 
   plot_distribution(rnorm(N, 70, 15), xlab = 'Weight ~ Normal(70, 15)') / 
   plot_distribution(rnorm(N, 70, 25), xlab = 'Weight ~ Normal(70, 25)') & 
   xlim(0, 150)
 
-# Note with patchwork, the & symbol allows you to set graph settings for all
-#  elements. So here we set the xlim to 0-150 for all three plots
 
+
+# Example: distributional + ggdist ----------------------------------------
+DT <- data.table(
+  mean = c(60, 70, 80)
+)
+DT[, dist := dist_normal(mean, 10)]
+
+ggplot(DT, aes(y = mean, dist = dist)) +
+  stat_dist_halfeye() + 
+  theme_bw()
