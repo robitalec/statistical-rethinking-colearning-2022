@@ -13,15 +13,18 @@ targets_homework_02 <- c(
     as.list(DT_h02_q01, N = nrow(DT_h02_q01))
   ),
   
-  # Prior
+  # Simulated
   tar_target(
-    DT_prior_h02_q01,
-    data.table(
-      alpha = generate(dist_normal(60, 10), times = N_generate)[[1]],
-      beta_height = generate(dist_lognormal(0, 1), times = N_generate)[[1]],
-      sigma = generate(dist_exponential(1), times = N_generate)[[1]]
+    DT_sims_h02_q01,
+  {sims <- data.table(
+      alpha = 25,
+      beta = 3,
+      sigma = 2,
+      height = runif(N_generate, 130, 170)
     )
-  ),
+  sims[, mu := alpha + beta * (height - mean(height))]
+  sims[, weight := rnorm(.N, mu, sigma)]
+  }),
   
   # Model
   tar_stan_mcmc(
