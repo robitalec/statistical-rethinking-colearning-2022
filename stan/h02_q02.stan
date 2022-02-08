@@ -11,7 +11,7 @@ parameters {
 }
 
 model {
-  alpha ~ normal(80, 15);
+  alpha ~ normal(10, 5);
   beta_age ~ lognormal(0, 1);
   sigma ~ exponential(1);
   

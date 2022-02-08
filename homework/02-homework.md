@@ -35,3 +35,8 @@ Alec L. Robitaille
 > imply.
 
 ![](../graphics/homework/priors_h02_q02-1.png)<!-- -->
+
+    ##    variable mean  q5 q95
+    ## 1:    sigma  2.5 2.3 2.8
+    ## 2:    alpha  7.4 6.9 8.0
+    ## 3: beta_age  1.3 1.2 1.4

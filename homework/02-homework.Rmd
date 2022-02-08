@@ -83,3 +83,9 @@ ggplot(tar_read(DT_priors_h02_q02), aes(age, weight)) +
   geom_abline(aes(intercept = age, slope = beta_age))
 
 ```
+
+```{r}
+tar_load(q02_summary_h02_q02)
+setDT(q02_summary_h02_q02)
+q02_summary_h02_q02[variable != 'lp__', .(variable, mean, q5, q95)]
+```

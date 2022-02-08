@@ -92,9 +92,20 @@ targets_homework_02 <- c(
   tar_stan_mcmc(
     q02_sims,
     file.path('stan', 'h02_q02.stan'),
-    list(age = DT_sims_h02_q02$age - mean(DT_sims_h02_q02$age),
+    list(age = DT_sims_h02_q02$age,
          weight = DT_sims_h02_q02$weight, 
          N = nrow(DT_sims_h02_q02)),
+    chains = 1,
+    dir = compiled_dir
+  ),
+  
+  # Model
+  tar_stan_mcmc(
+    q02,
+    file.path('stan', 'h02_q02.stan'),
+    list(age = DT_h02_q02$age,
+         weight = DT_h02_q02$weight, 
+         N = nrow(DT_h02_q02)),
     chains = 1,
     dir = compiled_dir
   ),
