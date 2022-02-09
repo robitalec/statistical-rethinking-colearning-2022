@@ -13,7 +13,7 @@ simulate_h02_q01 <- function() {
 }
 
 #' Predict weights from new heights
-predict_weight_h02_q02 <- function(draws, new_values, mean_height) {
+predict_weight_h02_q01 <- function(draws, new_values, mean_height) {
   setDT(draws)
   
   new_values <- data.table(height = new_values)
@@ -46,7 +46,6 @@ simulate_h02_q02 <- function() {
     alpha = 10,
     beta_age = 3,
     sigma = 2,
-    height = runif(N_generate, 70, 150),
     age = runif(N_generate, 1, 12)
   )
   sims[, mu := alpha + beta_age * age]
@@ -55,13 +54,15 @@ simulate_h02_q02 <- function() {
 
 ## Question 3
 #' Simulated data set to test model
-simulate_h02_q02 <- function() {
+simulate_h02_q03 <- function() {
   N_generate <- 1e2
   sims <- data.table(
-    alpha = 10,
-    beta_age = 3,
+    # Add sex 1, 2
+    sex = c(1, 2),
+    # Add beta age and alpha for each
+    beta_age = c(1, 1.5),
+    alpha = c(10, 15),
     sigma = 2,
-    height = runif(N_generate, 70, 150),
     age = runif(N_generate, 1, 12)
   )
   sims[, mu := alpha + beta_age * age, by = sex]
