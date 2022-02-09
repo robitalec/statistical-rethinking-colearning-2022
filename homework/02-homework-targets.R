@@ -9,16 +9,8 @@ targets_homework_02 <- c(
   # Simulated
   tar_target(
     DT_sims_h02_q01,
-  {N_generate <- 1e3
-   sims <- data.table(
-      alpha = 100,
-      beta_height = 2,
-      sigma = 1.5,
-      height = runif(N_generate, 130, 170)
-    )
-  sims[, mu := alpha + beta_height * (height - mean(height))]
-  sims[, weight := rnorm(.N, mu, sigma)]
-  }),
+    simulate_h02_q01()
+ ),
   
   # Model simulation
   tar_stan_mcmc(
@@ -45,7 +37,7 @@ targets_homework_02 <- c(
   # Predict Howell1
   tar_target(
     predict_h02_q01,
-    predict_heights(
+    predict_weight_h02_q01(
       q01_draws_h02_q01,
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
@@ -62,31 +54,14 @@ targets_homework_02 <- c(
   # Priors
   tar_target(
     DT_priors_h02_q02,
-    {N_generate <- 1e2
-     priors <- data.table(
-      alpha = rnorm(N_generate, 10, 5),
-      beta_age = rlnorm(N_generate, 0, 1),
-      sigma = rexp(N_generate, 1),
-      age = runif(N_generate, 1, 12)
-    )
-    priors[, mu := alpha + beta_age * (age - mean(age))]
-    priors[, weight := rnorm(.N, mu, sigma)]
-    }),
+    priors_h02_q02()
+  ),
   
   # Simulation
   tar_target(
     DT_sims_h02_q02,
-    {N_generate <- 1e2
-     sims <- data.table(
-      alpha = 10,
-      beta_age = 3,
-      sigma = 2,
-      height = runif(N_generate, 70, 150),
-      age = runif(N_generate, 1, 12)
-    )
-    sims[, mu := alpha + beta_age * (age - mean(age))]
-    sims[, weight := rnorm(.N, mu, sigma)]
-    }),
+    simulate_h02_q02()
+  ),
   
   # Model simulation
   tar_stan_mcmc(
@@ -109,6 +84,9 @@ targets_homework_02 <- c(
     chains = 1,
     dir = compiled_dir
   ),
+  
+  # Question 3 --------------------------------------------------------------
+
   
 
   # Render ------------------------------------------------------------------
