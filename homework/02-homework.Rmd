@@ -89,3 +89,13 @@ tar_load(q02_summary_h02_q02)
 setDT(q02_summary_h02_q02)
 q02_summary_h02_q02[variable != 'lp__', .(variable, mean, q5, q95)]
 ```
+
+
+# Question 3 
+
+> Now suppose the causal association between age and weight might be different
+for boys and girls. Use a single linear regression, with a categorical variable
+for sex, to estimate the total causal effect of age on weight separately for
+boys and girls. How do girls and boys differ? Provide one or more posterior
+contrasts as a summary.
+
