@@ -34,7 +34,7 @@ priors_h02_q02 <- function() {
     sigma = rexp(N_generate, 1),
     age = runif(N_generate, 1, 12)
   )
-  priors[, mu := alpha + beta_age * (age - mean(age))]
+  priors[, mu := alpha + beta_age * age]
   priors[, weight := rnorm(.N, mu, sigma)]
   
 }
@@ -49,7 +49,7 @@ simulate_h02_q02 <- function() {
     height = runif(N_generate, 70, 150),
     age = runif(N_generate, 1, 12)
   )
-  sims[, mu := alpha + beta_age * (age - mean(age))]
+  sims[, mu := alpha + beta_age * age]
   sims[, weight := rnorm(.N, mu, sigma)]
 }
 
@@ -64,6 +64,6 @@ simulate_h02_q02 <- function() {
     height = runif(N_generate, 70, 150),
     age = runif(N_generate, 1, 12)
   )
-  sims[, mu := alpha + beta_age * (age - mean(age))]
+  sims[, mu := alpha + beta_age * age, by = sex]
   sims[, weight := rnorm(.N, mu, sigma)]
 }
