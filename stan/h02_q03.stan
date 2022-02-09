@@ -20,7 +20,7 @@ model {
 
   vector[N] mu;  
   for (i in 1:N) {
-    mu[i] = alpha[sex[u]] + beta_age[sex[i]] * age[i];
+    mu[i] = alpha[sex[i]] + beta_age[sex[i]] * age[i];
   }
 
   weight ~ normal(mu, sigma);
