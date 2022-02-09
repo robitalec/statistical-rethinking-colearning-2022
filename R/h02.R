@@ -52,3 +52,18 @@ simulate_h02_q02 <- function() {
   sims[, mu := alpha + beta_age * (age - mean(age))]
   sims[, weight := rnorm(.N, mu, sigma)]
 }
+
+## Question 3
+#' Simulated data set to test model
+simulate_h02_q02 <- function() {
+  N_generate <- 1e2
+  sims <- data.table(
+    alpha = 10,
+    beta_age = 3,
+    sigma = 2,
+    height = runif(N_generate, 70, 150),
+    age = runif(N_generate, 1, 12)
+  )
+  sims[, mu := alpha + beta_age * (age - mean(age))]
+  sims[, weight := rnorm(.N, mu, sigma)]
+}
