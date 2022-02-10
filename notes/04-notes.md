@@ -28,6 +28,8 @@ between groups and plot the histogram.
 Alternatively, you can simulate from the posterior distribution and plot the
 contrast directly. 
 
+![](../graphics/notes/compute-the-contrast.png)
+
 ## Full Luxury Bayesian
 
 Include the full causal model in one statistical model
