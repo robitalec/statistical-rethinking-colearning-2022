@@ -103,6 +103,26 @@ targets_homework_02 <- c(
     dir = compiled_dir
   ),
   
+  # Model
+  tar_stan_mcmc(
+    q03,
+    file.path('stan', 'h02_q03.stan'),
+    list(
+      age = DT_h02_q02$age,
+      weight = DT_h02_q02$weight,
+      sex = DT_h02_q02$sex,
+      N = nrow(DT_h02_q02),
+      N_sex = DT_h02_q02[, uniqueN(sex)]
+    ),
+    chains = 1,
+    dir = compiled_dir
+  ),
+  
+  tar_target(
+    q03_contrast,
+    contrast_h02_q03(q03_draws_h02_q03)
+  ),
+  
   # Render ------------------------------------------------------------------
   tar_render(render_h02,
              'homework/02-homework.Rmd')

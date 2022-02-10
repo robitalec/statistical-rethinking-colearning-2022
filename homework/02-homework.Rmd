@@ -81,10 +81,9 @@ using prior predictive simulation to assess what they imply.
 ggplot(tar_read(DT_priors_h02_q02), aes(age, weight)) + 
   xlim(0, 14) + ylim(0, 50) + 
   geom_abline(aes(intercept = age, slope = beta_age))
-
 ```
 
-```{r}
+```{r h02_q02_summary}
 tar_load(q02_summary_h02_q02)
 setDT(q02_summary_h02_q02)
 q02_summary_h02_q02[variable != 'lp__', .(variable, mean, q5, q95)]
@@ -99,3 +98,13 @@ for sex, to estimate the total causal effect of age on weight separately for
 boys and girls. How do girls and boys differ? Provide one or more posterior
 contrasts as a summary.
 
+
+
+```{r h02_q03_contrast}
+ggplot(tar_read(q03_contrast),
+         aes(sim_age, predict_wt)) + 
+    stat_halfeye() +
+    scale_x_continuous(breaks = c(0, 5, 10), labels = c(0, 5, 10)) + 
+    labs(x = 'age', y = 'posterior weight contrast', 
+         title = 'Posterior predicted weight contrast (male - female)')
+```

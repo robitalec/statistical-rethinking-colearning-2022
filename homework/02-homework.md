@@ -40,3 +40,13 @@ Alec L. Robitaille
     ## 1:    sigma  2.5 2.3 2.8
     ## 2:    alpha  7.4 6.9 8.0
     ## 3: beta_age  1.3 1.2 1.4
+
+# Question 3
+
+> Now suppose the causal association between age and weight might be
+> different for boys and girls. Use a single linear regression, with a
+> categorical variable for sex, to estimate the total causal effect of
+> age on weight separately for boys and girls. How do girls and boys
+> differ? Provide one or more posterior contrasts as a summary.
+
+![](../graphics/homework/h02_q03_contrast-1.png)<!-- -->
