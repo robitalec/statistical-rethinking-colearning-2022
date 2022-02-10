@@ -1,14 +1,22 @@
-Homework week 01
-================
-Hannah Adams
+---
+title: "Homework week 01"
+author: "Hannah Adams"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load packages
+library(rethinking)
+library(ggplot2)
+```
 
 # Question 1
 
-Suppose the globe tossing data had turned out to be 4 water and 11 land.
-Construct the posterior distribution, using grid approximation. Use the
-same flat prior as in the book.
+Suppose the globe tossing data had turned out to be 4 water and 11 land. Construct the posterior distribution, using grid approximation. Use the same flat prior as in the book.
 
-``` r
+```{r q1}
+
 # set grid size and define grid
 gridsize=1000
 p_grid <- seq( from=0 , to=1 , length.out=gridsize )
@@ -31,16 +39,11 @@ posterior <- unstd.posterior / sum(unstd.posterior)
 plot(p_grid , posterior , type="l", xlab="proportion of water" , ylab="posterior probability")
 ```
 
-![](01-homework_files/figure-gfm/q1-1.png)<!-- -->
-
 # Question 2
+Suppose the data are 4 water and 2 land. Compute the posterior again, but this time use a prior that is zero below p=0.5 an a constant above p=0.5. This corresponds to a prior information that a majority of the Earth's surface is water.
 
-Suppose the data are 4 water and 2 land. Compute the posterior again,
-but this time use a prior that is zero below p=0.5 an a constant above
-p=0.5. This corresponds to a prior information that a majority of the
-Earth’s surface is water.
+```{r q2}
 
-``` r
 # set grid size and define grid
 gridsize=1000
 p_grid <- seq( from=0 , to=1 , length.out=gridsize )
@@ -63,24 +66,15 @@ posterior <- unstd.posterior / sum(unstd.posterior)
 plot( p_grid , posterior , type="l", xlab="proportion of water" , ylab="posterior probability" )
 ```
 
-![](01-homework_files/figure-gfm/q2-1.png)<!-- -->
-
 # Question 3
+For the posterior distribution from 2, compute 89% percentile and HPDOI intervals. Compare widths, which is wider? Why? If you had only the information of the interval, what might you misunderstand about the shape of the posterior distribution?
 
-For the posterior distribution from 2, compute 89% percentile and HPDOI
-intervals. Compare widths, which is wider? Why? If you had only the
-information of the interval, what might you misunderstand about the
-shape of the posterior distribution?
 
-``` r
+```{r q3}
 # sample from the posterior distribution
 samples <- sample(p_grid, size = gridsize, prob = posterior, replace = TRUE)
 mean(samples)
-```
 
-    ## [1] 0.6879319
-
-``` r
 # calculate percentile intervals
 sample_pi <- PI(samples)
 
@@ -94,11 +88,7 @@ ggplot() + geom_line(aes(p_grid, posterior)) +
   geom_linerange(aes(xmin = min(sample_hdpi), xmax = max(sample_hdpi), y = 0.0036, color = 'HDPI'), 
                  size = 3, data = as.data.frame(sample_pi))+ xlab('Proportion water') +
   ylab('Posterior probability') + scale_color_manual(values = list('PI' = 'turquoise3', 'HDPI' = 'goldenrod3'), name = 'Interval')
+
 ```
 
-![](01-homework_files/figure-gfm/q3-1.png)<!-- -->
-
-The percentile interval assigns the probability mass to the centre of
-the distribution (and an equal probability mass to each tail), while the
-highest posterior density interval contains the greatest posterior
-probability.
+The percentile interval assigns the probability mass to the centre of the distribution (and an equal probability mass to each tail), while the highest posterior density interval contains the greatest posterior probability. 
