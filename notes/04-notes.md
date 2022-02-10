@@ -21,6 +21,8 @@ for each type in the category since this is the most neutral approach.
 We can't compare overlap in parameters  (eg. a precis output) directly, 
 we need to compute the distribution of differences. 
 
+![](../graphics/notes/compute-the-contrast.png)
+
 
 Given the posterior, compute the difference in the posterior predicted variable
 between groups and plot the histogram. 
@@ -28,7 +30,6 @@ between groups and plot the histogram.
 Alternatively, you can simulate from the posterior distribution and plot the
 contrast directly. 
 
-![](../graphics/notes/compute-the-contrast.png)
 
 ## Full Luxury Bayesian
 

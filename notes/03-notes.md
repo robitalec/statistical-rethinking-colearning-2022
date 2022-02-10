@@ -71,7 +71,7 @@ is used in a linear regression to give a line with an expected value of y
 for each value of x, an expectation. 
 
 
-![](../graphics/notes/prior-sim-eg-1-with-post.png)
+![](../graphics/notes/anatomy-lin-model.png)
 
 Sigma is a scale parameter, these types of parameters stretch a distribution
 and are always positive. 
