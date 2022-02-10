@@ -68,3 +68,18 @@ simulate_h02_q03 <- function() {
   sims[, mu := alpha + beta_age * age, by = sex]
   sims[, weight := rnorm(.N, mu, sigma)]
 }
+
+
+#' Contrasts
+contrast_h02_q03 <- function(draws) {
+  setDT(draws)
+  
+  sel_cols <- c('sigma', 'beta_age[1]', 'beta_age[2]', 'alpha[1]', 'alpha[2]')
+  DT <- draws[, .SD, .SDcols = sel_cols]
+  
+  draws[, sim_age := floor(runif(.N, 0L, 12L))]
+  draws[, predict_wt := (`alpha[1]` + `beta_age[1]` * sim_age) -
+                        (`alpha[2]` + `beta_age[2]` * sim_age)]
+  
+  return(draws)  
+}
