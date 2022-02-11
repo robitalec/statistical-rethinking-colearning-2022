@@ -123,6 +123,8 @@ See the full list of [branches](https://github.com/robitalec/statistical-rethink
 * [Levi](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/levi)
 * [Katrien](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/katrien)
 * [Bella](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/bella)
+* [Hannah](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/hannah)
+* [Frankie](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/frankie)
 
 
 
