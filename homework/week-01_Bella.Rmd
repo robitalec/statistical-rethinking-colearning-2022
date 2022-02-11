@@ -35,8 +35,10 @@ samples <- sample(p_grid, prob = posterior, size = 1e14, replace = T)
 p_grid <- seq(from = 0, to = 1, length.out = 20)
 # define new prior 
 newprior <- ifelse(p_grid < 0.5, 0, 1)
+# RICHARD's PRIOR - DISCUSS 
+prior <- c(rep(0,500), rep(1,500))
 # compute likelihood at each value in grid 
-likelihood <- dbinom(4, size = 6, prob = p_grid)
+likelihood <- dbinom(4, size = 4+2, prob = p_grid)
 # compute likelihood of likelihood and prior 
 unstd.posterior <- likelihood * newprior
 # standardize posterior 
@@ -44,6 +46,9 @@ posterior <- unstd.posterior/sum(unstd.posterior)
 # plot 
 plot(p_grid, posterior, type = "b", 
      xlab = "probability of water", ylab = "posterior probability")
+# sample 
+set.seed(100)
+samples2 <- sample(p_grid, prob = posterior, size = 1e4, replace = T)
 ```
 
 **Question 3:** For the posterior distribution from question 2, compute 89% percentile and HPDI intervals. Compare the widths of these intervals. Which is wider? Why? If you only had the information in the interval, what might you misunderstand about the shape of the posterior distribution?  
