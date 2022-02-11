@@ -14,8 +14,8 @@ different dataset, adjust the likelihood
 p_grid <- seq(from = 0, to = 1, length.out = 20)
 # define uniform prior 
 prior <- rep(1,20)
-# compute likelihood at each value in grid 
-likelihood <- dbinom(4, size = 15, prob = p_grid)
+# compute likelihood at each value in grid
+likelihood <- dbinom(4, size = 4+11, prob = p_grid)
 # compute likelihood of likelihood and prior 
 unstd.posterior <- likelihood * prior
 # standardize posterior 
@@ -27,6 +27,12 @@ plot(p_grid, posterior, type = "b",
 
 ![](week-01_Bella_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
+``` r
+# sample 
+set.seed(100)
+samples <- sample(p_grid, prob = posterior, size = 10000, replace = T)
+```
+
 **Question 2:** Now suppose the data are 4 water and 2 land. Compute the
 posterior again but this time use a prior that is zero below *p* = 0.5
 and a constant above *p* = 0.5. This corresponds to prior information
@@ -37,8 +43,10 @@ that a majority of the Earth’s surface is water.
 p_grid <- seq(from = 0, to = 1, length.out = 20)
 # define new prior 
 newprior <- ifelse(p_grid < 0.5, 0, 1)
+# RICHARD's PRIOR - DISCUSS 
+prior <- c(rep(0,500), rep(1,500))
 # compute likelihood at each value in grid 
-likelihood <- dbinom(4, size = 6, prob = p_grid)
+likelihood <- dbinom(4, size = 4+2, prob = p_grid)
 # compute likelihood of likelihood and prior 
 unstd.posterior <- likelihood * newprior
 # standardize posterior 
@@ -49,6 +57,12 @@ plot(p_grid, posterior, type = "b",
 ```
 
 ![](week-01_Bella_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+# sample 
+set.seed(100)
+samples2 <- sample(p_grid, prob = posterior, size = 1e4, replace = T)
+```
 
 **Question 3:** For the posterior distribution from question 2, compute
 89% percentile and HPDI intervals. Compare the widths of these
@@ -83,5 +97,54 @@ simulation tend to produce instead? Second, using a simulated sample of
 20 tosses, compute the unbiased posterior distribution of the true
 proportion of water.
 
-Response: There is a binomial response of 0 (land) and 1 (water) with a
-false-negative rate of 0.2 Pr(W\|N,*p*)
+NOTE: Checked Richard’s answers for this one.
+
+If there are 0.7/1 ways to sample water and 0.8/1 ways for water to be
+reported as water - there are 0.7 x 0.8 ways t observe water (garden
+multiplies independent events)
+
+``` r
+N <- 1e5
+set.seed(100)
+W <- rbinom(N, size = 20, prob = 0.7*0.8)
+mean(W/20) # biased expectation
+```
+
+    ## [1] 0.560283
+
+This is the biased expectation. Now estimate posterior distribution
+using grid approximation, accounting for biased sampling rate.
+
+``` r
+# simulate data 
+W <- rbinom(1, size=20, prob=0.7*0.8)
+
+# compute posterior 
+grid_p <- seq(from=0, to=1, len=100)
+pr_p <- dbeta(grid_p, 1, 1)
+prW <- dbinom(W, 20, grid_p*0.8)
+post <- prW*pr_p
+```
+
+Now calculate posterior ignoring bias and plot to compare.
+
+``` r
+# simulate data 
+W <- rbinom(1, size=20, prob=0.7*0.8)
+
+# compute posterior 
+grid_p <- seq(from=0, to=1, len=100)
+pr_p <- dbeta(grid_p, 1, 1)
+prW <- dbinom(W, 20, grid_p*0.8)
+post <- prW*pr_p
+
+# compute posterior ignoring bias
+post_bad <- dbinom(W, 20, grid_p)
+
+# plot
+plot(grid_p, post, type = "l", lwd=4,
+     xlab = "proportion water", ylab = "plausability")
+lines(grid_p, post_bad, col = 2, lwd = 4)
+```
+
+![](week-01_Bella_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
