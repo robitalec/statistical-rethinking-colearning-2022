@@ -95,3 +95,8 @@ po/*~
 ### R.Bookdown Stack ###
 # R package: bookdown caching files
 /*_files/
+
+
+_targets/
+renv/
+stan/compiled/
