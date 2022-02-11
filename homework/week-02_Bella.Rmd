@@ -1,0 +1,60 @@
+---
+title: ""
+output: github_document
+---
+
+## Homework Week 2
+
+Set up libraries and dataframes 
+```{r, eval = T, echo = T, cache = T}
+suppressMessages(library(rethinking))
+suppressMessages(library(dplyr))
+data(Howell1)
+d <- Howell1
+d2 <- d[Howell1$age >= 18, ]
+```
+
+**Question 1:** Construct a linear regression of weight as predicted by height, using the adults (age 18 or greater) from the Howell1 dataset. The heights listed below were recorded in the !Kung census, but weights were not recorded for these individuals. Provide predicted weights and 89% compatibility intervals for each of these individuals. That is, fill in the table below, using model-based predictions.  
+
+```{r question-1, warning = F, message = F, cache = T}
+# priors
+set.seed(2971) # setting seed so it is reproducible 
+N <- 100 # 100 lines
+a <- rnorm( N , 178 , 20 ) # use mean height from different pop.
+b <- rlnorm( 1e4 , 0 ,1) # beta to log normal - restrict to positive values
+xbar <- mean(d2$height)
+
+# model
+m <- quap(
+  alist(
+    weight ~ dnorm( mu , sigma ) ,
+    mu <- a + b*( height - xbar ) ,
+    a ~ dnorm( 60 , 20 ) ,
+    b ~ dlnorm( 0 , 1 ) ,
+    sigma ~ dunif( 0 , 50 )
+  ) , data=d2 )
+
+# simulate weight 
+sim.weight <- as.data.frame(sim(m , data=list(height= c(140, 160, 175), Hbar = xbar)))
+weight.PI <- as.data.frame(apply( sim.weight , 2 , PI , prob=0.89 )) # get 89% PIs across simulated weights
+```
+
+```{r, warning = F, message = F, eval = T, echo = F}
+library(dplyr)
+# create table 
+columns= c("individual","height","expected weight","89% interval") 
+tbl = data.frame(matrix(nrow = 3, ncol = length(columns))) 
+colnames(tbl) = columns
+tbl$individual <- seq.int(nrow(tbl)) 
+tbl$height <- c(140,160,175)
+tbl$`expected weight` <- round(colMeans(sim.weight),3)
+tbl$`89% interval` <- as.data.frame(stack(weight.PI) %>% 
+  group_by(ind)%>% 
+  dplyr::summarise(values, interval = paste(round(values, 3), collapse = " - ")) %>% 
+  ungroup(ind) %>%
+  select(interval) %>% 
+  distinct(.keep_all = TRUE))
+
+# print table
+knitr::kable(tbl)
+```
