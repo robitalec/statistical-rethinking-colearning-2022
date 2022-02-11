@@ -1,0 +1,131 @@
+---
+title: "02-Homework"
+output: github_document
+---
+
+# Statistical Rethinking Workshop 2022
+## Homework 02
+
+```{r setup}
+library(rethinking) 
+data(Howell1)
+d <-Howell1
+```
+
+1. Construct a linear regression of weight as predicted by height, using the
+adults (age 18 or greater) from the Howell1 dataset. The heights listed below
+were recorded in the !Kung census, but weights were not recorded for these
+individuals. Provide predicted weights and 89% compatibility intervals for
+each of these individuals. That is, fill in the table below, using model-based
+predictions.
+
+```{r Question 1}
+d2 <-d[d$age >= 18,]
+Hbar <- mean(d2$height)
+dat <- list(W=d2$weight, H=d2$height, Hbar=Hbar)
+
+m1 <- quap(alist(
+  W ~ dnorm(mu, sigma),
+  mu <- a + B*(H - Hbar),
+  a ~ dnorm(60, 10),
+  B ~ dlnorm(0, 1),
+  sigma ~ dunif(0, 10)
+  ), data = dat)
+
+dat2 <- list(H=c(140,160,175) , Hbar=Hbar)
+h_sim <- sim(m1, data=dat2)
+EW <- apply(h_sim, 2, mean)
+h_ci <- apply(h_sim, 2, PI, prob=0.89)
+
+datr <- cbind(H=c(140,160,175), EW, Lo89=h_ci[1,], Up89=h_ci[2,])
+round(datr, 1)
+
+```
+
+
+2. From the Howell1 dataset, consider only the people younger than 13 years
+old. Estimate the causal association between age and weight. Assume that
+age influences weight through two paths. First, age influences height, and
+height influences weight. Second, age directly influences weight through age-related changes in muscle growth and body proportions. All of this implies
+this causal model (DAG).
+
+Use a linear regression to estimate the total (not just direct) causal effect of
+each year of growth on weight. Be sure to carefully consider the priors. Try
+using prior predictive simulation to assess what they imply.
+
+```{r Question 2}
+d3 <-d[d$age < 13,]
+
+# sim from priors
+set.seed(101)
+n <- 10
+a <-rnorm(n, 4, 1)
+b <-rlnorm(n, 0, 1) 
+
+plot(NULL, xlim=range(d3$age), ylim=range(d3$weight),
+     xlab="age", ylab="weight")
+for (i in 1:n) abline(a[i], b[i], lwd=3, col=2 )
+
+#abline(h=0, lty=2)
+#abline(h=max(d3$weight),lty=1,lwd=0.5)
+#mtext( "b~dlnorm(0,1)")
+#xbar <-mean(d3$weight)
+#for (i in 1:n) curve(a[i]+b[i]*(x-xbar), 
+#                     from=min(d3$weight), to=max(d3$weight), add=TRUE,
+#                     col=col.alpha("black",0.2))
+
+m2 <- quap(alist(
+  W ~ dnorm(mu, sigma ), 
+  mu <- a + B*Age,
+  a ~ dnorm(4, 1),
+  B ~ dlnorm(0, 1),
+  sigma ~ dexp(1)
+  ), data=list(W=d3$weight, Age=d3$age) )
+precis(m2)
+```
+
+The causal effect of each year of growth is given (in this case) by the parameter 'B'. So its 89% interval is 1.29 to 1.46 kilograms per year.
+
+
+3. Now suppose the causal association between age and weight might be different
+for boys and girls. Use a single linear regression, with a categorical
+variable for sex, to estimate the total causal effect of age on weight separately for boys and girls. How do girls and boys differ? Provide one or more posterior contrasts as a summary.
+
+```{r Question 3}
+
+dat2 <- list(W=d3$weight, Age=d3$age, S=d3$male+1)
+m3 <- quap(alist(
+  W ~ dnorm(mu, sigma),
+  mu <- a[S] + B[S]*Age,
+  a[S] ~ dnorm(5,1),
+  B[S] ~ dlnorm(0,1),
+  sigma ~ dexp(1)
+  ), data=dat2 )
+
+plot(d3$age, d3$weight, lwd=3, col=ifelse(d3$male==1,4,2),
+     xlab="age (years)", ylab="weight (kg)")
+Aseq <- 0:12
+
+# girls
+muF <- link(m3, data=list(Age=Aseq, S=rep(1,13)))
+shade(apply(muF, 2, PI, 0.99), Aseq, col=col.alpha(2,0.5))
+lines(Aseq, apply(muF, 2, mean), lwd=3, col=2)
+
+# boys
+muM <- link(m3, data=list(Age=Aseq, S=rep(2,13)))
+shade(apply(muM,2,PI,0.99), Aseq, col=col.alpha(4,0.5) )
+lines(Aseq, apply(muM, 2, mean), lwd=3 , col=4 )
+
+# contrast at each age
+Aseq <- 0:12
+mu1 <- sim(m3,data=list(Age=Aseq,S=rep(1,13)))
+mu2 <- sim(m3,data=list(Age=Aseq,S=rep(2,13)))
+mu_contrast <- mu1
+for ( i in 1:13 ) mu_contrast[,i] <- mu2[,i] - mu1[,i] 
+plot( NULL , xlim=c(0,13) , ylim=c(-15,15), xlab="age",
+ylab="weight difference (boys-girls)" )
+for ( p in c(0.5,0.67,0.89,0.99) )
+shade( apply(mu_contrast,2,PI,prob=p) , Aseq )
+abline(h=0,lty=2,lwd=2)
+
+```
