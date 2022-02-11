@@ -26,7 +26,7 @@ to be discussed on/completed by the next meeting.
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------|
 | 2022-01-13   | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2) | Chapters 1, 2 and 3   | [Homework 1](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week01.pdf) |
 | 2022-01-26   | [(3) Basic Regression](https://www.youtube.com/watch?v=zYYBtxHWE0A), [(4) Categories & Curves](https://youtu.be/QiHKdvAbYII)                                                   | Chapter 4             | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week02.pdf) |
-|              | \(5\) Confounding, (6) Even Worse Confounding                                                                                                                                  | Chapters 5 and 6      |                                                                                                |
+| 2022-02-11   | [(5) Confounding](https://youtu.be/UpP-_mBvECI), [(6) Even Worse Confounding](https://www.youtube.com/watch?v=NSuTaeW6Orc)                                                     | Chapters 5 and 6      | [Homework 3](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week03.pdf) |
 |              | \(7\) Overfitting, (8) Interactions                                                                                                                                            | Chapters 7 and 8      |                                                                                                |
 |              | \(9\) Markov chain Monte Carlo, (10) Binomial GLMs                                                                                                                             | Chapters 9, 10 and 11 |                                                                                                |
 |              | \(11\) Poisson GLMs, (12) Ordered Categories                                                                                                                                   | Chapters 11 and 12    |                                                                                                |
@@ -132,6 +132,8 @@ See the full list of
 -   [Levi](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/levi)
 -   [Katrien](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/katrien)
 -   [Bella](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/bella)
+-   [Hannah](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/hannah)
+-   [Frankie](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/frankie)
 
 ## Thanks
 
