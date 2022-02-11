@@ -41,3 +41,18 @@ DT[, sigma := 1]
 DT[, mu := intercept + slope_size * size]
 DT[, km_hour := rnorm(.N, mu, sigma)]
 
+
+
+# Models ------------------------------------------------------------------
+m1 <- quap(
+  alist(
+    km_hour ~ dnorm(mu, sigma),
+    mu <- intercept + slope_size * size,
+    intercept ~ dnorm(1, 10),
+    slope_size ~ dnorm(0, 1),
+    sigma ~ dexp(1)
+  ),
+  data = as.list(DT[, .(size, km_hour)])
+)
+
+cbind(list(simulation = t(DT[1, .(intercept, slope_size, sigma)])), precis(m1))
