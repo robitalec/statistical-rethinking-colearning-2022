@@ -15,7 +15,7 @@ p_grid <- seq(from = 0, to = 1, length.out = 20)
 # define uniform prior 
 prior <- rep(1,20)
 # compute likelihood at each value in grid 
-likelihood <- dbinom(4, size = 15, prob = p_grid)
+likelihood <- dbinom(4, size = 4+11, prob = p_grid)
 # compute likelihood of likelihood and prior 
 unstd.posterior <- likelihood * prior
 # standardize posterior 
@@ -23,6 +23,9 @@ posterior <- unstd.posterior/sum(unstd.posterior)
 # plot 
 plot(p_grid, posterior, type = "b", 
      xlab = "probability of water", ylab = "posterior probability")
+# sample 
+set.seed(100)
+samples <- sample(p_grid, prob = posterior, size = 1e14, replace = T)
 ```
 
 **Question 2:** Now suppose the data are 4 water and 2 land. Compute the posterior again but this time use a prior that is zero below *p* = 0.5 and a constant above *p* = 0.5. This corresponds to prior information that a majority of the Earth's surface is water. 
