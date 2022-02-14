@@ -65,14 +65,14 @@ knitr::kable(tbl)
 suppressMessages(library(rethinking))
 d3 <- d[Howell1$age <= 13, ]
 # age influences weight through a direct effect and indirect effect through height 
+# total effect does not include height in model
 m2 <- quap(
   alist(
     weight ~ dnorm( mu , sigma ) ,
-    mu <- a + bA*age + bH*height ,
-    a ~ dnorm( 60 , 20 ) ,
-    bA ~ dlnorm( 0 , 0.5 ) , # only positive values for age and height
-    bH ~ dnorm( 0 , 0.5 ) ,
-    sigma ~ dunif( 0 , 50 )
+    mu <- a + bA*age ,
+    a ~ dnorm( 5 , 1 ) ,
+    bA ~ dlnorm( 0 , 1 ) , # only positive values for age and height
+    sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
 
 # do a prior predictive simulation to test prior performance 
