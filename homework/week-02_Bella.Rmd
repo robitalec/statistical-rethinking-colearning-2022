@@ -75,13 +75,14 @@ m2 <- quap(
     sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
 
-# do a prior predictive simulation to test prior performance 
-sample_mu <- rnorm( 1e4 , 60 , 20 )
-sample_bA <- rlnorm(1e4, 0, 0.5)
-sample_bH <- rlnorm(1e4, 0, 0.5)
-sample_sigma <- runif( 1e4 , 0 , 50 )
-prior_h <- rnorm( 1e4 , sample_mu , sample_sigma )
-dens( prior_h )
+precis(m2)
+
+# do a prior predictive simulation to test prior performance
+n <- 25
+sample_mu <- rnorm( n , 5 , 1 )
+sample_bA <- rlnorm(n, 0, 1)
+plot( NULL , xlim=range(d3$age) , ylim=range(d3$weight) )
+for ( i in 1:n ) abline( sample_mu[i] , sample_bA[i] , lwd=3 , col=2 )
 ```
 
 **Question 3:** Now suppose the causal association between age and weight might be different for boys and girls. Use a single linear regression, with a categorical variable for sex, to estimate the total causal effect of age on weight separately for boys and girls. How do girls and boys differ? Provide one or more posterior contrasts as a summary.  

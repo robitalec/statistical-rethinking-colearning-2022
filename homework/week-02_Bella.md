@@ -61,23 +61,31 @@ assess what they imply.
 suppressMessages(library(rethinking))
 d3 <- d[Howell1$age <= 13, ]
 # age influences weight through a direct effect and indirect effect through height 
+# total effect does not include height in model
 m2 <- quap(
   alist(
     weight ~ dnorm( mu , sigma ) ,
-    mu <- a + bA*age + bH*height ,
-    a ~ dnorm( 60 , 20 ) ,
-    bA ~ dlnorm( 0 , 0.5 ) , # only positive values for age and height
-    bH ~ dnorm( 0 , 0.5 ) ,
-    sigma ~ dunif( 0 , 50 )
+    mu <- a + bA*age ,
+    a ~ dnorm( 5 , 1 ) ,
+    bA ~ dlnorm( 0 , 1 ) , # only positive values for age and height
+    sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
 
-# do a prior predictive simulation to test prior performance 
-sample_mu <- rnorm( 1e4 , 60 , 20 )
-sample_bA <- rlnorm(1e4, 0, 0.5)
-sample_bH <- rlnorm(1e4, 0, 0.5)
-sample_sigma <- runif( 1e4 , 0 , 50 )
-prior_h <- rnorm( 1e4 , sample_mu , sample_sigma )
-dens( prior_h )
+precis(m2)
+```
+
+    ##           mean         sd     5.5%    94.5%
+    ## a     7.213024 0.33282988 6.681097 7.744950
+    ## bA    1.362618 0.04681619 1.287796 1.437439
+    ## sigma 2.528086 0.14140545 2.302093 2.754079
+
+``` r
+# do a prior predictive simulation to test prior performance
+n <- 25
+sample_mu <- rnorm( n , 5 , 1 )
+sample_bA <- rlnorm(n, 0, 1)
+plot( NULL , xlim=range(d3$age) , ylim=range(d3$weight) )
+for ( i in 1:n ) abline( sample_mu[i] , sample_bA[i] , lwd=3 , col=2 )
 ```
 
 ![](week-02_Bella_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
