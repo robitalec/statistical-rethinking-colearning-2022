@@ -125,3 +125,38 @@ Boys tend to be slightly heavier than girls and the effect increases as age incr
 
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth records for 26 boys measured over 9 periods. I want you to model their growth. Specifically, model the increments in growth from one period (Occasion in the data table) to the next. Each increment is simply the difference between height in one occasion and height in the previous occasion. Since none of these boys shrunk during the study, all of the growth increments are greater than zero. Estimate the posterior distribution of these increments. Constrain the distribution so it is always positive—it should not be possible for the model to think that boys can shrink from year to year. Finally compute the posterior distribution of the total growth over all 9 occasions.
+```{r question-4}
+data(Oxboys)
+d <- Oxboys
+
+# convert data to growth increments
+d$delta <- NA
+for ( i in 1:nrow(d) ) {
+    if ( d$Occasion[i] > 1 ) d$delta[i] <- d$height[i] - d$height[i-1]
+}
+d <- d[ !is.na(d$delta) , ]
+
+# prior simulation
+n <- 1e3
+alpha <- rnorm(n,0,0.1)
+sigma <- rexp(n,3)
+delta_sim <- rlnorm(n,alpha,sigma)
+dens(delta_sim)
+
+# the model
+m4 <- quap(
+    alist(
+        delta ~ dlnorm( alpha , sigma ),
+        alpha ~ dnorm( 0 , 0.1 ),
+        sigma ~ dexp( 3 )
+    ), data=list(delta=d$delta) )
+
+# compute posterior sum of 8 increments
+post <- extract.samples(m4)
+
+dsim <- rlnorm(1e3,post$alpha,post$sigma)
+dens(dsim)
+
+inc_sum <- sapply( 1:1000 , function(s) sum(rlnorm(8,post$alpha[s],post$sigma[s])) )
+dens(inc_sum)
+```
