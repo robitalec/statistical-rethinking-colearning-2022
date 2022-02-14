@@ -92,9 +92,9 @@ d3$sex <- ifelse( d3$male==1 , 2 , 1 ) # males = 2, females = 1
 m3 <- quap(
   alist(
     weight ~ dnorm( mu , sigma ) ,
-    mu <- a[sex] + bA*age , # add sex as a categorical variable
+    mu <- a[sex] + bA[sex]*age , # add sex as a categorical variable
     a[sex] ~ dnorm( 5 , 1 ) ,
-    bA ~ dlnorm( 0 , 1 ) , # only positive values for age and height
+    bA[sex] ~ dlnorm( 0 , 1 ) , # only positive values for age and height
     sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
 # contrast 
@@ -104,13 +104,14 @@ post$diff_m <- post$a[,2] - post$a[,1]
 precis( post , depth=2 )
 ```
 
-    ##              mean         sd       5.5%      94.5%       histogram
-    ## bA       1.380631 0.04361388  1.3105377  1.4502174         ▁▁▃▇▅▁▁
-    ## sigma    2.442203 0.13767182  2.2242561  2.6655632   ▁▁▁▁▂▅▇▅▂▁▁▁▁
-    ## a[1]     6.407597 0.35311202  5.8372619  6.9697315 ▁▁▁▁▁▂▅▇▇▅▃▁▁▁▁
-    ## a[2]     7.696668 0.36826699  7.1002988  8.2762100         ▁▁▃▇▂▁▁
-    ## diff_fm -1.289072 0.37603134 -1.8870410 -0.6837505          ▁▁▃▇▃▁
-    ## diff_m   1.289072 0.37603134  0.6837505  1.8870410          ▁▃▇▃▁▁
+    ##              mean         sd       5.5%     94.5%     histogram
+    ## sigma    2.432874 0.13741862  2.2162380 2.6532709 ▁▁▁▁▃▇▇▅▂▁▁▁▁
+    ## a[1]     6.731802 0.42452265  6.0590369 7.4177256      ▁▁▁▃▇▃▁▁
+    ## a[2]     7.386812 0.44130275  6.6892078 8.0816823      ▁▁▃▇▅▁▁▁
+    ## bA[1]    1.320599 0.06170807  1.2214294 1.4202860    ▁▁▁▂▅▇▅▂▁▁
+    ## bA[2]    1.435509 0.06205339  1.3367765 1.5345556   ▁▁▁▂▅▇▇▂▁▁▁
+    ## diff_fm -0.655010 0.60704235 -1.6293717 0.3125516   ▁▁▁▂▅▇▇▂▁▁▁
+    ## diff_m   0.655010 0.60704235 -0.3125516 1.6293717   ▁▁▁▂▇▇▅▂▁▁▁
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth
 records for 26 boys measured over 9 periods. I want you to model their

@@ -4,7 +4,7 @@ output: github_document
 ---
 
 ## Homework Week 2
-```{r, eval = T, echo = F, message = F, cache = T}
+```{r, eval = T, include = F}
 library(rethinking)
 library(dplyr)
 data(Howell1)
@@ -90,9 +90,9 @@ d3$sex <- ifelse( d3$male==1 , 2 , 1 ) # males = 2, females = 1
 m3 <- quap(
   alist(
     weight ~ dnorm( mu , sigma ) ,
-    mu <- a[sex] + bA*age , # add sex as a categorical variable
+    mu <- a[sex] + bA[sex]*age , # add sex as a categorical variable
     a[sex] ~ dnorm( 5 , 1 ) ,
-    bA ~ dlnorm( 0 , 1 ) , # only positive values for age and height
+    bA[sex] ~ dlnorm( 0 , 1 ) , # only positive values for age and height
     sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
 # contrast 
