@@ -61,8 +61,7 @@ knitr::kable(tbl)
 
 **Question 2:** From the Howell1 dataset, consider only the people younger than 13 years old. Estimate the causal association between age and weight. Assume that age influences weight through two paths. First, age influences height, and height influences weight. Second, age directly influences weight through age-related changes in muscle growth and body proportions. Use a linear regression to estimate the total (not just direct) causal effect of each year of growth on weight. Be sure to carefully consider the priors. Try using prior predictive simulation to assess what they imply.
 
-```{r}
-suppressMessages(library(rethinking))
+```{r question-2}
 d3 <- d[Howell1$age <= 13, ]
 # age influences weight through a direct effect and indirect effect through height 
 # total effect does not include height in model
