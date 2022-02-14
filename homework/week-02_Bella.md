@@ -127,7 +127,9 @@ shade( apply(mu_contrast,2,PI,prob=p) , Aseq )
 abline(h=0,lty=2,lwd=2)
 ```
 
-![](week-02_Bella_files/figure-gfm/question-3-2.png)<!-- -->
+![](week-02_Bella_files/figure-gfm/question-3-2.png)<!-- --> Boys tend
+to be slightly heavier than girls and the effect increases as age
+increases. Not a huge difference though.
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth
 records for 26 boys measured over 9 periods. I want you to model their
@@ -140,3 +142,49 @@ distribution of these increments. Constrain the distribution so it is
 always positive—it should not be possible for the model to think that
 boys can shrink from year to year. Finally compute the posterior
 distribution of the total growth over all 9 occasions.
+
+``` r
+data(Oxboys)
+d <- Oxboys
+
+# convert data to growth increments
+d$delta <- NA
+for ( i in 1:nrow(d) ) {
+    if ( d$Occasion[i] > 1 ) d$delta[i] <- d$height[i] - d$height[i-1]
+}
+d <- d[ !is.na(d$delta) , ]
+
+# prior simulation
+n <- 1e3
+alpha <- rnorm(n,0,0.1)
+sigma <- rexp(n,3)
+delta_sim <- rlnorm(n,alpha,sigma)
+dens(delta_sim)
+```
+
+![](week-02_Bella_files/figure-gfm/question-4-1.png)<!-- -->
+
+``` r
+# the model
+m4 <- quap(
+    alist(
+        delta ~ dlnorm( alpha , sigma ),
+        alpha ~ dnorm( 0 , 0.1 ),
+        sigma ~ dexp( 3 )
+    ), data=list(delta=d$delta) )
+
+# compute posterior sum of 8 increments
+post <- extract.samples(m4)
+
+dsim <- rlnorm(1e3,post$alpha,post$sigma)
+dens(dsim)
+```
+
+![](week-02_Bella_files/figure-gfm/question-4-2.png)<!-- -->
+
+``` r
+inc_sum <- sapply( 1:1000 , function(s) sum(rlnorm(8,post$alpha[s],post$sigma[s])) )
+dens(inc_sum)
+```
+
+![](week-02_Bella_files/figure-gfm/question-4-3.png)<!-- -->
