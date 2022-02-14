@@ -63,9 +63,9 @@ precis(m2)
 ```
 
     ##           mean         sd     5.5%    94.5%
-    ## a     7.213024 0.33282988 6.681097 7.744950
-    ## bA    1.362618 0.04681619 1.287796 1.437439
-    ## sigma 2.528086 0.14140545 2.302093 2.754079
+    ## a     7.179131 0.33980530 6.636057 7.722206
+    ## bA    1.373792 0.05243254 1.289994 1.457589
+    ## sigma 2.507392 0.14535399 2.275089 2.739696
 
 ``` r
 # do a prior predictive simulation to test prior performance
@@ -97,21 +97,37 @@ m3 <- quap(
     bA[sex] ~ dlnorm( 0 , 1 ) , # only positive values for age and height
     sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
-# contrast 
-post <- extract.samples(m3)
-post$diff_fm <- post$a[,1] - post$a[,2]
-post$diff_m <- post$a[,2] - post$a[,1]
-precis( post , depth=2 )
+# plot both regression lines 
+plot( d3$age , d3$weight , lwd=3, col=ifelse(d3$male==1,4,2) , xlab="age (years)" , ylab="weight (kg)" )
+Aseq <- 0:12 # 13 years of age
+# girls
+muF <- link(m3,data=list(age=Aseq,sex=rep(1,13)))
+shade( apply(muF,2,PI,0.99) , Aseq , col=col.alpha(2,0.5) )
+lines( Aseq , apply(muF,2,mean) , lwd=3 , col=2 )
+# boys
+muM <- link(m3,data=list(age=Aseq,sex=rep(2,13)))
+shade( apply(muM,2,PI,0.99) , Aseq , col=col.alpha(4,0.5) )
+lines( Aseq , apply(muM,2,mean) , lwd=3 , col=4 )
 ```
 
-    ##              mean         sd       5.5%     94.5%     histogram
-    ## sigma    2.432874 0.13741862  2.2162380 2.6532709 ▁▁▁▁▃▇▇▅▂▁▁▁▁
-    ## a[1]     6.731802 0.42452265  6.0590369 7.4177256      ▁▁▁▃▇▃▁▁
-    ## a[2]     7.386812 0.44130275  6.6892078 8.0816823      ▁▁▃▇▅▁▁▁
-    ## bA[1]    1.320599 0.06170807  1.2214294 1.4202860    ▁▁▁▂▅▇▅▂▁▁
-    ## bA[2]    1.435509 0.06205339  1.3367765 1.5345556   ▁▁▁▂▅▇▇▂▁▁▁
-    ## diff_fm -0.655010 0.60704235 -1.6293717 0.3125516   ▁▁▁▂▅▇▇▂▁▁▁
-    ## diff_m   0.655010 0.60704235 -0.3125516 1.6293717   ▁▁▁▂▇▇▅▂▁▁▁
+![](week-02_Bella_files/figure-gfm/question-3-1.png)<!-- -->
+
+``` r
+# get posterior contrast at all ages 
+Aseq <- 0:12
+mu1 <- sim(m3,data=list(age=Aseq,sex=rep(1,13)))
+mu2 <- sim(m3,data=list(age=Aseq,sex=rep(2,13)))
+mu_contrast <- mu1
+for ( i in 1:13 ) mu_contrast[,i] <- mu2[,i] - mu1[,i]
+plot( NULL , xlim=c(0,13) , ylim=c(-15,15) , xlab="age" , ylab="weight difference (boys-girls)" )
+
+for ( p in c(0.5,0.67,0.89,0.99) )
+shade( apply(mu_contrast,2,PI,prob=p) , Aseq )
+
+abline(h=0,lty=2,lwd=2)
+```
+
+![](week-02_Bella_files/figure-gfm/question-3-2.png)<!-- -->
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth
 records for 26 boys measured over 9 periods. I want you to model their

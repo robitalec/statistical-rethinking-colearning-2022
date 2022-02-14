@@ -10,7 +10,7 @@ library(dplyr)
 data(Howell1)
 d <- Howell1
 d2 <- d[Howell1$age >= 18, ]
-d3 <- d[Howell1$age <= 13, ]
+d3 <- d[Howell1$age < 13, ]
 ```
 
 **Question 1:** Construct a linear regression of weight as predicted by height, using the adults (age 18 or greater) from the Howell1 dataset. The heights listed below were recorded in the !Kung census, but weights were not recorded for these individuals. Provide predicted weights and 89% compatibility intervals for each of these individuals. That is, fill in the table below, using model-based predictions.  
@@ -95,13 +95,33 @@ m3 <- quap(
     bA[sex] ~ dlnorm( 0 , 1 ) , # only positive values for age and height
     sigma ~ dexp(1) # exponential positive growth
   ) , data = d3 )
-# contrast 
-post <- extract.samples(m3)
-post$diff_fm <- post$a[,1] - post$a[,2]
-post$diff_m <- post$a[,2] - post$a[,1]
-precis( post , depth=2 )
+# plot both regression lines 
+plot( d3$age , d3$weight , lwd=3, col=ifelse(d3$male==1,4,2) , xlab="age (years)" , ylab="weight (kg)" )
+Aseq <- 0:12 # 13 years of age
+# girls
+muF <- link(m3,data=list(age=Aseq,sex=rep(1,13)))
+shade( apply(muF,2,PI,0.99) , Aseq , col=col.alpha(2,0.5) )
+lines( Aseq , apply(muF,2,mean) , lwd=3 , col=2 )
+# boys
+muM <- link(m3,data=list(age=Aseq,sex=rep(2,13)))
+shade( apply(muM,2,PI,0.99) , Aseq , col=col.alpha(4,0.5) )
+lines( Aseq , apply(muM,2,mean) , lwd=3 , col=4 )
 
+# get posterior contrast at all ages 
+Aseq <- 0:12
+mu1 <- sim(m3,data=list(age=Aseq,sex=rep(1,13)))
+mu2 <- sim(m3,data=list(age=Aseq,sex=rep(2,13)))
+mu_contrast <- mu1
+for ( i in 1:13 ) mu_contrast[,i] <- mu2[,i] - mu1[,i]
+plot( NULL , xlim=c(0,13) , ylim=c(-15,15) , xlab="age" , ylab="weight difference (boys-girls)" )
+
+for ( p in c(0.5,0.67,0.89,0.99) )
+shade( apply(mu_contrast,2,PI,prob=p) , Aseq )
+
+abline(h=0,lty=2,lwd=2)
 
 ```
+Boys tend to be slightly heavier than girls and the effect increases as age increases. Not a huge difference though. 
+
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth records for 26 boys measured over 9 periods. I want you to model their growth. Specifically, model the increments in growth from one period (Occasion in the data table) to the next. Each increment is simply the difference between height in one occasion and height in the previous occasion. Since none of these boys shrunk during the study, all of the growth increments are greater than zero. Estimate the posterior distribution of these increments. Constrain the distribution so it is always positive—it should not be possible for the model to think that boys can shrink from year to year. Finally compute the posterior distribution of the total growth over all 9 occasions.
