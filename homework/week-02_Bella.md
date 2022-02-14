@@ -46,3 +46,57 @@ weight.PI <- as.data.frame(apply( sim.weight , 2 , PI , prob=0.89 )) # get 89% P
 |          1 |    140 |          35.942 | 29.228 - 42.807 |
 |          2 |    160 |          48.271 | 41.715 - 55.24  |
 |          3 |    175 |          57.409 | 50.22 - 64.212  |
+
+**Question 2:** From the Howell1 dataset, consider only the people
+younger than 13 years old. Estimate the causal association between age
+and weight. Assume that age influences weight through two paths. First,
+age influences height, and height influences weight. Second, age
+directly influences weight through age-related changes in muscle growth
+and body proportions. Use a linear regression to estimate the total (not
+just direct) causal effect of each year of growth on weight. Be sure to
+carefully consider the priors. Try using prior predictive simulation to
+assess what they imply.
+
+``` r
+suppressMessages(library(rethinking))
+d3 <- d[Howell1$age <= 13, ]
+# age influences weight through a direct effect and indirect effect through height 
+m2 <- quap(
+  alist(
+    weight ~ dnorm( mu , sigma ) ,
+    mu <- a + bA*age + bH*height ,
+    a ~ dnorm( 60 , 20 ) ,
+    bA ~ dlnorm( 0 , 0.5 ) , # only positive values for age and height
+    bH ~ dnorm( 0 , 0.5 ) ,
+    sigma ~ dunif( 0 , 50 )
+  ) , data = d3 )
+
+# do a prior predictive simulation to test prior performance 
+sample_mu <- rnorm( 1e4 , 60 , 20 )
+sample_bA <- rlnorm(1e4, 0, 0.5)
+sample_bH <- rlnorm(1e4, 0, 0.5)
+sample_sigma <- runif( 1e4 , 0 , 50 )
+prior_h <- rnorm( 1e4 , sample_mu , sample_sigma )
+dens( prior_h )
+```
+
+![](week-02_Bella_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+**Question 3:** Now suppose the causal association between age and
+weight might be different for boys and girls. Use a single linear
+regression, with a categorical variable for sex, to estimate the total
+causal effect of age on weight separately for boys and girls. How do
+girls and boys differ? Provide one or more posterior contrasts as a
+summary.
+
+**Question 4:** The data in data(Oxboys) (rethinking package) are growth
+records for 26 boys measured over 9 periods. I want you to model their
+growth. Specifically, model the increments in growth from one period
+(Occasion in the data table) to the next. Each increment is simply the
+difference between height in one occasion and height in the previous
+occasion. Since none of these boys shrunk during the study, all of the
+growth increments are greater than zero. Estimate the posterior
+distribution of these increments. Constrain the distribution so it is
+always positive—it should not be possible for the model to think that
+boys can shrink from year to year. Finally compute the posterior
+distribution of the total growth over all 9 occasions.
