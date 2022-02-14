@@ -281,3 +281,59 @@ M -> N }" )
 coordinates(dag5.7) <- list( x=c(M=0,K=1,N=2) , y=c(M=0.5,K=1,N=0.5) )
 MElist <- equivalentDAGs(dag5.7) # 6 potential DAGs, can reduce based on scientific inference
 
+
+#### Categorical Variables #### 
+data(Howell1)
+d <- Howell1
+# assigning priors to each sex
+mu_female <- rnorm(1e4,178,20)
+mu_male <- rnorm(1e4,178,20) + rnorm(1e4,0,10) # more uncertainty
+# use index variables instead 
+d$sex <- ifelse( d$male==1 , 2 , 1 )
+# estimate posterior 
+m5.8 <- quap(
+  alist(
+    height ~ dnorm( mu , sigma ) ,
+    mu <- a[sex] ,
+    a[sex] ~ dnorm( 178 , 20 ) ,
+    sigma ~ dunif( 0 , 50 )
+  ) , data=d )
+# compute expected difference between females and males
+post <- extract.samples(m5.8)
+post$diff_fm <- post$a[,1] - post$a[,2]
+precis( post , depth=2 )
+
+# primate categorical variable example 
+data(milk)
+d <- milk
+levels(d$clade) # categorical variable 
+# implement an index variable approach
+d$clade_id <- as.integer( d$clade )
+# build model
+d$K <- standardize( d$kcal.per.g )
+m5.9 <- quap(
+  alist(
+    K ~ dnorm( mu , sigma ),
+    mu <- a[clade_id],
+    a[clade_id] ~ dnorm( 0 , 0.5 ),
+    sigma ~ dexp( 1 )
+  ) , data=d )
+
+labels <- paste( "a[" , 1:4 , "]:" , levels(d$clade) , sep="" )
+
+plot( precis( m5.9 , depth=2 , pars="a" ) , labels=labels ,
+      xlab="expected kcal (std)" )
+
+# randomly sample data as HP houses and add as second categorical variable to model
+set.seed(63)
+d$house <- sample( rep(1:4,each=8) , size=nrow(d) )
+m5.10 <- quap(
+  alist(
+    K ~ dnorm( mu , sigma ),
+    mu <- a[clade_id] + h[house],
+    a[clade_id] ~ dnorm( 0 , 0.5 ),
+    h[house] ~ dnorm( 0 , 0.5 ),
+    sigma ~ dexp( 1 )
+  ) , data=d )
+
+
