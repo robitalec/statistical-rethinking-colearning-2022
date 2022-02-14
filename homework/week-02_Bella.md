@@ -1,16 +1,6 @@
 
 ## Homework Week 2
 
-Set up libraries and dataframes
-
-``` r
-suppressMessages(library(rethinking))
-suppressMessages(library(dplyr))
-data(Howell1)
-d <- Howell1
-d2 <- d[Howell1$age >= 18, ]
-```
-
 **Question 1:** Construct a linear regression of weight as predicted by
 height, using the adults (age 18 or greater) from the Howell1 dataset.
 The heights listed below were recorded in the !Kung census, but weights
@@ -58,8 +48,6 @@ carefully consider the priors. Try using prior predictive simulation to
 assess what they imply.
 
 ``` r
-suppressMessages(library(rethinking))
-d3 <- d[Howell1$age <= 13, ]
 # age influences weight through a direct effect and indirect effect through height 
 # total effect does not include height in model
 m2 <- quap(
@@ -88,7 +76,7 @@ plot( NULL , xlim=range(d3$age) , ylim=range(d3$weight) )
 for ( i in 1:n ) abline( sample_mu[i] , sample_bA[i] , lwd=3 , col=2 )
 ```
 
-![](week-02_Bella_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](week-02_Bella_files/figure-gfm/question-2-1.png)<!-- -->
 
 **Question 3:** Now suppose the causal association between age and
 weight might be different for boys and girls. Use a single linear
@@ -96,6 +84,33 @@ regression, with a categorical variable for sex, to estimate the total
 causal effect of age on weight separately for boys and girls. How do
 girls and boys differ? Provide one or more posterior contrasts as a
 summary.
+
+``` r
+# make sex an index variable
+d3$sex <- ifelse( d3$male==1 , 2 , 1 ) # males = 2, females = 1
+# model with categorical variable
+m3 <- quap(
+  alist(
+    weight ~ dnorm( mu , sigma ) ,
+    mu <- a[sex] + bA*age , # add sex as a categorical variable
+    a[sex] ~ dnorm( 5 , 1 ) ,
+    bA ~ dlnorm( 0 , 1 ) , # only positive values for age and height
+    sigma ~ dexp(1) # exponential positive growth
+  ) , data = d3 )
+# contrast 
+post <- extract.samples(m3)
+post$diff_fm <- post$a[,1] - post$a[,2]
+post$diff_m <- post$a[,2] - post$a[,1]
+precis( post , depth=2 )
+```
+
+    ##              mean         sd       5.5%      94.5%       histogram
+    ## bA       1.380631 0.04361388  1.3105377  1.4502174         ▁▁▃▇▅▁▁
+    ## sigma    2.442203 0.13767182  2.2242561  2.6655632   ▁▁▁▁▂▅▇▅▂▁▁▁▁
+    ## a[1]     6.407597 0.35311202  5.8372619  6.9697315 ▁▁▁▁▁▂▅▇▇▅▃▁▁▁▁
+    ## a[2]     7.696668 0.36826699  7.1002988  8.2762100         ▁▁▃▇▂▁▁
+    ## diff_fm -1.289072 0.37603134 -1.8870410 -0.6837505          ▁▁▃▇▃▁
+    ## diff_m   1.289072 0.37603134  0.6837505  1.8870410          ▁▃▇▃▁▁
 
 **Question 4:** The data in data(Oxboys) (rethinking package) are growth
 records for 26 boys measured over 9 periods. I want you to model their
