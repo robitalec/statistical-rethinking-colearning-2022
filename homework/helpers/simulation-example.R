@@ -6,7 +6,8 @@
 # Packages ----------------------------------------------------------------
 library(rethinking)
 library(data.table)
-
+library(dagitty)
+library(ggdag)
 
 
 # Functions ---------------------------------------------------------------
@@ -15,7 +16,7 @@ source('R/dag_plot.R')
 
 # DAG ---------------------------------------------------------------------
 dag <- dagify(
-  km_hour ~ size + nostrils,
+  km_hour ~ size,
   exposure = 'size',
   outcome = 'km_hour'
 )
@@ -32,7 +33,7 @@ DT <- data.table(
 )
 
 
-# Simulate intercepts and slopes
+# Simulate intercept and slope
 DT[, intercept := 10]
 DT[, slope_size := 0.4]
 DT[, sigma := 1]
