@@ -13,3 +13,13 @@ simulate_h03_q01 <- function() {
   sims[, scale_food := rnorm(.N, mu, sigma)]
   return(sims)
 }
+
+# Melt new food predictions
+melt_fox_food_predictions <- function(draws, foxes) {
+  new_food <- seq(min(foxes$scale_food), max(foxes$scale_food), length.out = 100)
+  melted <- melt(data.table(h03_q01_draws), variable.name = 'new_food_index', measure.vars = patterns('new_food'))
+  
+  melted[, new_food_index := as.integer(gsub('new_food\\[|\\]', '', new_food_index))]
+  melted[, new_food := new_food[new_food_index]]
+  return(melted)
+}
