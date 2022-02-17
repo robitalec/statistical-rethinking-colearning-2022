@@ -10,7 +10,7 @@ targets_homework_02 <- c(
   
   # Model simulation
   tar_stan_mcmc(
-    q01_sims,
+    h02_q01_sims,
     file.path('stan', 'h02_q01.stan'),
     list(
       height = DT_sims_h02_q01$height - mean(DT_sims_h02_q01$height),
@@ -23,7 +23,7 @@ targets_homework_02 <- c(
   
   # Model Howell1
   tar_stan_mcmc(
-    q01,
+    h02_q01,
     file.path('stan', 'h02_q01.stan'),
     list(
       height = DT_h02_q01$height - mean(DT_h02_q01$height),
@@ -38,7 +38,7 @@ targets_homework_02 <- c(
   tar_target(
     predict_h02_q01,
     predict_weight_h02_q01(
-      q01_draws_h02_q01,
+      h02_q01_draws_h02_q01,
       c(140, 160, 175),
       mean(DT_sims_h02_q01$height)
     )
@@ -59,7 +59,7 @@ targets_homework_02 <- c(
   
   # Model simulation
   tar_stan_mcmc(
-    q02_sims,
+    h02_q02_sims,
     file.path('stan', 'h02_q02.stan'),
     list(
       age = DT_sims_h02_q02$age,
@@ -72,7 +72,7 @@ targets_homework_02 <- c(
   
   # Model
   tar_stan_mcmc(
-    q02,
+    h02_q02,
     file.path('stan', 'h02_q02.stan'),
     list(
       age = DT_h02_q02$age,
@@ -90,7 +90,7 @@ targets_homework_02 <- c(
   
   # Model simulation
   tar_stan_mcmc(
-    q03_sims,
+    h02_q03_sims,
     file.path('stan', 'h02_q03.stan'),
     list(
       age = DT_sims_h02_q03$age,
@@ -105,7 +105,7 @@ targets_homework_02 <- c(
   
   # Model
   tar_stan_mcmc(
-    q03,
+    h02_q03,
     file.path('stan', 'h02_q03.stan'),
     list(
       age = DT_h02_q02$age,
@@ -120,7 +120,7 @@ targets_homework_02 <- c(
   
   tar_target(
     q03_contrast,
-    contrast_h02_q03(q03_draws_h02_q03)
+    contrast_h02_q03(h02_q03_draws_h02_q03)
   ),
   
   # Render ------------------------------------------------------------------
