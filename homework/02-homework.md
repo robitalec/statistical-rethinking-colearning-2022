@@ -23,7 +23,9 @@ Alec L. Robitaille
 > influences weight through age- related changes in muscle growth and
 > body proportions. All of this implies this causal model (DAG):
 
-![](../graphics/homework/dag_h02_q02-1.png)<!-- -->
+    ## [1] "graphics/homework/dot_h02_q02.png"
+
+![](../graphics/homework/dot_h02_q02)
 
     ## [1] "Variables to include to measure total effect of age on weight:"
 
@@ -36,10 +38,11 @@ Alec L. Robitaille
 
 ![](../graphics/homework/priors_h02_q02-1.png)<!-- -->
 
-    ##    variable mean  q5 q95
-    ## 1:    sigma  2.5 2.3 2.8
-    ## 2:    alpha  7.4 6.9 8.0
-    ## 3: beta_age  1.3 1.2 1.4
+    ##    variable  mean    q5   q95
+    ##      <char> <num> <num> <num>
+    ## 1:    sigma   2.5   2.3   2.8
+    ## 2:    alpha   7.4   6.9   8.0
+    ## 3: beta_age   1.3   1.2   1.4
 
 # Question 3
 

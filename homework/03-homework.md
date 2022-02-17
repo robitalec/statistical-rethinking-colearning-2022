@@ -14,7 +14,9 @@ Alec L. Robitaille
 > more avgfood than others. And food influences the weight of each fox.
 > Assume this DAG:
 
-![](../graphics/homework/dag_h03_q01-1.png)<!-- -->
+    ## [1] "graphics/homework/dot_h03_q01.png"
+
+![](../graphics/homework/dot_h03_q01.png)
 
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use
 > the backdoor criterion and estimate the total causal influence of A on
@@ -45,7 +47,9 @@ adjustmentSets(dag, effect = 'total')
 > Feel free to speculate— all that matters is that you justify your
 > speculation.
 
-![](../graphics/homework/dag_h03_q02-1.png)<!-- -->
+    ## [1] "graphics/homework/dot_h03_q02.png"
+
+![](../graphics/homework/dot_h03_q02.png)
 
 Adjustment sets (total effect):
 
@@ -70,3 +74,14 @@ adjustmentSets(dag, effect = 'direct')
 > Reconsider the Table 2 Fallacy example (from Lecture 6), this time
 > with an unobserved confound U that influences both smoking S and
 > stroke Y. Here’s the modified DAG:
+
+    ## [1] "graphics/homework/dot_h03_q03.png"
+
+![](../graphics/homework/dot_h03_q03.png)
+
+> First use the backdoor criterion to determine an adjustment set that
+> allows you to estimate the causal effect of X on Y, i.e. P(Y\|do(X)).
+> Second explain the proper interpretation of each coefficient implied
+> by the regression model that corresponds to the adjustment set. Which
+> coefficients (slopes) are causal and which are not? There is no need
+> to fit any models. Just think through the implications.

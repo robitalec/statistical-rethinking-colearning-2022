@@ -46,9 +46,14 @@ dag <- dagify(
     exposure = 'A',
     outcome = 'F'
 )
-
-dag_plot(dag)
 ```
+
+```{r}
+dag_plot(dag, 'graphics/homework/dot_h03_q01')
+```
+
+![](../graphics/homework/dot_h03_q01.png)
+
 
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use the
 backdoor criterion and estimate the total causal influence of A on F. What
@@ -89,9 +94,14 @@ dag <- dagify(
     exposure = 'F',
     outcome = 'W'
 )
-
-dag_plot(dag)
 ```
+
+```{r}
+dag_plot(dag, 'graphics/homework/dot_h03_q02')
+```
+
+![](../graphics/homework/dot_h03_q02.png)
+ 
 
 
 Adjustment sets (total effect):
@@ -129,3 +139,31 @@ ggplot(DT, aes(value, variable))  +
 unobserved confound U that influences both smoking S and stroke Y. Here’s the
 modified DAG:
 
+```{r h03_q03_dag}
+dag <- dagify(
+  S ~ U + A,
+  Y ~ S + U + X + A,
+  X ~ S + A,
+  exposure = 'X',
+  outcome = 'Y'
+)
+```
+
+```{r}
+dag_plot(dag, 'graphics/homework/dot_h03_q03')
+```
+
+![](../graphics/homework/dot_h03_q03.png)
+
+
+> First use the backdoor criterion to determine an adjustment set that allows
+you to estimate the causal effect of X on Y, i.e. P(Y|do(X)). Second explain the
+proper interpretation of each coefficient implied by the regression model that
+corresponds to the adjustment set. Which coefficients (slopes) are causal and
+which are not? There is no need to fit any models. Just think through the
+implications.
+
+
+```{r, echo = TRUE}
+
+```

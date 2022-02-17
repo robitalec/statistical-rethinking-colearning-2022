@@ -64,9 +64,15 @@ dag <- dagify(
     exposure = 'A',
     outcome = 'W'
 )
+```
 
-dag_plot(dag)
+```{r}
+dag_plot(dag, 'graphics/homework/dot_h02_q02')
+```
 
+![](../graphics/homework/dot_h02_q02)
+
+```{r}
 print('Variables to include to measure total effect of age on weight:')
 adjustmentSets(dag, effect = 'total')
 ```
