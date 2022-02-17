@@ -21,3 +21,6 @@ library(scico)
 
 library(ggdag)
 library(dagitty)
+
+library(knitr)
+library(rmarkdown)
