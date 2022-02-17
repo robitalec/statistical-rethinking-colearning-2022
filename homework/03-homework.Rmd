@@ -81,6 +81,31 @@ in each case? In light of your estimates from this problem and the previous one,
 what do you think is going on with these foxes? Feel free to speculate— all that
 matters is that you justify your speculation.
 
+```{r dag_h03_q02}
+dag <- dagify(
+    F ~ A,
+    G ~ F,
+    W ~ F + G, 
+    exposure = 'F',
+    outcome = 'W'
+)
+
+dag_plot(dag)
+```
+
+
+Adjustment sets (total effect):
+```{r h03_q02_adjust_sets_total}
+adjustmentSets(dag, effect = 'total')
+```
+
+
+Adjustment sets (direct effect):
+```{r h03_q02_adjust_sets_direct}
+adjustmentSets(dag, effect = 'direct')
+```
+
+
 
 # Question 3 
 
