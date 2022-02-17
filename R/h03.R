@@ -16,19 +16,21 @@ simulate_h03_q01 <- function() {
 
 # Melt new food predictions
 melt_fox_food_predictions <- function(draws, foxes) {
-  new_food <- seq(min(foxes$scale_food), max(foxes$scale_food), length.out = 100)
-  melted <- melt(data.table(h03_q01_draws), variable.name = 'new_food_index', measure.vars = patterns('new_food'))
+  new_area <- seq(min(foxes$scale_area), max(foxes$scale_area), length.out = 100)
+  melted <- melt(data.table(draws), variable.name = 'new_area_index', 
+                 measure.vars = patterns('pred_food'), value.name = 'pred_food')
   
-  melted[, new_food_index := as.integer(gsub('new_food\\[|\\]', '', new_food_index))]
-  melted[, new_food := new_food[new_food_index]]
+  melted[, new_area_index := as.integer(gsub('pred_food\\[|\\]', '', new_area_index))]
+  melted[, new_area := new_area[new_area_index]]
   return(melted)
 }
 
 # Plot new food predictions
 plot_fox_food_predictions <- function(predicted, observed) {
-  ggplot(predicted, aes(new_food, value)) + 
+  ggplot(predicted, aes(new_area, pred_food)) + 
     stat_lineribbon(color = NA) + 
-    geom_point(size = 2, aes(scale_food, scale_area), data = observed) +
+    geom_point(size = 2, aes(scale_area, scale_food), data = observed) +
     theme_bw() + 
-    scale_fill_scico_d(alpha = 0.25, palette = 'acton', direction = -1, end = 0.8)
+    scale_fill_scico_d(alpha = 0.25, palette = 'acton', direction = -1, end = 0.8) + 
+    labs(x = 'scaled area', y = 'scaled food')
 }
