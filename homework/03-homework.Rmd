@@ -37,6 +37,18 @@ larger than others. The area variable encodes this information. Some territories
 also have more avgfood than others. And food influences the weight of each fox.
 Assume this DAG:
 
+```{r dag_h03_q01}
+dag <- dagify(
+    F ~ A,
+    G ~ F,
+    W ~ F + G, 
+    exposure = 'A',
+    outcome = 'F'
+)
+
+dag_plot(dag)
+```
+
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use the
 backdoor criterion and estimate the total causal influence of A on F. What
 effect would increasing the area of a territory have on the amount of food
