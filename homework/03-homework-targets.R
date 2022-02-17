@@ -19,7 +19,9 @@ targets_homework_03 <- c(
     list(
       scale_food = DT_sims_h03_q01$scale_food,
       scale_area = DT_sims_h03_q01$scale_area,
-      N = nrow(DT_sims_h03_q01)
+      N = nrow(DT_sims_h03_q01),
+      N_new_area = 100,
+      new_area = seq(min(DT_sims_h03_q01$scale_area), max(DT_sims_h03_q01$scale_food), length.out = 100)
     ),
     chains = 4,
     dir = compiled_dir
@@ -32,10 +34,19 @@ targets_homework_03 <- c(
     list(
       scale_food = DT_h03_q01$scale_food,
       scale_area = DT_h03_q01$scale_area,
-      N = nrow(DT_h03_q01)
+      N = nrow(DT_h03_q01),
+      N_new_area = 100,
+      new_area = seq(min(DT_h03_q01$scale_area), max(DT_h03_q01$scale_food), length.out = 100)
     ),
     chains = 4,
     dir = compiled_dir
+  ),
+  
+  #
+  tar_target(
+    plot_food_predictions,
+    melt_fox_food_predictions(h03_q01_draws_h03_q01, DT_h03_q01) |> 
+      plot_fox_food_predictions(observed = DT_h03_q01)
   ),
   
   
