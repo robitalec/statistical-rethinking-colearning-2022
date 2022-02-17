@@ -51,6 +51,19 @@ targets_homework_03 <- c(
   
   
   # Question 2 --------------------------------------------------------------
+  # Model data
+  tar_stan_mcmc(
+    h03_q02,
+    c(file.path('stan', 'h03_q02_direct.stan'), file.path('stan', 'h03_q02_total.stan')),
+    list(
+      scale_food = DT_h03_q01$scale_food,
+      scale_weight = DT_h03_q01$scale_weight,
+      scale_groupsize = DT_h03_q01$scale_groupsize,
+      N = nrow(DT_h03_q01)
+    ),
+    chains = 4,
+    dir = compiled_dir
+  ),
   
   # Question 3 --------------------------------------------------------------
   
