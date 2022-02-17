@@ -26,6 +26,10 @@ measure the total causal influence of area on food.
 
 Adjustment sets:
 
+``` r
+adjustmentSets(dag, effect = 'total')
+```
+
     ##  {}
 
 ![](../graphics/homework/h03_q01_halfeye_beta_area-1.png)<!-- -->
@@ -45,9 +49,17 @@ Adjustment sets:
 
 Adjustment sets (total effect):
 
+``` r
+adjustmentSets(dag, effect = 'total')
+```
+
     ##  {}
 
 Adjustment sets (direct effect):
+
+``` r
+adjustmentSets(dag, effect = 'direct')
+```
 
     ## { G }
 

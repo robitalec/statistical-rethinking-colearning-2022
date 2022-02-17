@@ -59,7 +59,7 @@ No backdoor paths into food, therefore only include area and food to measure
 the total causal influence of area on food.
 
 Adjustment sets:
-```{r h03_q01_adjust_sets}
+```{r h03_q01_adjust_sets, echo = TRUE}
 adjustmentSets(dag, effect = 'total')
 ```
 
@@ -95,13 +95,13 @@ dag_plot(dag)
 
 
 Adjustment sets (total effect):
-```{r h03_q02_adjust_sets_total}
+```{r h03_q02_adjust_sets_total, echo = TRUE}
 adjustmentSets(dag, effect = 'total')
 ```
 
 
 Adjustment sets (direct effect):
-```{r h03_q02_adjust_sets_direct}
+```{r h03_q02_adjust_sets_direct, echo = TRUE}
 adjustmentSets(dag, effect = 'direct')
 ```
 
