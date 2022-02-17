@@ -23,8 +23,8 @@ model {
 }
 
 generated quantities {
-  vector[N_new_area] new_food;
+  vector[N_new_area] pred_food;
   for (n in 1:N_new_area) {
-    new_food[n] = normal_rng(alpha + beta_area * new_area[n], sigma);
+    pred_food[n] = normal_rng(alpha + beta_area * new_area[n], sigma);
   }
 }
