@@ -17,6 +17,7 @@ library(rethinking)
 library(ggplot2)
 library(ggdist)
 library(patchwork)
+library(scico)
 
 library(ggdag)
 library(dagitty)
