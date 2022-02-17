@@ -12,5 +12,5 @@ S -> Y
 U -> S
 U -> Y
 X -> Y
-rankdir=TB}
+rankdir=LR}
 

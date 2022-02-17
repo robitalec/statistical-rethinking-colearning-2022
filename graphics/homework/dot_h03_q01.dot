@@ -7,5 +7,5 @@ A -> F
 F -> G
 F -> W
 G -> W
-rankdir=TB}
+rankdir=LR}
 
