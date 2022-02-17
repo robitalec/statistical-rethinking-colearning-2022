@@ -163,7 +163,19 @@ corresponds to the adjustment set. Which coefficients (slopes) are causal and
 which are not? There is no need to fit any models. Just think through the
 implications.
 
-
+Adjustment sets (direct effect):
 ```{r, echo = TRUE}
-
+adjustmentSets(dag, effect = 'direct')
 ```
+
+The paths from X to Y:
+
+- X -> Y
+- X <- S <- A -> Y
+- X <- A -> Y
+
+X has backdoor paths from S and A. S is a pipe between A and X. 
+A is a fork between X and Y. To model the causal effect of X and Y, we need to
+include A and S. The coefficients for A and S, however, are not causal and 
+should not be presented or interpreted as such.
+
