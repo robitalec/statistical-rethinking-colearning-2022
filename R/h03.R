@@ -29,8 +29,10 @@ melt_fox_food_predictions <- function(draws, foxes) {
 plot_fox_food_predictions <- function(predicted, observed) {
   ggplot(predicted, aes(new_area, pred_food)) + 
     stat_lineribbon(color = NA) + 
-    geom_point(size = 2, aes(scale_area, scale_food), data = observed) +
+    geom_point(size = 2, aes(scale_area, scale_food, color = 'Observed'), 
+               data = observed) +
     theme_bw() + 
+    scale_color_manual(values = list('Observed' = 'black')) +
     scale_fill_scico_d(alpha = 0.25, palette = 'acton', direction = -1, end = 0.8) + 
-    labs(x = 'scaled area', y = 'scaled food')
+    labs(x = 'area (scaled)', y = 'posterior predicted food, (scaled)', color = NULL)
 }
