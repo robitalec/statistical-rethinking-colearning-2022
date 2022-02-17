@@ -1,7 +1,7 @@
 ---
 output: 
   github_document:
-    html_preview: false
+    # html_preview: false
 title: Homework Week 03
 author: Alec L. Robitaille
 date: 2022-02-16
