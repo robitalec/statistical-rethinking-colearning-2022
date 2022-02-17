@@ -1,5 +1,5 @@
 ## Question 1
-#' Simulated data set to test model
+# Simulated data set to test model
 simulate_h02_q01 <- function() {
   N_generate <- 1e3
   sims <- data.table(
@@ -12,7 +12,7 @@ simulate_h02_q01 <- function() {
   sims[, weight := rnorm(.N, mu, sigma)]
 }
 
-#' Predict weights from new heights
+# Predict weights from new heights
 predict_weight_h02_q01 <- function(draws, new_values, mean_height) {
   setDT(draws)
   
@@ -25,7 +25,7 @@ predict_weight_h02_q01 <- function(draws, new_values, mean_height) {
 }
 
 ## Question 2
-#' Prior predictive simulation
+# Prior predictive simulation
 priors_h02_q02 <- function() {
   N_generate <- 1e2
   priors <- data.table(
@@ -39,7 +39,7 @@ priors_h02_q02 <- function() {
   
 }
 
-#' Simulated data set to test model
+# Simulated data set to test model
 simulate_h02_q02 <- function() {
   N_generate <- 1e2
   sims <- data.table(
@@ -53,7 +53,7 @@ simulate_h02_q02 <- function() {
 }
 
 ## Question 3
-#' Simulated data set to test model
+# Simulated data set to test model
 simulate_h02_q03 <- function() {
   N_generate <- 1e2
   sims <- data.table(
@@ -70,7 +70,7 @@ simulate_h02_q03 <- function() {
 }
 
 
-#' Contrasts
+# Contrasts
 contrast_h02_q03 <- function(draws) {
   setDT(draws)
   
