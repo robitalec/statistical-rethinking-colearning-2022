@@ -68,6 +68,9 @@ h03_q01_draws <- tar_read(h03_q01_draws_h03_q01)
 plot_halfeye(h03_q01_draws, 'beta_area')
 ```
 
+```{r h03_q01_food_predictions}
+tar_read(plot_food_predictions)
+```
 
 
 # Question 2

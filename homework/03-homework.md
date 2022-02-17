@@ -30,6 +30,8 @@ Adjustment sets:
 
 ![](../graphics/homework/h03_q01_halfeye_beta_area-1.png)<!-- -->
 
+![](../graphics/homework/h03_q01_food_predictions-1.png)<!-- -->
+
 # Question 2
 
 > Now infer both the total and direct causal effects of adding food F to
