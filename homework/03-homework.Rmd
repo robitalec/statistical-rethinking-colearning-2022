@@ -106,6 +106,22 @@ adjustmentSets(dag, effect = 'direct')
 ```
 
 
+```{r h03_q02_total_direct}
+total_draws <- tar_read(h03_q02_draws_h03_q02_total)
+direct_draws <- tar_read(h03_q02_draws_h03_q02_direct)
+
+DT <- data.table(
+  beta_food_total = total_draws$beta_food,
+  beta_food_direct = direct_draws$beta_food,
+  beta_groupsize = direct_draws$beta_groupsize
+) |> melt()
+
+ggplot(DT, aes(value, variable))  + 
+  geom_vline(xintercept = 0) + 
+  stat_halfeye() + 
+  theme_bw()
+```
+
 
 # Question 3 
 
