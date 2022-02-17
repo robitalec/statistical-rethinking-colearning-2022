@@ -41,6 +41,18 @@ Adjustment sets:
 > Feel free to speculate— all that matters is that you justify your
 > speculation.
 
+![](../graphics/homework/dag_h03_q02-1.png)<!-- -->
+
+Adjustment sets (total effect):
+
+    ##  {}
+
+Adjustment sets (direct effect):
+
+    ## { G }
+
+![](../graphics/homework/h03_q02_total_direct-1.png)<!-- -->
+
 # Question 3
 
 > Reconsider the Table 2 Fallacy example (from Lecture 6), this time
