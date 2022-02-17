@@ -10,7 +10,7 @@ data {
 parameters {
   real<lower=0> sigma;
   real alpha;
-  real<lower=0> beta_area;
+  real beta_area;
 }
 
 model {
