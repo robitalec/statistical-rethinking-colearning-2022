@@ -10,5 +10,6 @@ simulate_h03_q01 <- function() {
   )
   sims[, scale_area := as.numeric(scale(area))]
   sims[, mu := alpha + beta_area * scale_area]
-  sims[, food := rnorm(.N, mu, sigma)]
+  sims[, scale_food := rnorm(.N, mu, sigma)]
+  return(sims)
 }
