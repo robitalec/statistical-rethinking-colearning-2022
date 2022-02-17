@@ -233,10 +233,10 @@
     },
     "data.table": {
       "Package": "data.table",
-      "Version": "1.14.2",
+      "Version": "1.14.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "36b67b5adf57b292923f5659f5f0c853"
+      "Hash": "a20969e09c722b6ee98c9ba72de56390"
     },
     "desc": {
       "Package": "desc",
