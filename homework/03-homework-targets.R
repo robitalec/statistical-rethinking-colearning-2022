@@ -25,6 +25,19 @@ targets_homework_03 <- c(
     dir = compiled_dir
   ),
   
+  # Model data
+  tar_stan_mcmc(
+    h03_q01,
+    file.path('stan', 'h03_q01.stan'),
+    list(
+      scale_food = DT_h03_q01$scale_food,
+      scale_area = DT_h03_q01$scale_area,
+      N = nrow(DT_h03_q01)
+    ),
+    chains = 4,
+    dir = compiled_dir
+  ),
+  
   
   # Question 2 --------------------------------------------------------------
   
