@@ -17,6 +17,7 @@ knitr::opts_knit$set(root.dir = '../.')
 #| include = FALSE
 source('R/packages.R')
 source('R/dag_plot.R')
+source('R/plot_halfeye.R')
 
 knitr::opts_chunk$set(
 	echo = FALSE,
@@ -53,6 +54,20 @@ dag_plot(dag)
 backdoor criterion and estimate the total causal influence of A on F. What
 effect would increasing the area of a territory have on the amount of food
 inside it?
+
+No backdoor paths into food, therefore only include area and food to measure 
+the total causal influence of area on food.
+
+Adjustment sets:
+```{r h03_q01_adjust_sets}
+adjustmentSets(dag, effect = 'total')
+```
+
+```{r h03_q01_halfeye_beta_area, fig.height = 4}
+h03_q01_draws <- tar_read(h03_q01_draws_h03_q01)
+plot_halfeye(h03_q01_draws, 'beta_area')
+```
+
 
 
 # Question 2

@@ -14,10 +14,21 @@ Alec L. Robitaille
 > more avgfood than others. And food influences the weight of each fox.
 > Assume this DAG:
 
+![](../graphics/homework/dag_h03_q01-1.png)<!-- -->
+
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use
 > the backdoor criterion and estimate the total causal influence of A on
 > F. What effect would increasing the area of a territory have on the
 > amount of food inside it?
+
+No backdoor paths into food, therefore only include area and food to
+measure the total causal influence of area on food.
+
+Adjustment sets:
+
+    ##  {}
+
+![](../graphics/homework/h03_q01_halfeye_beta_area-1.png)<!-- -->
 
 # Question 2
 
