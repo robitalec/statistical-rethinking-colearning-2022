@@ -4,10 +4,10 @@ data_foxes <- function(scale = FALSE) {
 
   if (scale) {
     message('Scaling numeric variables: avgfood, groupsize, area, weight')
-    DT[, scale_food := as.numeric(scale(avgfood))]
-    DT[, scale_groupsize := as.numeric(scale(groupsize))]
-    DT[, scale_area := as.numeric(scale(area))]
-    DT[, scale_weight := as.numeric(scale(weight))]
+    DT[, scale_food := scale(avgfood)]
+    DT[, scale_groupsize := scale(groupsize)]
+    DT[, scale_area := scale(area)]
+    DT[, scale_weight := scale(weight)]
   }
     
   return(DT)
