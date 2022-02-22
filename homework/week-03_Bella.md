@@ -50,9 +50,9 @@ precis(m1)
 ```
 
     ##                mean         sd        5.5%      94.5%
-    ## a     -2.193905e-07 0.04230756 -0.06761587 0.06761543
-    ## bA     8.820367e-01 0.04329140  0.81284864 0.95122468
-    ## sigma  4.662169e-01 0.03051638  0.41744586 0.51498801
+    ## a     -5.701675e-07 0.04230753 -0.06761618 0.06761504
+    ## bA     8.820371e-01 0.04329137  0.81284914 0.95122508
+    ## sigma  4.662166e-01 0.03051633  0.41744562 0.51498759
 
 ![](week-03_Bella_files/figure-gfm/answer-1%20figure-1.png)<!-- -->
 
@@ -87,9 +87,9 @@ precis(m2t)
 ```
 
     ##                mean         sd       5.5%     94.5%
-    ## a     -5.543290e-08 0.08360013 -0.1336092 0.1336091
-    ## bF    -2.421233e-02 0.09088496 -0.1694641 0.1210394
-    ## sigma  9.911433e-01 0.06465848  0.8878066 1.0944800
+    ## a     -5.646358e-08 0.08360017 -0.1336093 0.1336092
+    ## bF    -2.421155e-02 0.09088502 -0.1694634 0.1210403
+    ## sigma  9.911439e-01 0.06465858  0.8878070 1.0944808
 
 ![](week-03_Bella_files/figure-gfm/answer-2%20figure-m2t-1.png)<!-- -->
 
@@ -131,10 +131,10 @@ precis(m2d)
 ```
 
     ##             mean         sd         5.5%      94.5%
-    ## a      0.2771074 0.16744383  0.009499777  0.5447149
-    ## bF     0.1664789 0.13362210 -0.047074983  0.3800329
-    ## bG    -0.8519360 0.44576327 -1.564351746 -0.1395202
-    ## sigma  0.9669509 0.06399661  0.864671929  1.0692298
+    ## a      0.2771425 0.16744412  0.009534486  0.5447506
+    ## bF     0.1665085 0.13362277 -0.047046499  0.3800635
+    ## bG    -0.8520620 0.44576398 -1.564478891 -0.1396450
+    ## sigma  0.9669613 0.06399849  0.864679354  1.0692432
 
 We see the effect of group size on weight.
 
@@ -176,7 +176,7 @@ In terms of which coefficients are causal and which are not:
 
 A -&gt; Y  
 S -&gt; Y  
-U -&gt; Y
+U -&gt; Y X -&gt; Y
 
 **Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for
 the causal model shown in Problem 3. Be sure to include the unobserved
@@ -186,3 +186,40 @@ honor the causal structure. Then design a regression model to estimate
 the influence of X on Y and use it on your synthetic data. How large of
 a sample do you need to reliably estimate P(Y\|do(X))? Define “reliably”
 as you like, but justify your definition.
+
+``` r
+N <- 200 
+
+b_AY <- 3 # direct effect of A on Y 
+b_AS <- 2 # direct effect of A on S 
+b_AX <- 2 # direct effect of A on X 
+b_SX <- 2 # direct effect of S on X 
+b_SY <- 3 # direct effect of S on Y 
+b_XY <- 1 # direct effect of X on Y 
+b_U <- 2 # direct effect of U on S and Y 
+
+U <- 2*rbern(N, 0.5) - 1
+A <- rnorm(N)
+S <- rnorm(N, b_AS*A + b_U*U)
+X <- rnorm(N, b_SX*S + b_AX*A)
+Y <- rnorm(N, b_AY*A + b_SY*S + b_XY*X + b_U*U)
+ds <- data.frame(A=A, S=S, X=X, U=U, Y=Y)
+
+m4 <- quap(
+  alist(
+    X ~ dnorm(mu, sigma), 
+    mu <- a + b_AY*A + b_SY*S,
+    a ~ dnorm(0, 1),
+    c(b_AY, b_SY) ~ dnorm(0, 1), 
+    sigma ~ dexp(1)
+  ), data = ds
+)
+
+precis(m4)
+```
+
+    ##             mean         sd        5.5%     94.5%
+    ## a     0.06839909 0.06915086 -0.04211735 0.1789155
+    ## b_AY  2.07164634 0.09882871  1.91369898 2.2295937
+    ## b_SY  1.99308778 0.03127755  1.94310021 2.0430754
+    ## sigma 0.97557509 0.04860807  0.89789001 1.0532602
