@@ -162,6 +162,8 @@ A -> X -> Y
 
 Based on this, I think we should stratify by A to close one set of backdoors. Additionally, stratifying by S could close the backdoor through X, however, it is a collider between A and U and so stratifying by S would open that pathway and create collider bias. So, I would only stratify by A.   
 
+**CORRECTION:** collider bias does not influence our estimate of X-> Y because collider is between A -> S <- U and U does not introduce an arrow into X so we can stratify by both! 
+
 Dagitty confirms that stratifying by A and S is required to estimate the direct effect of X on Y: 
 
 ```{r answer-3 dag}
@@ -170,10 +172,7 @@ adjustmentSets(dag2, exposure = "X", outcome = "Y", effect = "direct")
 
 In terms of which coefficients are causal and which are not: 
 
-A -> Y   
-S -> Y  
-U -> Y 
-X -> Y
+X is a causal effect. Other coefficients are now biased by U. Stratifying by S opens collider bias and A and S are not causal effects because they are biased. Need explicit causal models to interpret control coefficients.
 
 **Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for the causal model shown in Problem 3. Be sure to include the unobserved confound in the simulation. Choose any functional relationships that you like—you don’t have to get the epidemiology correct. You just need to honor the causal structure. Then design a regression model to estimate the influence of X on Y and use it on your synthetic data. How large of a sample do you need to reliably estimate P(Y|do(X))? Define “reliably” as you like, but justify your definition.  
 
