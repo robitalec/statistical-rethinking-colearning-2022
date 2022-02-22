@@ -135,3 +135,44 @@ We see the effect of group size on weight.
 
 
 
+**Question 3:** Reconsider the Table 2 Fallacy example (from Lecture 6), this time with an unobserved confound U that influences both smoking S and stroke Y. Here’s the modified DAG:
+
+```{r draw-dag-q3, echo = F}
+dag2 <- dagitty("dag {
+                U [unobserved]
+                A -> S -> X -> Y 
+                A -> X -> Y
+                A -> S -> Y
+                U -> S -> Y
+                A -> Y
+                U -> Y
+                 }")
+coordinates(dag2) <- list(x = c(A = 1, S = 1, X = 2, U = 2, Y = 3), 
+                               y = c(A = 1, S = -1, X = 0, U = -1.2, Y = 0))
+drawdag(dag2)
+```
+
+First use the backdoor criterion to determine an adjustment set that allows you to estimate the causal effect of X on Y, i.e. P(Y|do(X)). Second explain the proper interpretation of each coefficient implied by the regression model that corresponds to the adjustment set. Which coefficients (slopes) are causal and which are not? There is no need to fit any models. Just think through the implications.
+
+Currently, there are several backdoors open: 
+
+U -> S -> X -> Y  
+A -> S -> X -> Y  
+A -> X -> Y   
+
+Based on this, I think we should stratify by A to close one set of backdoors. Additionally, stratifying by S could close the backdoor through X, however, it is a collider between A and U and so stratifying by S would open that pathway and create collider bias. So, I would only stratify by A.   
+
+Dagitty confirms that stratifying by A and S is required to estimate the direct effect of X on Y: 
+
+```{r answer-3 dag}
+adjustmentSets(dag2, exposure = "X", outcome = "Y", effect = "direct")
+```
+
+In terms of which coefficients are causal and which are not: 
+
+A -> Y   
+S -> Y  
+U -> Y 
+
+
+**Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for the causal model shown in Problem 3. Be sure to include the unobserved confound in the simulation. Choose any functional relationships that you like—you don’t have to get the epidemiology correct. You just need to honor the causal structure. Then design a regression model to estimate the influence of X on Y and use it on your synthetic data. How large of a sample do you need to reliably estimate P(Y|do(X))? Define “reliably” as you like, but justify your definition. 

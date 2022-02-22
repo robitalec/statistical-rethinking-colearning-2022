@@ -49,10 +49,10 @@ m1 <- quap(
 precis(m1)
 ```
 
-    ##                mean         sd        5.5%     94.5%
-    ## a     -8.230035e-07 0.04230754 -0.06761644 0.0676148
-    ## bA     8.820368e-01 0.04329138  0.81284879 0.9512248
-    ## sigma  4.662167e-01 0.03051635  0.41744570 0.5149877
+    ##                mean         sd        5.5%      94.5%
+    ## a     -2.193905e-07 0.04230756 -0.06761587 0.06761543
+    ## bA     8.820367e-01 0.04329140  0.81284864 0.95122468
+    ## sigma  4.662169e-01 0.03051638  0.41744586 0.51498801
 
 ![](week-03_Bella_files/figure-gfm/answer-1%20figure-1.png)<!-- -->
 
@@ -87,9 +87,9 @@ precis(m2t)
 ```
 
     ##                mean         sd       5.5%     94.5%
-    ## a      2.033927e-06 0.08359885 -0.1336051 0.1336091
-    ## bF    -2.421130e-02 0.09088333 -0.1694604 0.1210378
-    ## sigma  9.911249e-01 0.06465549  0.8877930 1.0944569
+    ## a     -5.543290e-08 0.08360013 -0.1336092 0.1336091
+    ## bF    -2.421233e-02 0.09088496 -0.1694641 0.1210394
+    ## sigma  9.911433e-01 0.06465848  0.8878066 1.0944800
 
 ![](week-03_Bella_files/figure-gfm/answer-2%20figure-m2t-1.png)<!-- -->
 
@@ -130,10 +130,59 @@ m2d <- quap(
 precis(m2d)
 ```
 
-    ##             mean         sd        5.5%      94.5%
-    ## a      0.2777959 0.16743813  0.01019741  0.5453944
-    ## bF     0.1671118 0.13361203 -0.04642598  0.3806497
-    ## bG    -0.8540222 0.44573709 -1.56639612 -0.1416482
-    ## sigma  0.9668899 0.06398972  0.86462198  1.0691578
+    ##             mean         sd         5.5%      94.5%
+    ## a      0.2771074 0.16744383  0.009499777  0.5447149
+    ## bF     0.1664789 0.13362210 -0.047074983  0.3800329
+    ## bG    -0.8519360 0.44576327 -1.564351746 -0.1395202
+    ## sigma  0.9669509 0.06399661  0.864671929  1.0692298
 
 We see the effect of group size on weight.
+
+**Question 3:** Reconsider the Table 2 Fallacy example (from Lecture 6),
+this time with an unobserved confound U that influences both smoking S
+and stroke Y. Here’s the modified DAG:
+
+![](week-03_Bella_files/figure-gfm/draw-dag-q3-1.png)<!-- -->
+
+First use the backdoor criterion to determine an adjustment set that
+allows you to estimate the causal effect of X on Y, i.e. P(Y\|do(X)).
+Second explain the proper interpretation of each coefficient implied by
+the regression model that corresponds to the adjustment set. Which
+coefficients (slopes) are causal and which are not? There is no need to
+fit any models. Just think through the implications.
+
+Currently, there are several backdoors open:
+
+U -&gt; S -&gt; X -&gt; Y  
+A -&gt; S -&gt; X -&gt; Y  
+A -&gt; X -&gt; Y
+
+Based on this, I think we should stratify by A to close one set of
+backdoors. Additionally, stratifying by S could close the backdoor
+through X, however, it is a collider between A and U and so stratifying
+by S would open that pathway and create collider bias. So, I would only
+stratify by A.
+
+Dagitty confirms that stratifying by A and S is required to estimate the
+direct effect of X on Y:
+
+``` r
+adjustmentSets(dag2, exposure = "X", outcome = "Y", effect = "direct")
+```
+
+    ## { A, S }
+
+In terms of which coefficients are causal and which are not:
+
+A -&gt; Y  
+S -&gt; Y  
+U -&gt; Y
+
+**Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for
+the causal model shown in Problem 3. Be sure to include the unobserved
+confound in the simulation. Choose any functional relationships that you
+like—you don’t have to get the epidemiology correct. You just need to
+honor the causal structure. Then design a regression model to estimate
+the influence of X on Y and use it on your synthetic data. How large of
+a sample do you need to reliably estimate P(Y\|do(X))? Define “reliably”
+as you like, but justify your definition.
