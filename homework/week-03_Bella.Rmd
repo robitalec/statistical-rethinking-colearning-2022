@@ -179,20 +179,12 @@ X is a causal effect. Other coefficients are now biased by U. Stratifying by S o
 ```{r answer-4}
 N <- 200 
 
-b_AY <- 3 # direct effect of A on Y 
-b_AS <- 2 # direct effect of A on S 
-b_AX <- 2 # direct effect of A on X 
-b_SX <- 2 # direct effect of S on X 
-b_SY <- 3 # direct effect of S on Y 
-b_XY <- 1 # direct effect of X on Y 
-b_U <- 2 # direct effect of U on S and Y 
-
-U <- 2*rbern(N, 0.5) - 1
+U <- rnorm(N)
 A <- rnorm(N)
-S <- rnorm(N, b_AS*A + b_U*U)
-X <- rnorm(N, b_SX*S + b_AX*A)
-Y <- rnorm(N, b_AY*A + b_SY*S + b_XY*X + b_U*U)
-ds <- data.frame(A=A, S=S, X=X, U=U, Y=Y)
+S <- rnorm(N, A + U)
+X <- rnorm(N, A + S)
+Y <- rnorm(N, A + S + bX*X + U)
+return(list(A = standardize(A), S=standardize(S), X=standardize(X), Y=standardize(Y)))
 
 m4 <- quap(
   alist(
