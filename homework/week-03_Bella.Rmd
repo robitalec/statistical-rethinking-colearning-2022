@@ -29,7 +29,7 @@ dag1 <- dagitty("dag {
                 A -> F 
                 F -> G -> W 
                 F -> W }")
-adjustmentSets(dag1, exposure = "A", outcome = "F")
+adjustmentSets(dag1, exposure = "A", outcome = "F", effect = "total")
 ```
 
 There are no backdoor pathways of A -> F (as seen in the DAG). So building a model with F as a function of A is sufficient: 
@@ -64,3 +64,74 @@ shade(mu.PI, A_seq )
 ```
 
 The model output suggests that increasing the area territory would increase the amount of food available. 
+
+
+
+**Question 2:** Now infer both the total and direct causal effects of adding food F to a territory on the weight W of foxes. Which covariates do you need to adjust for in each case? In light of your estimates from this problem and the previous
+one, what do you think is going on with these foxes? Feel free to speculate - all that matters is that you justify your speculation.
+
+Total causal effects of F on W: 
+```{r answer-2 total-model}
+# standardize variables 
+d$F <- standardize(d$avgfood)
+d$W <- standardize(d$weight)
+# model total effects
+m2t <- quap(
+  alist(
+    W ~ dnorm(mu, sigma),
+    mu <- a + bF*F,
+    a ~ dnorm(0,0.2),
+    bF ~ dnorm(0,0.5), 
+    sigma ~ dexp(1) 
+  ), data = d
+)
+
+precis(m2t)
+```
+
+```{r answer-2 figure-m2t, echo = F}
+# posterior predictions 
+A_seq <- seq( from= -3 , to=3 , length.out=30 )
+mu <- link( m2t , data=list(A=A_seq) )
+mu.mean <- apply( mu , 2, mean )
+mu.PI <- apply( mu , 2 , PI )
+# plot it all
+plot( W ~ F , data=d , col=rangi2 )
+lines( A_seq , mu.mean , lwd=2 )
+shade(mu.PI, A_seq )
+```
+
+Total causal model indicates that there is no relationship between average food and weight of foxes.  
+
+To assess the direct causal effects of food on weight, we need to stratify by group size (G) because it is currently an open backdoor path (pipe). Let's confirm using `dagitty`: 
+```{r answer-2 dag}
+adjustmentSets(dag1, exposure = "F", outcome = "W", effect = "direct")
+```
+
+Add G to the model: 
+```{r answer-2 direct-model}
+# standardize variables 
+d$F <- standardize(d$avgfood)
+d$W <- standardize(d$weight)
+# rescale group size so it is one unit 
+d$G <- (d$groupsize - 2) / (8 - 2)
+
+# model total effects
+m2d <- quap(
+  alist(
+    W ~ dnorm(mu, sigma),
+    mu <- a + bF*F + bG*G,
+    a ~ dnorm(0,0.2),
+    bF ~ dnorm(0,0.5),
+    bG ~ dnorm(0, 2), 
+    sigma ~ dexp(1) 
+  ), data = d
+)
+
+precis(m2d)
+```
+
+We see the effect of group size on weight. 
+
+
+
