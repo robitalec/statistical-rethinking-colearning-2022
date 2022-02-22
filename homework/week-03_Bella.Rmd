@@ -113,8 +113,7 @@ Add G to the model:
 # standardize variables 
 d$F <- standardize(d$avgfood)
 d$W <- standardize(d$weight)
-# rescale group size so it is one unit 
-d$G <- (d$groupsize - 2) / (8 - 2)
+d$G <- standardize(d$groupsize)
 
 # model total effects
 m2d <- quap(
@@ -123,7 +122,7 @@ m2d <- quap(
     mu <- a + bF*F + bG*G,
     a ~ dnorm(0,0.2),
     bF ~ dnorm(0,0.5),
-    bG ~ dnorm(0, 2), 
+    bG ~ dnorm(0, 0.5), 
     sigma ~ dexp(1) 
   ), data = d
 )
@@ -131,8 +130,9 @@ m2d <- quap(
 precis(m2d)
 ```
 
-We see the effect of group size on weight. 
+The direct effect of food on weight is positive. Group size has an equal magnitude of effect in the opposite direction. These two effects cancel each other - which explains why the total effect of food is negligible: direct effect is positive but mediated effect through group size is negative/cancelled out. 
 
+Food influences group size, which mediates the influence of food on weight. More foxes are present when more food is present, so foxes get the same amount of food and their weight does not change.
 
 
 **Question 3:** Reconsider the Table 2 Fallacy example (from Lecture 6), this time with an unobserved confound U that influences both smoking S and stroke Y. Here’s the modified DAG:
