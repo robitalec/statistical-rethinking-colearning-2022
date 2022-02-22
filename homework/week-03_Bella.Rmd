@@ -177,23 +177,27 @@ X is a causal effect. Other coefficients are now biased by U. Stratifying by S o
 **Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for the causal model shown in Problem 3. Be sure to include the unobserved confound in the simulation. Choose any functional relationships that you like—you don’t have to get the epidemiology correct. You just need to honor the causal structure. Then design a regression model to estimate the influence of X on Y and use it on your synthetic data. How large of a sample do you need to reliably estimate P(Y|do(X))? Define “reliably” as you like, but justify your definition.  
 
 ```{r answer-4}
-N <- 200 
+f <- function(N = 200, bX = 0){ 
+  U <- rnorm(N)
+  A <- rnorm(N)
+  S <- rnorm(N, A + U)
+  X <- rnorm(N, A + S)
+  Y <- rnorm(N, A + S + bX*X + U)
+  return(
+    list(
+      A = standardize(A), S=standardize(S), X=standardize(X), Y=standardize(Y)))
+}
 
-U <- rnorm(N)
-A <- rnorm(N)
-S <- rnorm(N, A + U)
-X <- rnorm(N, A + S)
-Y <- rnorm(N, A + S + bX*X + U)
-return(list(A = standardize(A), S=standardize(S), X=standardize(X), Y=standardize(Y)))
+sim_dat <- f(N=10, bX=0)
 
 m4 <- quap(
   alist(
-    X ~ dnorm(mu, sigma), 
-    mu <- a + b_XY*X + b_AY*A + b_SY*S,
-    a ~ dnorm(0, 1),
-    c(b_XY, b_AY, b_SY) ~ dnorm(0, 1), 
-    sigma ~ dexp(1)
-  ), data = ds
+    Y ~ dnorm(mu, exp(log_sigma)), 
+    mu <- a + bX*X + bA*A + bS*S,
+    a ~ dnorm(0, 0.2),
+    c(bX, bA, bS) ~ dnorm(0, 0.5), 
+    log_sigma ~ dnorm(0,1)
+  ), data = sim_dat
 )
 
 precis(m4)

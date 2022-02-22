@@ -49,10 +49,10 @@ m1 <- quap(
 precis(m1)
 ```
 
-    ##                mean         sd        5.5%      94.5%
-    ## a     -5.701675e-07 0.04230753 -0.06761618 0.06761504
-    ## bA     8.820371e-01 0.04329137  0.81284914 0.95122508
-    ## sigma  4.662166e-01 0.03051633  0.41744562 0.51498759
+    ##               mean         sd        5.5%      94.5%
+    ## a     9.204647e-09 0.04230758 -0.06761568 0.06761569
+    ## bA    8.820347e-01 0.04329142  0.81284667 0.95122278
+    ## sigma 4.662172e-01 0.03051642  0.41744604 0.51498832
 
 ![](week-03_Bella_files/figure-gfm/answer-1%20figure-1.png)<!-- -->
 
@@ -87,9 +87,9 @@ precis(m2t)
 ```
 
     ##                mean         sd       5.5%     94.5%
-    ## a     -5.646358e-08 0.08360017 -0.1336093 0.1336092
-    ## bF    -2.421155e-02 0.09088502 -0.1694634 0.1210403
-    ## sigma  9.911439e-01 0.06465858  0.8878070 1.0944808
+    ## a     -3.701509e-07 0.08360662 -0.1336199 0.1336192
+    ## bF    -2.423889e-02 0.09089323 -0.1695038 0.1210261
+    ## sigma  9.912366e-01 0.06467366  0.8878756 1.0945976
 
 ![](week-03_Bella_files/figure-gfm/answer-2%20figure-m2t-1.png)<!-- -->
 
@@ -112,8 +112,7 @@ Add G to the model:
 # standardize variables 
 d$F <- standardize(d$avgfood)
 d$W <- standardize(d$weight)
-# rescale group size so it is one unit 
-d$G <- (d$groupsize - 2) / (8 - 2)
+d$G <- standardize(d$groupsize)
 
 # model total effects
 m2d <- quap(
@@ -122,7 +121,7 @@ m2d <- quap(
     mu <- a + bF*F + bG*G,
     a ~ dnorm(0,0.2),
     bF ~ dnorm(0,0.5),
-    bG ~ dnorm(0, 2), 
+    bG ~ dnorm(0, 0.5), 
     sigma ~ dexp(1) 
   ), data = d
 )
@@ -130,13 +129,21 @@ m2d <- quap(
 precis(m2d)
 ```
 
-    ##             mean         sd         5.5%      94.5%
-    ## a      0.2771425 0.16744412  0.009534486  0.5447506
-    ## bF     0.1665085 0.13362277 -0.047046499  0.3800635
-    ## bG    -0.8520620 0.44576398 -1.564478891 -0.1396450
-    ## sigma  0.9669613 0.06399849  0.864679354  1.0692432
+    ##                mean         sd       5.5%      94.5%
+    ## a      2.600825e-06 0.08013841 -0.1280741  0.1280793
+    ## bF     4.772265e-01 0.17912417  0.1909515  0.7635015
+    ## bG    -5.735014e-01 0.17914264 -0.8598059 -0.2871969
+    ## sigma  9.420487e-01 0.06175333  0.8433549  1.0407424
 
-We see the effect of group size on weight.
+The direct effect of food on weight is positive. Group size has an equal
+magnitude of effect in the opposite direction. These two effects cancel
+each other - which explains why the total effect of food is negligible:
+direct effect is positive but mediated effect through group size is
+negative/cancelled out.
+
+Food influences group size, which mediates the influence of food on
+weight. More foxes are present when more food is present, so foxes get
+the same amount of food and their weight does not change.
 
 **Question 3:** Reconsider the Table 2 Fallacy example (from Lecture 6),
 this time with an unobserved confound U that influences both smoking S
@@ -163,6 +170,10 @@ through X, however, it is a collider between A and U and so stratifying
 by S would open that pathway and create collider bias. So, I would only
 stratify by A.
 
+**CORRECTION:** collider bias does not influence our estimate of X-&gt;
+Y because collider is between A -&gt; S &lt;- U and U does not introduce
+an arrow into X so we can stratify by both!
+
 Dagitty confirms that stratifying by A and S is required to estimate the
 direct effect of X on Y:
 
@@ -174,9 +185,10 @@ adjustmentSets(dag2, exposure = "X", outcome = "Y", effect = "direct")
 
 In terms of which coefficients are causal and which are not:
 
-A -&gt; Y  
-S -&gt; Y  
-U -&gt; Y X -&gt; Y
+X is a causal effect. Other coefficients are now biased by U.
+Stratifying by S opens collider bias and A and S are not causal effects
+because they are biased. Need explicit causal models to interpret
+control coefficients.
 
 **Question 4-OPTIONAL CHALLENGE:** Write a synthetic data simulation for
 the causal model shown in Problem 3. Be sure to include the unobserved
@@ -188,38 +200,35 @@ a sample do you need to reliably estimate P(Y\|do(X))? Define “reliably”
 as you like, but justify your definition.
 
 ``` r
-N <- 200 
+f <- function(N = 200, bX = 0){ 
+  U <- rnorm(N)
+  A <- rnorm(N)
+  S <- rnorm(N, A + U)
+  X <- rnorm(N, A + S)
+  Y <- rnorm(N, A + S + bX*X + U)
+  return(
+    list(
+      A = standardize(A), S=standardize(S), X=standardize(X), Y=standardize(Y)))
+}
 
-b_AY <- 3 # direct effect of A on Y 
-b_AS <- 2 # direct effect of A on S 
-b_AX <- 2 # direct effect of A on X 
-b_SX <- 2 # direct effect of S on X 
-b_SY <- 3 # direct effect of S on Y 
-b_XY <- 1 # direct effect of X on Y 
-b_U <- 2 # direct effect of U on S and Y 
-
-U <- 2*rbern(N, 0.5) - 1
-A <- rnorm(N)
-S <- rnorm(N, b_AS*A + b_U*U)
-X <- rnorm(N, b_SX*S + b_AX*A)
-Y <- rnorm(N, b_AY*A + b_SY*S + b_XY*X + b_U*U)
-ds <- data.frame(A=A, S=S, X=X, U=U, Y=Y)
+sim_dat <- f(N=10, bX=0)
 
 m4 <- quap(
   alist(
-    X ~ dnorm(mu, sigma), 
-    mu <- a + b_AY*A + b_SY*S,
-    a ~ dnorm(0, 1),
-    c(b_AY, b_SY) ~ dnorm(0, 1), 
-    sigma ~ dexp(1)
-  ), data = ds
+    Y ~ dnorm(mu, exp(log_sigma)), 
+    mu <- a + bX*X + bA*A + bS*S,
+    a ~ dnorm(0, 0.2),
+    c(bX, bA, bS) ~ dnorm(0, 0.5), 
+    log_sigma ~ dnorm(0,1)
+  ), data = sim_dat
 )
 
 precis(m4)
 ```
 
-    ##             mean         sd        5.5%     94.5%
-    ## a     0.06839909 0.06915086 -0.04211735 0.1789155
-    ## b_AY  2.07164634 0.09882871  1.91369898 2.2295937
-    ## b_SY  1.99308778 0.03127755  1.94310021 2.0430754
-    ## sigma 0.97557509 0.04860807  0.89789001 1.0532602
+    ##                    mean         sd       5.5%      94.5%
+    ## a         -1.525719e-08 0.07242130 -0.1157432  0.1157432
+    ## bX        -3.249924e-02 0.13750894 -0.2522651  0.1872666
+    ## bA         3.783328e-01 0.08270684  0.2461513  0.5105143
+    ## bS         8.682213e-01 0.13703938  0.6492059  1.0872367
+    ## log_sigma -1.403686e+00 0.24134603 -1.7894041 -1.0179689
