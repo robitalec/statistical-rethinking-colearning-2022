@@ -4,7 +4,7 @@
 
 Z score = (x - mean(x)) / std(x)
 
-Standardizing variables helps computation, and makes it is easier to choose sensible priors. Priors for standardized variables should not have huge variation because it risks exaggerated or unreasonable slopes. 
+Standardizing variables helps computation, and makes it easier to choose sensible priors. Priors for standardized variables should not have huge variation because it risks exaggerated or unreasonable slopes. 
 
 ## Four elemental confounds
 
