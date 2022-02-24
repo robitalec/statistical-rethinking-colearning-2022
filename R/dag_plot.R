@@ -18,6 +18,7 @@ dag_plot <- function(dag, output_path) {
   png_path <- paste0(output_path, '.png')
   writeLines(dag, dot_path)
   system(paste0('dot -Gdpi=300 -Tpng ', dot_path, ' > ', png_path)) 
-  p <- png::readPNG(png_path)
-  return(grid::grid.raster(p))
+  p <- readPNG(png_path)
+  grid.newpage()
+  return(grid.raster(p))
 }

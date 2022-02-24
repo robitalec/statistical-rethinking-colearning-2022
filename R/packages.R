@@ -24,3 +24,6 @@ library(dagitty)
 
 library(knitr)
 library(rmarkdown)
+
+library(png)
+library(grid)
