@@ -1,0 +1,11 @@
+digraph {
+Erosion [style=filled; color="#ffe0bd"]
+Rain
+Slope [style=filled; color="#dfc9de"]
+Veg_loss
+Erosion -> Veg_loss
+Rain -> Erosion
+Slope -> Erosion
+Veg_loss -> Erosion
+rankdir=LR}
+
