@@ -1,7 +1,7 @@
 ---
 output: 
   github_document:
-    html_preview: false
+    # html_preview: false
 title: Homework Week 04
 author: Alec L. Robitaille
 date: 2022-03-04
@@ -68,10 +68,10 @@ age and happiness, and when removed from the model, there is no longer an
 association between these variables. 
 
 ```{r h04_q01_params}
-print('Model 1: Happiness ~ intercept[marriage index] + age')
+message('Model 1: Happiness ~ intercept[marriage index] + age')
 precis(data.table(tar_read(h04_q01_m609_draws_h04_q01_m609))[, .(sigma, beta_age, `alpha[1]`, `alpha[2]`)], depth = 2)
 
-print('Model 2: Happiness ~ intercept + age')
+message('Model 2: Happiness ~ intercept + age')
 precis(data.table(tar_read(h04_q01_m610_draws_h04_q01_m610))[, .(sigma, beta_age, alpha)])
 ```
 
@@ -82,3 +82,16 @@ precis(data.table(tar_read(h04_q01_m610_draws_h04_q01_m610))[, .(sigma, beta_age
 PSIS and WAIC scores, which combination of variables best predicts body weight
 (W, weight)? How would you interpret the estimates from the best scoring model?
 
+![](../graphics/homework/dot_h03_q02.png)
+
+
+```{r h04_q02_loo}
+message('Model 1, Direct: Weight ~ Food + Group Size')
+tar_read(loo_h04_q02_direct)
+
+message('Model 2, Total: Weight ~ Food')
+tar_read(loo_h04_q02_total)
+
+message('Compared')
+tar_read(compare_h04_q02)
+```

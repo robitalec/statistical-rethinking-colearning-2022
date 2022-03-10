@@ -40,6 +40,24 @@ targets_homework_04 <- c(
     loo_compare(loo_m609, loo_m610)
   ),
   
+  
+
+  # Question 2 --------------------------------------------------------------
+  # LOO
+  tar_target(
+    loo_h04_q02_direct,
+    h03_q02_mcmc_h03_q02_direct$loo()
+  ),
+  tar_target(
+    loo_h04_q02_total,
+    h03_q02_mcmc_h03_q02_total$loo()
+  ),
+  tar_target(
+    compare_h04_q02,
+    loo_compare(loo_h04_q02_direct, loo_h04_q02_total)
+  ),
+  
+  
   # Render ------------------------------------------------------------------
   tar_render(render_h04,
              'homework/04-homework.Rmd')
