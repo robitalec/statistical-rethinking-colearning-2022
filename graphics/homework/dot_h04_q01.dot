@@ -1,0 +1,8 @@
+digraph {
+Age [style=filled; color="#dfc9de"]
+Happiness [style=filled; color="#ffe0bd"]
+Marriage
+Age -> Marriage
+Happiness -> Marriage
+rankdir=LR}
+
