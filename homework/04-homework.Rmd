@@ -50,13 +50,13 @@ dag_plot(dag, 'graphics/homework/dot_h04_q01')
 ```
 
 ```{r h04_q01_loo}
-print('Model 1: Happiness ~ intercept[marriage index] + age')
+message('Model 1: Happiness ~ intercept[marriage index] + age')
 tar_read(loo_m609)
 
-print('Model 2: Happiness ~ intercept + age')
+message('Model 2: Happiness ~ intercept + age')
 tar_read(loo_m610)
 
-print('Compared')
+message('Compared')
 tar_read(compare_h04_q01)
 ```
 
