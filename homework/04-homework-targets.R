@@ -20,6 +20,16 @@ targets_homework_04 <- c(
     dir = compiled_dir
   ),
   
+  tar_stan_mcmc(
+    h04_q01_m610,
+    file.path('stan', 'h04_q01_m610.stan'),
+    c(N = DT_marriage[, .N],
+      as.list(DT_marriage)),
+    chains = 4,
+    dir = compiled_dir
+  ),
+  
+  
   # Render ------------------------------------------------------------------
   tar_render(render_h04,
              'homework/04-homework.Rmd')
