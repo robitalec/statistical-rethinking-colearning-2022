@@ -27,3 +27,24 @@ knitr::opts_chunk$set(
 
 theme_set(theme_bw(base_size = 16))
 ```
+
+
+## Question 1
+
+Marriage is a collider between age and happiness. If we include marriage 
+as a predictor, it will generate an association between age and happiness.
+
+```{r h04_q01_dag}
+dag <- dagify(
+  Marriage ~ Happiness + Age,
+  exposure = 'Age',
+  outcome = 'Happiness'
+)
+dag_plot(dag, 'graphics/homework/dot_h04_q01')
+```
+
+```{r h04_q01_loo}
+tar_read(loo_m609)
+tar_read(loo_m610)
+tar_read(compare_h04_q01)
+```
