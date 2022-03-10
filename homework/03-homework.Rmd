@@ -46,13 +46,9 @@ dag <- dagify(
     exposure = 'A',
     outcome = 'F'
 )
-```
-
-```{r}
 dag_plot(dag, 'graphics/homework/dot_h03_q01')
 ```
 
-![](../graphics/homework/dot_h03_q01.png)
 
 
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use the
@@ -94,13 +90,9 @@ dag <- dagify(
     exposure = 'F',
     outcome = 'W'
 )
-```
-
-```{r}
 dag_plot(dag, 'graphics/homework/dot_h03_q02')
 ```
 
-![](../graphics/homework/dot_h03_q02.png)
  
 
 
@@ -147,13 +139,9 @@ dag <- dagify(
   exposure = 'X',
   outcome = 'Y'
 )
-```
-
-```{r}
 dag_plot(dag, 'graphics/homework/dot_h03_q03')
 ```
 
-![](../graphics/homework/dot_h03_q03.png)
 
 
 > First use the backdoor criterion to determine an adjustment set that allows

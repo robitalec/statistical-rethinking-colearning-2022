@@ -14,7 +14,7 @@ Alec L. Robitaille
 > more avgfood than others. And food influences the weight of each fox.
 > Assume this DAG:
 
-    ## [1] "graphics/homework/dot_h03_q01.png"
+![](../graphics/homework/unnamed-chunk-3-1.png)<!-- -->
 
 ![](../graphics/homework/dot_h03_q01.png)
 
@@ -47,7 +47,7 @@ adjustmentSets(dag, effect = 'total')
 > Feel free to speculate— all that matters is that you justify your
 > speculation.
 
-    ## [1] "graphics/homework/dot_h03_q02.png"
+![](../graphics/homework/unnamed-chunk-4-1.png)<!-- -->
 
 ![](../graphics/homework/dot_h03_q02.png)
 
@@ -75,7 +75,7 @@ adjustmentSets(dag, effect = 'direct')
 > with an unobserved confound U that influences both smoking S and
 > stroke Y. Here’s the modified DAG:
 
-    ## [1] "graphics/homework/dot_h03_q03.png"
+![](../graphics/homework/unnamed-chunk-5-1.png)<!-- -->
 
 ![](../graphics/homework/dot_h03_q03.png)
 
@@ -96,9 +96,9 @@ adjustmentSets(dag, effect = 'direct')
 
 The paths from X to Y:
 
--   X -> Y
--   X \<- S \<- A -> Y
--   X \<- A -> Y
+-   X -\> Y
+-   X \<- S \<- A -\> Y
+-   X \<- A -\> Y
 
 X has backdoor paths from S and A. S is a pipe between A and X. A is a
 fork between X and Y. To model the causal effect of X and Y, we need to
