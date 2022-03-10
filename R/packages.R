@@ -11,6 +11,7 @@ library(data.table)
 
 library(stantargets)
 library(cmdstanr)
+library(loo)
 library(distributional)
 library(rethinking)
 
