@@ -6,9 +6,6 @@ targets_homework_04 <- c(
     data_marriage()
   ),
   
-  # LOO-PSIS: https://mc-stan.org/loo/reference/loo.html, https://mc-stan.org/loo/articles/loo2-with-rstan.html
-  # WAIC: https://mc-stan.org/loo/reference/waic.html
-  
   # Model
   tar_stan_mcmc(
     h04_q01_m609,
@@ -29,6 +26,19 @@ targets_homework_04 <- c(
     dir = compiled_dir
   ),
   
+  # LOO
+  tar_target(
+    loo_m609,
+    h04_q01_m609_mcmc_h04_q01_m609$loo()
+  ),
+  tar_target(
+    loo_m610,
+    h04_q01_m610_mcmc_h04_q01_m610$loo()
+  ),
+  tar_target(
+    compare_h04_q01,
+    loo_compare(loo_m609, loo_m610)
+  ),
   
   # Render ------------------------------------------------------------------
   tar_render(render_h04,
