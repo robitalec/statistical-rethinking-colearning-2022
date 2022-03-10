@@ -4,7 +4,8 @@ data {
   
   vector[N] age;
   vector[N] happiness;
-  vector[N] index_married;
+  
+  int index_married [N];
 }
 
 parameters {
@@ -17,7 +18,7 @@ parameters {
 model {
   sigma ~ exponential(1);
   beta_age ~ normal(0, 2);
-  alpha ~ normal(0, 1)
+  alpha ~ normal(0, 1);
   
   vector[N] mu = alpha[index_married] + beta_age * age;
   happiness ~ normal(mu, sigma);
