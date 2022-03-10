@@ -31,6 +31,12 @@ theme_set(theme_bw(base_size = 16))
 
 ## Question 1
 
+> Revisit the marriage, age, and happiness collider bias example from Chapter
+6. Run models m6.9 and m6.10 again (pages 178–179). Compare these two models
+using both PSIS and WAIC. Which model is expected to make better predictions,
+according to these criteria? On the basis of the causal model, how should you
+interpret the parameter estimates from the model preferred by PSIS and WAIC?
+
 Marriage is a collider between age and happiness. If we include marriage 
 as a predictor, it will generate an association between age and happiness.
 
@@ -68,3 +74,11 @@ precis(data.table(tar_read(h04_q01_m609_draws_h04_q01_m609))[, .(sigma, beta_age
 print('Model 2: Happiness ~ intercept + age')
 precis(data.table(tar_read(h04_q01_m610_draws_h04_q01_m610))[, .(sigma, beta_age, alpha)])
 ```
+
+
+## Question 2
+
+> Reconsider the urban fox analysis from last week’s homework. On the basis of
+PSIS and WAIC scores, which combination of variables best predicts body weight
+(W, weight)? How would you interpret the estimates from the best scoring model?
+
