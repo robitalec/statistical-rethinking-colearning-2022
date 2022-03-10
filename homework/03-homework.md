@@ -14,9 +14,7 @@ Alec L. Robitaille
 > more avgfood than others. And food influences the weight of each fox.
 > Assume this DAG:
 
-![](../graphics/homework/unnamed-chunk-3-1.png)<!-- -->
-
-![](../graphics/homework/dot_h03_q01.png)
+![](../graphics/homework/dag_h03_q01-1.png)<!-- -->
 
 > where F is avgfood, G is groupsize, A is area, and W is weight. Use
 > the backdoor criterion and estimate the total causal influence of A on
@@ -47,9 +45,7 @@ adjustmentSets(dag, effect = 'total')
 > Feel free to speculate— all that matters is that you justify your
 > speculation.
 
-![](../graphics/homework/unnamed-chunk-4-1.png)<!-- -->
-
-![](../graphics/homework/dot_h03_q02.png)
+![](../graphics/homework/dag_h03_q02-1.png)<!-- -->
 
 Adjustment sets (total effect):
 
@@ -75,9 +71,7 @@ adjustmentSets(dag, effect = 'direct')
 > with an unobserved confound U that influences both smoking S and
 > stroke Y. Here’s the modified DAG:
 
-![](../graphics/homework/unnamed-chunk-5-1.png)<!-- -->
-
-![](../graphics/homework/dot_h03_q03.png)
+![](../graphics/homework/h03_q03_dag-1.png)<!-- -->
 
 > First use the backdoor criterion to determine an adjustment set that
 > allows you to estimate the causal effect of X on Y, i.e. P(Y\|do(X)).
