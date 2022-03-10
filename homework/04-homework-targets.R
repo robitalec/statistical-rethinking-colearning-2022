@@ -10,11 +10,11 @@ targets_homework_04 <- c(
   # WAIC: https://mc-stan.org/loo/reference/waic.html
   
   # Model
-  tar_mcmc(
+  tar_stan_mcmc(
     h04_q01_m609,
-    file.path('stan', 'h03_q01.stan'),
+    file.path('stan', 'h04_q01_m609.stan'),
     c(N = DT_marriage[, .N],
-      N_index_married[, uniqueN(index_married)],
+      N_index_married = DT_marriage[, uniqueN(index_married)],
       as.list(DT_marriage)),
     chains = 4,
     dir = compiled_dir
