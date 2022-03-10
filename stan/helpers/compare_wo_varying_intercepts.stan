@@ -1,3 +1,4 @@
+// From h04_q01_m609 and h04_q01_m610
 data {
   int<lower=0> N;
   int<lower=0> N_index_married;
