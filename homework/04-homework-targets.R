@@ -81,6 +81,26 @@ targets_homework_04 <- c(
   ),
   
   
+
+  # Question 3 --------------------------------------------------------------
+  # Data
+  tar_target(
+    DT_cherry,
+    data_cherry_blossoms(drop_na = TRUE)
+  ),
+  
+  # Model
+  tar_stan_mcmc(
+    h04_q03,
+    dir('stan', 'h04_q03', full.names = TRUE),
+    c(as.list(DT_cherry),
+      N = nrow(DT_cherry)
+    ),
+    chains = 4,
+    dir = compiled_dir
+  ),
+  
+  
   # Render ------------------------------------------------------------------
   tar_render(render_h04,
              'homework/04-homework.Rmd')
