@@ -69,12 +69,13 @@ association between these variables.
 
 ```{r h04_q01_params}
 message('Model 1: Happiness ~ intercept[marriage index] + age')
-precis(data.table(tar_read(h04_q01_m609_draws_h04_q01_m609))[, .(sigma, beta_age, `alpha[1]`, `alpha[2]`)], depth = 2)
+plot(precis(data.table(tar_read(h04_q01_m609_draws_h04_q01_m609))[, .(sigma, beta_age, `alpha[1]`, `alpha[2]`)], depth = 2))
 
 message('Model 2: Happiness ~ intercept + age')
-precis(data.table(tar_read(h04_q01_m610_draws_h04_q01_m610))[, .(sigma, beta_age, alpha)])
+plot(precis(data.table(tar_read(h04_q01_m610_draws_h04_q01_m610))[, .(sigma, beta_age, alpha)]))
 ```
 
+See more details in `help('pareto-k-diagnostic')`.
 
 ## Question 2
 
@@ -95,3 +96,22 @@ tar_read(loo_h04_q02_total)
 message('Compared')
 tar_read(compare_h04_q02)
 ```
+
+Based on the PSIS LOO, model 2 has better predictive power than model 1. 
+Model 1 includes both food and group size to model the direct effect of food
+on weight. Model 2 includes only food to measure the total effect of food
+on weight. The model with better predictive power (model 2), however, 
+indicates no
+
+```{r h04_q02_params}
+message('Model 1, Direct: Weight ~ Food + Group Size')
+plot(precis(data.table(tar_read(h03_q02_draws_h03_q02_direct))[, .(sigma, alpha, beta_food, beta_groupsize)], depth = 2))
+
+message('Model 2, Total: Weight ~ Food')
+plot(precis(data.table(tar_read(h03_q02_draws_h03_q02_total))[, .(sigma, alpha, beta_food)]))
+```
+
+
+
+The model including both food and group size to measure only the direct 
+effect of food on weight (model 1) 
