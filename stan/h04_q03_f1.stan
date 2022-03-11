@@ -18,7 +18,7 @@ model {
   sigma ~ exponential(1);
   alpha ~ normal(0, 0.2);
   
-  scale_temp ~ normal(mu, sigma);
+  scale_doy ~ normal(mu, sigma);
 }
 
 generated quantities {
