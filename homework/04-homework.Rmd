@@ -108,6 +108,13 @@ group size. This model has the highest predictive power, and we will use the
 DAG to evaluate what the parameters returned by this model represent. 
 
 
+The parameter for group size represents the direct effect of group size on
+weight. The parameter for food represents the direct causal effect of 
+food but since area is included in the model and, according to the DAG, area
+causes food availability, then it is potentially impacted by area. The indirect causal effect of food is not possible to estimate since group size 
+is included in the model. The parameter for area is confounded by the
+inclusion of food since it is a mediator between area and weight. 
+
 ```{r h04_q02_params}
 plot(precis(data.table(tar_read(h04_q02_draws_h04_q02_fga))[, .(sigma, alpha, beta_food, beta_groupsize, beta_area)]))
 ```
