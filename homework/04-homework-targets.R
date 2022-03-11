@@ -60,16 +60,24 @@ targets_homework_04 <- c(
   
   # LOO
   tar_target(
-    loo_h04_q02_direct,
-    h03_q02_mcmc_h03_q02_direct$loo()
+    loo_h04_q02_a,
+    h04_q02_mcmc_h04_q02_a$loo()
   ),
   tar_target(
-    loo_h04_q02_total,
-    h03_q02_mcmc_h03_q02_total$loo()
+    loo_h04_q02_f,
+    h04_q02_mcmc_h04_q02_f$loo()
   ),
   tar_target(
-    compare_h04_q02,
-    loo_compare(loo_h04_q02_direct, loo_h04_q02_total)
+    loo_h04_q02_fg,
+    h04_q02_mcmc_h04_q02_fg$loo()
+  ),
+  tar_target(
+    loo_h04_q02_ga,
+    h04_q02_mcmc_h04_q02_ga$loo()
+  ),
+  tar_target(
+    loo_h04_q02_fga,
+    h04_q02_mcmc_h04_q02_fga$loo()
   ),
   
   
