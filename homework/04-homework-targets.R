@@ -100,6 +100,20 @@ targets_homework_04 <- c(
     dir = compiled_dir
   ),
   
+  # LOO
+  tar_target(
+    loo_h04_q03_f1,
+    h04_q03_mcmc_h04_q03_f1$loo()
+  ),
+  tar_target(
+    loo_h04_q03_f2,
+    h04_q03_mcmc_h04_q03_f2$loo()
+  ),
+  tar_target(
+    loo_h04_q03_f2,
+    h04_q03_mcmc_h04_q03_f3$loo()
+  ),
+  
   
   # Render ------------------------------------------------------------------
   tar_render(render_h04,
