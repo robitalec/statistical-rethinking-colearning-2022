@@ -10,5 +10,11 @@ data_cherry_blossoms <- function(scaled = TRUE, drop_na = FALSE) {
     DT[, scale_temp_lower := scale(temp_lower)]
   }
   
-  return(DT)
+  if (drop_na) {
+    return(na.omit(DT))  
+  } else {
+    return(DT)
+  }
+  
+  
 }
