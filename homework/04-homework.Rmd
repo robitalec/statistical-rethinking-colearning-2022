@@ -87,31 +87,27 @@ PSIS and WAIC scores, which combination of variables best predicts body weight
 
 
 ```{r h04_q02_loo}
-message('Model 1, Direct: Weight ~ Food + Group Size')
-tar_read(loo_h04_q02_direct)
-
-message('Model 2, Total: Weight ~ Food')
-tar_read(loo_h04_q02_total)
-
-message('Compared')
-tar_read(compare_h04_q02)
+print(loo_compare(list(
+  a = tar_read(loo_h04_q02_a), 
+  f = tar_read(loo_h04_q02_f),
+  fg  = tar_read(loo_h04_q02_fg),
+  ga = tar_read(loo_h04_q02_ga),
+  fga = tar_read(loo_h04_q02_fga)
+)), simplify = FALSE)
 ```
 
-Based on the PSIS LOO, model 2 has better predictive power than model 1. 
-Model 1 includes both food and group size to model the direct effect of food
-on weight. Model 2 includes only food to measure the total effect of food
-on weight. The model with better predictive power (model 2), however, 
-indicates no
+The fitted models are compared using PSIS LOO and the comparison 
+returns the difference in ELPD (theoretical expected log pointwise
+predictive density) from the model with the highest ELPD. 
+
+See more details in `help('loo-glossary')`. 
+
+Based on this, the model that includes all three predictors is slightly 
+better than the models with food and group size, and with area and 
+group size. This model has the highest predictive power, and we will use the 
+DAG to evaluate what the parameters returned by this model represent. 
+
 
 ```{r h04_q02_params}
-message('Model 1, Direct: Weight ~ Food + Group Size')
-plot(precis(data.table(tar_read(h03_q02_draws_h03_q02_direct))[, .(sigma, alpha, beta_food, beta_groupsize)], depth = 2))
-
-message('Model 2, Total: Weight ~ Food')
-plot(precis(data.table(tar_read(h03_q02_draws_h03_q02_total))[, .(sigma, alpha, beta_food)]))
+plot(precis(data.table(tar_read(h04_q02_draws_h04_q02_fga))[, .(sigma, alpha, beta_food, beta_groupsize, beta_area)]))
 ```
-
-
-
-The model including both food and group size to measure only the direct 
-effect of food on weight (model 1) 
