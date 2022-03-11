@@ -10,22 +10,12 @@ parameters {
   real beta_food;
 }
 
-transformed parameters {
-  vector [N] mu = alpha + beta_food * scale_food;
-}
-
 model {
   alpha ~ normal(0, 0.2);
   beta_food ~ normal(0, 0.5);
   sigma ~ exponential(1);
 
-  scale_weight ~ normal(mu, sigma);
-}
+  vector [N] mu = alpha + beta_food * scale_food;
 
-generated quantities {
-  // https://mc-stan.org/docs/2_29/functions-reference/normal-distribution.html
-  vector[N] log_lik;
-  for (n in 1:N) {
-    log_lik[n] = normal_lpdf(scale_weight[n] | mu[n], sigma);
-  }
+  scale_weight ~ normal(mu, sigma);
 }
