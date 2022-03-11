@@ -43,6 +43,21 @@ targets_homework_04 <- c(
   
 
   # Question 2 --------------------------------------------------------------
+  # Model
+  tar_stan_mcmc(
+    h04_q02,
+    dir('stan', 'h04_q02', full.names = TRUE),
+    list(
+      scale_food = DT_foxes$scale_food,
+      scale_weight = DT_foxes$scale_weight,
+      scale_groupsize = DT_foxes$scale_groupsize,
+      scale_area = DT_foxes$scale_area,
+      N = nrow(DT_foxes)
+    ),
+    chains = 4,
+    dir = compiled_dir
+  ),
+  
   # LOO
   tar_target(
     loo_h04_q02_direct,
