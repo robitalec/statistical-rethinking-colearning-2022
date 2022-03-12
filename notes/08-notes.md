@@ -52,7 +52,7 @@ More information here: https://mc-stan.org/docs/2_29/reference-manual/blocks.htm
 - Parameters: unobserved variables, model parameters, eg. beta, sigma. Can set 
 types and constraints. 
 - Transformed parameters: transformed model parameters, will be returned in output. 
-- Model: distributional poarts of the model sufficient to compute the posterior
+- Model: distributional parts of the model sufficient to compute the posterior
 probability
 - Generated quantities: additional returned variables, eg. the log likelihood
 for PSIS LOO. 
@@ -96,7 +96,7 @@ generated quantities {
 
 ### Trace plots
 
-Plot sequential sampels for each parameter. Sometimes, the warmup region 
+Plot sequential samples for each parameter. Sometimes, the warm up region 
 is included showing Stan setting the step size and adapt delta settings. 
 
 Healthy chains look: 
@@ -130,7 +130,7 @@ R-hat is not a test, just a diagnostic criterion.
 
 Number of effective samples
 
-When samples are autocorrelated, you have fewer effective samples. This is a 
+When samples are auto correlated, you have fewer effective samples. This is a 
 measure of sampling efficiency. 
 
 
