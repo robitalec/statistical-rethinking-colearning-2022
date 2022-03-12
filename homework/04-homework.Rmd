@@ -1,7 +1,7 @@
 ---
 output: 
   github_document:
-    # html_preview: false
+    html_preview: false
 title: Homework Week 04
 author: Alec L. Robitaille
 date: 2022-03-04
@@ -131,3 +131,11 @@ predict for the predictive distribution of the day-in-year that the cherry trees
 will blossom?
 
 
+
+```{r h04_q03_loo}
+print(loo_compare(list(
+  f1 = tar_read(loo_h04_q03_f1), 
+  f2 = tar_read(loo_h04_q03_f2),
+  f3 = tar_read(loo_h04_q03_f3)
+)), simplify = FALSE)
+```

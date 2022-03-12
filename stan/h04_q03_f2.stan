@@ -17,8 +17,8 @@ transformed parameters {
 
 model {
   sigma ~ exponential(1);
-  alpha ~ normal(0, 0.2);
-  beta_temp ~ normal(0, 0.5);
+  alpha ~ normal(0, 10);
+  beta_temp ~ normal(0, 10);
   
   scale_doy ~ normal(mu, sigma);
 }

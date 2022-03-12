@@ -110,7 +110,7 @@ targets_homework_04 <- c(
     h04_q03_mcmc_h04_q03_f2$loo()
   ),
   tar_target(
-    loo_h04_q03_f2,
+    loo_h04_q03_f3,
     h04_q03_mcmc_h04_q03_f3$loo()
   ),
   

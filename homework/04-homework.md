@@ -108,3 +108,23 @@ confounded by the inclusion of food since it is a mediator between area
 and weight.
 
 ![](../graphics/homework/h04_q02_params-1.png)<!-- -->
+
+# Question 3
+
+> Build a predictive model of the relationship show on the cover of the
+> book, the relationship between the timing of cherry blossoms and March
+> temperature in the same year. The data are found in
+> data(cherry_blossoms). Consider at least two functions to predict doy
+> with temp. Compare them with PSIS or WAIC. Suppose March temperatures
+> reach 9 degrees by the year 2050. What does your best model predict
+> for the predictive distribution of the day-in-year that the cherry
+> trees will blossom?
+
+    ##    elpd_diff  se_diff    elpd_loo   se_elpd_loo p_loo      se_p_loo  
+    ## f1        0.0        0.0    -1099.6       19.8         2.0        0.2
+    ## f3  -997042.2    19948.2  -998141.9    19968.0    183923.2     5254.4
+    ## f2  -999194.5    20006.4 -1000294.1    20026.2    185942.9     5330.7
+    ##    looic      se_looic  
+    ## f1     2199.3       39.5
+    ## f3  1996283.8    39935.9
+    ## f2  2000588.2    40052.3
