@@ -30,3 +30,5 @@ library(png)
 library(grid)
 
 library(here)
+
+library(palmerpenguins)
