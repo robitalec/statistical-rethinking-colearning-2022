@@ -29,8 +29,8 @@ discussed on/completed by the next meeting.
 | 2022-01-13 | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2) | Chapters 1, 2 and 3 | [Homework 1](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week01.pdf) |
 | 2022-01-26 | [(3) Basic Regression](https://www.youtube.com/watch?v=zYYBtxHWE0A), [(4) Categories & Curves](https://youtu.be/QiHKdvAbYII) | Chapter 4 | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week02.pdf) |
 | 2022-02-11 | [(5) Confounding](https://youtu.be/UpP-_mBvECI), [(6) Even Worse Confounding](https://www.youtube.com/watch?v=NSuTaeW6Orc) | Chapters 5 and 6 | [Homework 3](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week03.pdf)  |
-| 2022-02-24   |  [(7) Overfitting](https://www.youtube.com/watch?v=odGAAJDlgp8&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=7)| Chapter 7 | [Homework 4](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week03.pdf)| 
-
+| 2022-02-24   |  [(7) Overfitting](https://www.youtube.com/watch?v=odGAAJDlgp8&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=7)| Chapter 7 | | 
+| 2022-03-11 | [(8) Markov Chain Monte Carlo](https://www.youtube.com/watch?v=Qqz5AJjyugM&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=8&pp=sAQB) | Chapter 8, 9  |  [Homework 4](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week04.pdf) | 
 
 
 ## Resources
