@@ -21,16 +21,15 @@ DT <- data.table(penguins)
 
 
 # DAG ---------------------------------------------------------------------
-# Example relationships between body mass and bill length, depending on island
+# Example relationships between body mass and bill length
 dag <- dagify(
-  Bill_Length ~ Island + Body_Mass,
-  Body_Mass ~ Island,
+  Bill_Length ~ Body_Mass,
   exposure = 'Body_Mass',
   outcome = 'Bill_Length'
 )
 plot(dag)
 
-# Adjustment sets indicate to include the Island variable 
+# Adjustment sets
 adjustmentSets(dag)
 
 
@@ -39,7 +38,6 @@ adjustmentSets(dag)
 # Scale the variables
 DT[, scaled_bill_length := scale(bill_length_mm)]
 DT[, scaled_body_mass := scale(body_mass_g)]
-DT[, index_island := .GRP, by = island]
 
 # Save the scaling attributes for bill length to reverse the scaling for plots later
 attr_bill_length <- attributes(DT$scaled_bill_length)
@@ -47,7 +45,7 @@ attr_bill_length <- attributes(DT$scaled_bill_length)
 
 # Priors ------------------------------------------------------------------
 # Read more here: https://paul-buerkner.github.io/brms/reference/brmsformula.html
-f <- brmsformula(scaled_bill_length ~ scaled_body_mass[index_island])
+f <- brmsformula(scaled_bill_length ~ scaled_body_mass)
 
 # Get the default priors, given the formula and data
 default_priors <- get_prior(f, data = DT)
@@ -97,7 +95,7 @@ ggplot(predicted, aes(body_mass_g, prior_predicted_bill_length)) +
 
 
 # Model -------------------------------------------------------------------
-f <- brmsformula(scaled_bill_length ~ scaled_body_mass[index_island])
+f <- brmsformula(scaled_bill_length ~ scaled_body_mass)
 
 # Set priors 
 priors <- c(
@@ -113,16 +111,14 @@ m <- brm(
   prior = priors
 )
 
+# Note: "Rows containing NAs were excluded from the model."
+
 
 
 # Draws -------------------------------------------------------------------
-
-
-
-
-# Prediction --------------------------------------------------------------
-
-
+plot(m)
+summary(m)
+conditional_effects(m)
 
 
 # LOO ---------------------------------------------------------------------
