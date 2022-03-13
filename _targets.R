@@ -47,3 +47,15 @@ source(file.path('homework', '04-homework-targets.R'))
 lapply(grep('targets', ls(), value = TRUE), get)
 
 
+
+
+
+c(
+  tar_brms(
+    alpha, 
+    formula = gear ~ carb,
+    prior = c(prior(normal(0, 0.5), class = 'b')),
+    data = mtcars,
+    sample_priors = TRUE
+  )
+)
