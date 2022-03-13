@@ -1,9 +1,11 @@
 # https://wlandau.github.io/targetopia/contributing.html
-tar_brms <- function(name, formula, prior, data, sample_priors) {
-  
-  # Handle if data, or if data = target??
+tar_brms <- function(name, formula, priors, data, sample_priors, chains = 4,
+                     iter = 2000, cores = 1) {
   
   name_deparse <- deparse(substitute(name))
+  data_deparse <- deparse(substitute(data))
+  print(data_deparse)
+  
   name_formula <- paste(name_deparse, 'formula', sep = '_')
   name_priors <- paste(name_deparse, 'priors', sep = '_')
   name_sample_priors <- paste(name_deparse, 'sample_priors', sep = '_')
@@ -31,39 +33,21 @@ tar_brms <- function(name, formula, prior, data, sample_priors) {
     tar_target_raw(
       name_formula,
       command_formula
-    )#,
-    # tar_target_raw(
-    #   name_priors,
-    #   command_priors
-    # )#,
-    # tar_target_raw(
-    #   name_sample_priors,
-    #   command_sample_priors
-    # )
-    )#,
-  #   tar_target_raw(
-  #     priors_name,
-  #     q(
-  #       priors
-  #     )
-  #   ),
-  #   if (sample_priors) {
-  #     tar_target_raw(
-  #       sample_priors_name,
-  #         q(
-  #           brm(formula = ,
-  #               data = DT,
-  #               prior = priors,
-  #               sample_prior = 'only'
-  #         )
-  #     ),
-  #   }
-  #   tar_target_raw(
-  #     
-  #   )
-  # 
-  # )
-}
+    ),
+    tar_target_raw(
+      name_priors,
+      command_priors
+    ),
+    tar_target_raw(
+      name_sample_priors,
+      command_sample_priors
+    ),
+    tar_target_raw(
+      name_sample_priors,
+      command_sample_priors
+    )
+    
+)}
 #   # Fit the model, without priors
   # m <- brm(
   #   formula = f,
