@@ -15,7 +15,6 @@ library(loo)
 library(distributional)
 library(rethinking)
 library(brms)
-library(rstan)
 
 library(ggplot2)
 library(ggdist)
