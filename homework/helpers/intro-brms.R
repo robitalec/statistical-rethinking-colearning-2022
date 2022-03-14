@@ -67,18 +67,35 @@ sample_priors <- brm(
   formula = f,
   data = DT,
   prior = priors,
-  sample_prior = 'only'
+  sample_prior = 'only',
+  save_model = file.path('stan', '00-intro-brms-priors.stan')
 )
 
 # Plot the sample priors
 plot(sample_priors)
 
-# Prior predictive simulation
-# Set N and generate a range of body mass, randomly assigning a island id 
+
+# Prior predictive simulation ---------------------------------------------
+## Prior simulated parameters
+# Get draws
+draws <- as_draws_df(sample_priors)
+
+# Extract N example lines
+N <- 15
+n_draws <- draws[seq.int(N),]
+
+# Plot the prior predicted relationship between body mass and bill length
+ggplot(n_draws) + 
+  lims(x = c(-2, 2), y = c(-2, 2)) + 
+  labs(x = 'scaled body mass', y = 'prior predicted scaled bill length') + 
+  geom_abline(aes(intercept = Intercept, slope = b_scaled_body_mass))
+
+
+## Model predicted
+# Set N and generate a range of body mass
 N <- 15
 predict_DT <- data.table(
-  body_mass_g = runif(N, 2500, 7000),
-  index_island = sample(c(1, 2, 3), N, replace = TRUE)
+  body_mass_g = runif(N, 2500, 7000)
 )
 predict_DT[, scaled_body_mass := scale(body_mass_g)]
 
@@ -95,25 +112,50 @@ ggplot(predicted, aes(body_mass_g, prior_predicted_bill_length)) +
   stat_halfeye() + 
   theme_bw()
 
+
 # Here, we could decide to adjust the priors, or move on to the model
-
-
-
-# Model -------------------------------------------------------------------
-f <- brmsformula(scaled_bill_length ~ scaled_body_mass)
+# In this case, I'm going to adjust the lower bound of the beta for 
+#  bill length since we don't expect negative relationships between body 
+#  mass and bill length
 
 # Set priors 
-priors <- c(
-  prior(normal(0, 0.3), class = 'b'),
+priors_v2 <- c(
+  prior(normal(0, 0.5), class = 'b', lb = 0),
   prior(normal(0, 0.2), class = 'Intercept'),
   prior(exponential(1), class = 'sigma')
 )
 
-# Fit the model, without priors
+# Sample only the priors
+sample_priors_v2 <- brm(
+  formula = f,
+  data = DT,
+  prior = priors_v2,
+  sample_prior = 'only',
+  save_model = file.path('stan', '00-intro-brms-priors-v2.stan')
+)
+
+# Get draws
+draws_v2 <- as_draws_df(sample_priors_v2)
+
+# Extract N example lines
+N <- 15
+n_draws_v2 <- draws_v2[seq.int(N),]
+
+# Plot the prior predicted relationship between body mass and bill length
+ggplot(n_draws_v2) + 
+  lims(x = c(-2, 2), y = c(-2, 2)) + 
+  labs(x = 'scaled body mass', y = 'prior predicted scaled bill length') + 
+  geom_abline(aes(intercept = Intercept, slope = b_scaled_body_mass))
+
+
+
+# Model -------------------------------------------------------------------
+# Fit the model
 m <- brm(
   formula = f,
   data = DT,
-  prior = priors
+  prior = priors_v2,
+  save_model = file.path('stan', '00-intro-brms.stan')
 )
 
 # Note: "Rows containing NAs were excluded from the model."
