@@ -4,6 +4,8 @@
 
 
 # Packages ----------------------------------------------------------------
+# cmdstanr::install_cmdstan()
+
 library(palmerpenguins)
 library(brms)
 library(data.table)
@@ -11,6 +13,9 @@ library(dagitty)
 library(ggdag)
 library(tidybayes)
 library(ggplot2)
+
+# Use cmdstanr as a backend
+options('brms.backend' = 'cmdstanr')
 
 
 
