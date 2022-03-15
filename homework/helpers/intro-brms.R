@@ -77,6 +77,10 @@ plot(sample_priors)
 
 # Prior predictive simulation ---------------------------------------------
 ## Prior simulated parameters
+# Quick
+conditional_effects(sample_priors)
+
+# Or manual
 # Get draws
 draws <- as_draws_df(sample_priors)
 
@@ -100,14 +104,14 @@ predict_DT <- data.table(
 predict_DT[, scaled_body_mass := scale(body_mass_g)]
 
 # Predict the bill length for range of body mass, given the brms model 
-predicted <- add_predicted_draws(predict_DT, sample_priors)
+prior_predicted <- add_predicted_draws(predict_DT, sample_priors)
 
 # Reverse the scaling on predicted bill length
-predicted$prior_predicted_bill_length <- predicted$.prediction * 
+prior_predicted$prior_predicted_bill_length <- prior_predicted$.prediction * 
   attr_bill_length$`scaled:scale` + attr_bill_length$`scaled:center`
 
 # Plot the distribution of predicted values for each body mass in predict_DT
-ggplot(predicted, aes(body_mass_g, prior_predicted_bill_length)) + 
+ggplot(prior_predicted, aes(body_mass_g, prior_predicted_bill_length)) + 
   geom_point(size = 0.1, color = 'grey') + 
   stat_halfeye() + 
   theme_bw()
@@ -134,6 +138,10 @@ sample_priors_v2 <- brm(
   save_model = file.path('stan', '00-intro-brms-priors-v2.stan')
 )
 
+# Quick
+conditional_effects(sample_priors_v2)
+
+# Or manual
 # Get draws
 draws_v2 <- as_draws_df(sample_priors_v2)
 
