@@ -18,7 +18,7 @@ transformed data {
   }
 }
 parameters {
-  vector<lower=0>[Kc] b;  // population-level effects
+  vector[Kc] b;  // population-level effects
   real Intercept;  // temporary intercept for centered predictors
   real<lower=0> sigma;  // dispersion parameter
 }
@@ -30,8 +30,7 @@ model {
     target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
   }
   // priors including constants
-  target += normal_lpdf(b | 0, 0.5)
-    - 1 * normal_lccdf(0 | 0, 0.5);
+  target += normal_lpdf(b | 0, 0.5);
   target += normal_lpdf(Intercept | 0, 0.2);
   target += exponential_lpdf(sigma | 1);
 }
