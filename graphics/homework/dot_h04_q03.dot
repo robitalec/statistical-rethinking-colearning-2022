@@ -1,0 +1,21 @@
+digraph {
+Aspect
+Dist_major_lake
+Drought_sensitivity [style=filled; color="#ffe0bd"]
+Elevation
+HAND
+Land_cover
+Long_term_normals
+Prop_water
+Shape_index
+Aspect -> Drought_sensitivity
+Dist_major_lake -> Drought_sensitivity
+Dist_major_lake -> HAND
+Elevation -> Drought_sensitivity
+HAND -> Drought_sensitivity
+Land_cover -> Drought_sensitivity
+Long_term_normals -> Drought_sensitivity
+Prop_water -> Drought_sensitivity
+Shape_index -> Drought_sensitivity
+rankdir=LR}
+

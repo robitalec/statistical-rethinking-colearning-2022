@@ -111,20 +111,13 @@ and weight.
 
 # Question 3
 
-> Build a predictive model of the relationship show on the cover of the
-> book, the relationship between the timing of cherry blossoms and March
-> temperature in the same year. The data are found in
-> data(cherry_blossoms). Consider at least two functions to predict doy
-> with temp. Compare them with PSIS or WAIC. Suppose March temperatures
-> reach 9 degrees by the year 2050. What does your best model predict
-> for the predictive distribution of the day-in-year that the cherry
-> trees will blossom?
+> Adjusted Q3 for our colearning group: - Take a question/model from
+> your own work, and draw the DAG. Try to think about unobserved
+> variables in addition to things you did measure. - List the variables
+> in your DAG and define them. What are the units? What is a reasonable
+> range of values (using information from a different source than your
+> own data)? - Define or justify the edges in your DAG. Just a sentence
+> or two, but enough to clarify why you/literature/science/logic think
+> this relationship exists.
 
-    ##    elpd_diff  se_diff    elpd_loo   se_elpd_loo p_loo      se_p_loo  
-    ## f1        0.0        0.0    -1099.6       19.8         2.0        0.2
-    ## f3  -997042.2    19948.2  -998141.9    19968.0    183923.2     5254.4
-    ## f2  -999194.5    20006.4 -1000294.1    20026.2    185942.9     5330.7
-    ##    looic      se_looic  
-    ## f1     2199.3       39.5
-    ## f3  1996283.8    39935.9
-    ## f2  2000588.2    40052.3
+![](../graphics/homework/h04_q03_dag-1.png)<!-- -->
