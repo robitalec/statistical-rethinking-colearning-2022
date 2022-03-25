@@ -122,20 +122,18 @@ plot(precis(data.table(tar_read(h04_q02_draws_h04_q02_fga))[, .(sigma, alpha, be
 
 # Question 3
 
-> Build a predictive model of the relationship show on the cover of the book,
-the relationship between the timing of cherry blossoms and March temperature
-in the same year. The data are found in data(cherry_blossoms). Consider at least
-two functions to predict doy with temp. Compare them with PSIS or WAIC. Suppose
-March temperatures reach 9 degrees by the year 2050. What does your best model
-predict for the predictive distribution of the day-in-year that the cherry trees
-will blossom?
+> Adjusted Q3 for our colearning group: 
+> - Take a question/model from your own work, and draw the DAG. Try to think about unobserved variables in addition to things you did measure.
+> - List the variables in your DAG and define them. What are the units? What is a reasonable range of values (using information from a different source than your own data)?
+> - Define or justify the edges in your DAG. Just a sentence or two, but enough to clarify why you/literature/science/logic think this relationship exists.
 
 
-
-```{r h04_q03_loo}
-print(loo_compare(list(
-  f1 = tar_read(loo_h04_q03_f1), 
-  f2 = tar_read(loo_h04_q03_f2),
-  f3 = tar_read(loo_h04_q03_f3)
-)), simplify = FALSE)
+```{r h04_q03_dag}
+dag <- dagify(
+  Drought_sensitivity ~ HAND + Dist_major_lake + Long_term_normals + Shape_index + Land_cover + Prop_water + Elevation + Aspect,
+  HAND ~ Dist_major_lake,
+  # exposure = ,
+  outcome = 'Drought_sensitivity'
+)
+dag_plot(dag, 'graphics/homework/dot_h04_q03')
 ```
