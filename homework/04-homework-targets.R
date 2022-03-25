@@ -83,36 +83,7 @@ targets_homework_04 <- c(
   
 
   # Question 3 --------------------------------------------------------------
-  # Data
-  tar_target(
-    DT_cherry,
-    data_cherry_blossoms(drop_na = TRUE)
-  ),
-  
-  # Model
-  tar_stan_mcmc(
-    h04_q03,
-    dir('stan', 'h04_q03', full.names = TRUE),
-    c(as.list(DT_cherry),
-      N = nrow(DT_cherry)
-    ),
-    chains = 4,
-    dir = compiled_dir
-  ),
-  
-  # LOO
-  tar_target(
-    loo_h04_q03_f1,
-    h04_q03_mcmc_h04_q03_f1$loo()
-  ),
-  tar_target(
-    loo_h04_q03_f2,
-    h04_q03_mcmc_h04_q03_f2$loo()
-  ),
-  tar_target(
-    loo_h04_q03_f3,
-    h04_q03_mcmc_h04_q03_f3$loo()
-  ),
+
   
   
   # Render ------------------------------------------------------------------
