@@ -1,0 +1,12 @@
+---
+title: ""
+output: github_document
+---
+
+## Homework Week 4
+```{r, eval = T, include = F}
+library(rethinking)
+library(dagitty)
+```
+
+**Question 1:** Revisit the marriage, age, and happiness collider bias example from Chapter 6. Run models m6.9 and m6.10 again (pages 178–179). Compare these two models using both PSIS and WAIC. Which model is expected to make better predictions, according to these criteria? On the basis of the causal model, how should you interpret the parameter estimates from the model preferred by PSIS and WAIC?
