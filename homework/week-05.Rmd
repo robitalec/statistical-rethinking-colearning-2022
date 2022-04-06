@@ -6,16 +6,27 @@ output: github_document
 ## Homework Week 5
 
 ```{r, eval = T, include = F}
-library(rethinking)
-library(brms)
-library(dagitty)
+library(ggdag)
+library(ggplot2)
 ```
 
 
 **Question 1:** The data in data(NWOGrants) are outcomes for scientific funding applications for the Netherlands Organization for Scientific Research (NWO) from 2010–2012 (see van der Lee and Ellemers doi:10.1073/pnas.1510159112). These data have a very similar structure to the UCBAdmit data discussed in Chapter 11. Draw a DAG for this sample and then use one or more binomial GLMs to estimate the TOTAL causal effect of gender on grant awards.  
 
-```{r}
+```{r, eval = T, echo = F}
+source("C:/Users/I_RICHMO/Documents/Repositories/statistical-rethinking/R/dag_plot.R")
 
+dag <- dagify(
+    Acceptance ~ Gender,
+    Acceptance ~ Department, 
+    Acceptance ~ Awards, 
+    Department~ Gender,
+    Department ~ Awards,
+    exposure = 'Gender',
+    outcome = 'Acceptance'
+)
+
+dag_plot(dag)
 ```
 
 
