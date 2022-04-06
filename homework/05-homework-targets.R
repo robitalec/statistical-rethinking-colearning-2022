@@ -6,9 +6,8 @@ targets_homework05 <- c(
   # Question 01 -----------------------------------------------------------
   # data 
   tar_target(
-    wav_files,
-    dir(folder_path, full.names = TRUE, recursive = TRUE),
-    format = 'file'
+    nwo_data,
+    data_nwo()
   ),
 
   # dag 
@@ -19,20 +18,16 @@ targets_homework05 <- c(
   # total causal binomial GLM
   tar_target(
     
-    )
-  ),
+    ),
   
 
   # Question 02 -----------------------------------------------------------
   
   # direct effect binomial GLM
   
-  
-  
-  
-  # Question 03 -----------------------------------------------------------
-  
-  
+  tar_target(
+    
+  ), 
   
   
   
