@@ -9,15 +9,11 @@ targets_homework05 <- c(
     nwo_data,
     data_nwo()
   ),
-
-  # dag 
-  tar_target(
-    
-  ),
   
   # total causal binomial GLM
   tar_target(
-    
+    total_binom,
+    binom_total(nwo_data)
     ),
   
 
