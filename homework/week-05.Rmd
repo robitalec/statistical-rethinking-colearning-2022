@@ -17,13 +17,8 @@ library(ggplot2)
 source("C:/Users/I_RICHMO/Documents/Repositories/statistical-rethinking/R/dag_plot.R")
 
 dag <- dagify(
-    Acceptance ~ Gender,
-    Acceptance ~ Department, 
-    Acceptance ~ Awards, 
-    Department~ Gender,
-    Department ~ Awards,
-    exposure = 'Gender',
-    outcome = 'Acceptance'
+    Awards ~ Gender + Discipline, 
+    Discipline ~ Gender
 )
 
 dag_plot(dag)
