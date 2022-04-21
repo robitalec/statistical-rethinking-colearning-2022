@@ -7,6 +7,8 @@ library(targets)
 library(tarchetypes)
 library(renv)
 
+library(zarg)
+
 library(data.table)
 
 library(stantargets)
