@@ -1882,6 +1882,23 @@
       "Hash": "458bb38374d73bf83b1bb85e353da200",
       "Requirements": []
     },
+    "zarg": {
+      "Package": "zarg",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "robitalec",
+      "RemoteRepo": "zarg",
+      "RemoteRef": "main",
+      "RemoteSha": "3c835b87192399329e75b428bd1b14f16b7ed36f",
+      "Hash": "7fa7a9c620ab48b17634c422a084173c",
+      "Requirements": [
+        "brms",
+        "qs",
+        "targets"
+      ]
+    },
     "zoo": {
       "Package": "zoo",
       "Version": "1.8-10",
