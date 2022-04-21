@@ -1,0 +1,10 @@
+data_grants <- function() {
+  data("NWOGrants")
+  
+  DT <- data.table(NWOGrants)
+  
+  DT[, index_gender := .GRP, gender]
+  DT[, index_discipline := .GRP, discipline]
+
+  return(DT)
+}
