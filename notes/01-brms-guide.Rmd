@@ -141,6 +141,13 @@ observations for which sub evaluates to TRUE.
 pterms defines the effects that are assumed to be the same across observations, 
 “population-level” “overall” effects. 
 
+<!-- pterms: intercepts 
+# https://stats.stackexchange.com/questions/102709/when-forcing-intercept-of-0-in-linear-regression-is-acceptable-advisable
+# https://stats.stackexchange.com/questions/7948/when-is-it-ok-to-remove-the-intercept-in-a-linear-regression-model
+# https://stats.stackexchange.com/questions/495217/when-forcing-intercept-to-zero-how-r-squared-is-changed
+# https://community.rstudio.com/t/set-x-y-intercept-to-zero/101018/2
+-->
+
 #### pterms: non-linear
 
 Flexible non-linear smooth terms can be modeled using the 
