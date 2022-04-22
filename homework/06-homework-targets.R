@@ -33,8 +33,8 @@ targets_homework05 <- c(
   # model
   zar_brms(
     frog_model,
-    formula = surv ~ 1 + predind*sizind + (1 | tank),
-    priors = c(prior(normal(0, sd), class = Intercept),
+    formula = surv | trials(density) ~ 1 + predind*sizind + (1 | tank),
+    priors = c(prior(normal(0, 1), class = Intercept),
                prior(normal(0,1), class = b),
                prior(exponential(1), class = sd)),
     family = binomial(),
@@ -44,9 +44,6 @@ targets_homework05 <- c(
     cores = 4,
     save_model = NULL
   )
-  
-  brm(surv ~ 1 + predind*sizind + (1 | tank), data = frog_data, 
-      prior = c())
   
   # Question 04 -----------------------------------------------------------
   
