@@ -12,11 +12,10 @@ prior_sim_h06_q01 <- function(sigmas) {
     labs(x = expression(bar(alpha)), y = '', title = "Normal(0, 1)")
   
   N <- 1e3
-  DT <- DT[, .(x = rnorm(N, 0, rexp(N, .BY[[1]]))), by = rate]
-  galphaj <- ggplot(DT) + 
-    stat_halfeye(aes(x = x, y = factor(rate))) + 
-    lims(x = c(-3, 3)) + 
+  simDT <- DT[, .(x = rnorm(N, rnorm(N, 0, 1), rexp(N, .BY[[1]]))), by = rate]
+  galphaj <- ggplot(simDT) + 
+    stat_halfeye(aes(x = inv_logit(x), y = factor(rate))) + 
     labs(x = expression(alpha["j"]), y = 'rate', title = expression("Normal"(bar(alpha), sigma)))
   
-  gsigma + galphabar + galphaj + plot_layout(ncol = 1)
+  list(gsigma, galphabar, galphaj)
 }
