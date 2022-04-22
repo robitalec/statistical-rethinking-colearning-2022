@@ -15,24 +15,10 @@ tar_option_set(format = 'qs',
 
 
 # Variables ---------------------------------------------------------------
-# Stan model, compiled dir
-model_dir_stan <- file.path('stan')
-compiled_dir <- file.path('stan', 'compiled')
-output_stan_dir <- file.path('stan', 'output')
-stan_files <- dir(model_dir_stan, '.stan', full.names = TRUE)
-
-# cpp_options = list(stan_threads = TRUE),
-# chains = 4,
-# quiet = FALSE,
-# parallel_chains = 4,
-# threads_per_chain = 4,
-# dir = compiled_dir,
-# output_dir = output_stan_dir
-
 
 
 # Homework ----------------------------------------------------------------
-source(file.path('homework', '05-homework-targets.R'))
+source(file.path('homework', '06-homework-targets.R'))
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above

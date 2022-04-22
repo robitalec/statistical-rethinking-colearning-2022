@@ -1,32 +1,35 @@
 
-# Targets: Homework 05 ----------------------------------------------------
+# Targets: Homework 06 ----------------------------------------------------
 
 
 targets_homework05 <- c(
   # Question 01 -----------------------------------------------------------
-  # data 
+  # simulate frog data 
   tar_target(
-    nwo_data,
-    data_nwo()
+    data_sim,
+    sim_data(1, 1)
   ),
   
-  # total causal binomial GLM
+  # plot simulated data on probability scale
   tar_target(
-    total_binom,
-    binom_total(nwo_data)
-    ),
+    plot_sim,
+    sim_plot(data_sim)
+  ),
   
-
+  # save plot
+  tar_target(
+    save_plot,
+    ggsave("graphics/homework-06_q1.png", plot_sim)
+  )
+  
   # Question 02 -----------------------------------------------------------
   
   # direct effect binomial GLM
-  
+
   
   
   
   # Question 04 -----------------------------------------------------------
-
+  
   
 )
-
-
