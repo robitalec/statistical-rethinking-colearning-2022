@@ -38,15 +38,6 @@ Alec L. Robitaille
 
 ![](../graphics/homework/model_h05_q02-3.png)<!-- -->![](../graphics/homework/model_h05_q02-4.png)<!-- -->![](../graphics/homework/model_h05_q02-5.png)<!-- -->
 
-    ## $x
-    ## [1] "f - m"
-    ## 
-    ## $y
-    ## [1] ""
-    ## 
-    ## attr(,"class")
-    ## [1] "labels"
-
 ## Question 3
 
 > Considering the total effect (problem 1) and direct effect (problem 2)
@@ -55,6 +46,12 @@ Alec L. Robitaille
 > whether or not there is evidence of discrimination. Simply explain how
 > the direct effects you have estimated make sense (or not) of the total
 > effect.
+
+Above the horizontal line indicate higher proportion of men were
+accepted, below the line indicates the reverse. The color of the point
+indicates the discipline specific, proportion of female applications.
+
+![](../graphics/homework/h05_q03-1.png)<!-- -->
 
 <!-- 
 ## Question 4
