@@ -64,7 +64,31 @@ example in Lecture 9 for help.
 ```{r model_h05_q02}
 mod2 <- tar_read(h05_q02_brms_sample)
 
-conditional_effects(mod)
+conditional_effects(mod2, effects = 'gender')
+conditional_effects(mod2, effects = 'discipline')
+conditional_effects(mod2)
+
+draws <- as_draws_df(mod2)
+DT <- tar_read(DT_grants)
+
+counts <- DT[, .(applications = sum(applications)), discipline]
+
+DT_m <- copy(counts)[, gender := unique(DT$gender)[1]]
+DT_f <- copy(counts)[, gender := unique(DT$gender)[2]]
+
+new_data <- rbindlist(list(DT_m, DT_f))
+pred <- data.table(add_predicted_draws(new_data, mod2))
+
+ggplot(pred) + 
+  stat_halfeye(aes(x = .prediction / applications, gender)) + 
+  facet_wrap(~discipline)
+
+x <- pred[gender == 'f', .prediction / applications] - 
+  pred[gender == 'm', .prediction / applications]
+ggplot(data.frame(x = x)) + 
+  stat_halfeye(aes(x)) + 
+  geom_vline(xintercept = 0, color = 'grey')
+  labs(x = 'f - m', y = '')
 ```
 
 
