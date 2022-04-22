@@ -5,6 +5,8 @@ data_grants <- function() {
   
   DT[, index_gender := .GRP, gender]
   DT[, index_discipline := .GRP, discipline]
+  
+  DT[, gender := factor(gender)]
 
   return(DT)
 }
