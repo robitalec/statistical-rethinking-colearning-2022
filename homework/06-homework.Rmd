@@ -74,8 +74,7 @@ dag_plot(dag, 'graphics/homework/dot_h06_q02')
 mod_q02 <- tar_read(h06_q02_brms_sample)
 summary(mod_q02, prior = TRUE)
 
-plot_rvars(mod_q02, 'r_pred:')
-plot_rvars(mod_q02, 'r_tank')
+plot_rvars(mod_q02, 'b_pred', nested = FALSE)
 ```
 
 
@@ -91,4 +90,6 @@ to σ from your model in Problem 2. How are they different? Why?
 mod_q03 <- tar_read(h06_q03_brms_sample)
 summary(mod_q03, prior = TRUE)
 
+conditional_effects(mod_q03, 'scale_density')
+conditional_effects(mod_q03, 'pred:size')
 ```
