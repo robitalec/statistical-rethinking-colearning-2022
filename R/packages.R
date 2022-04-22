@@ -18,6 +18,8 @@ library(distributional)
 library(rethinking)
 library(brms)
 
+library(tidybayes)
+
 library(ggplot2)
 library(ggdist)
 library(patchwork)
