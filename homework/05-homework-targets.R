@@ -17,7 +17,6 @@ targets_homework_05 <- c(
   
   # Question 2 --------------------------------------------------------------
   # Model
-  # Model
   zar_brms(
     h05_q02,
     awards | trials(applications) ~ gender:discipline,
@@ -27,7 +26,7 @@ targets_homework_05 <- c(
   ),
   
   # Question 3 --------------------------------------------------------------
-  
+  # No targets 
   
   
   # Render ------------------------------------------------------------------
