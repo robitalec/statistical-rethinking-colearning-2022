@@ -34,13 +34,18 @@ to simulate the prior distribution of tank survival probabilities αj. Start by
 using this prior: 
 
 > αj ∼ Normal( ̄α, σ)
+
 >̄ α ∼ Normal(0, 1)
+
 > σ ∼ Exponential(1) 
 
 > Be sure to transform the αj values to the probability scale for plotting and
 summary. How does increasing the width of the prior on σ change the prior
 distribution of αj? You might try Exponential(10) and Exponential(0.1) for
 example.
+
+
+Note alpha j is shown on the probability scale. 
 
 ```{r h06_q01}
 tar_read(h06_q01_sim)
