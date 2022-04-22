@@ -34,7 +34,43 @@ As sigma is decreased to allow for more variation, more extreme values (0,1) bec
 
 NOTE: My plot doesn't go to 0 like Richard's solution because I used brms function `inv_logit_scaled` instead of rethinking function `inv_logit`... is there a non-scaled version for brms that doesn't require loading rethinking?
 
-**Question 2:** Revisit the Reedfrog survival data, data(reedfrogs). Start with the varying effects model from the book and lecture. Then modify it to estimate the causal effects of the treatment variables pred and size, including how size might modify the effect of predation. An easy approach is to estimate an effect for each combination of pred and size. Justify your model with a DAG of this experiment.  
+**Question 2:** Revisit the Reedfrog survival data, data(reedfrogs). Start with the varying effects model from the book and lecture. Then modify it to estimate the causal effects of the treatment variables pred and size, including how size might modify the effect of predation. An easy approach is to estimate an effect for each combination of pred and size. Justify your model with a DAG of this experiment.   
+
+NOTE: Need help with the priors on this question but got to the interaction effect with each level of predation and size using this brms formula: 
+
+```{r, echo = T, eval = F}
+brm(bf(surv | trials(density) ~ 1 + (1 | predind*sizind) + (1 | tank)),
+    prior = c(prior(normal(0, 1), class = Intercept),
+               prior(exponential(1), class = sd)),
+    family = binomial,
+    data = frog_data,
+    chains = 4,
+    iter = 2000,
+    cores = 4,
+    save_model = NULL)
+```
+
+```{r, eval = T, echo = F}
+t <- read.csv("/home/icrichmond/Repositories/statistical-rethinking/outputs/homework-06_q02_summ.csv")
+knitr::kable(t)
+```
+
+We see a negative effect when there is high predation and large sizes, which is interesting.  
+
+The DAG of this system/model can be visualized as: 
+
+```{r, eval = T, echo = F, warning = F, message = F}
+library(ggdag)
+
+d <- dagify(
+  S ~ T + D + P + G,
+  G ~ D
+)
+
+ggdag(d) + theme_dag_blank() 
+```
+
+In Richard's DAG he has them as all independent causal effects but I think that in a tank (finite sized habitat), wouldn't density affect size? You can't be 35 huge fish inside a tank? Unless the tank is massive I guess...
 
 **Question 3:** Now estimate the causal effect of density on survival. Consider whether pred modifies the effect of density. There are several good ways to include density in your Binomial GLM. You could treat it as a continuous regression variable (possibly standardized). Or you could convert it to an ordered category (with three levels). Compare the σ (tank standard deviation) posterior distribution to σ from your model in Problem 2. How are they different? Why?  
 

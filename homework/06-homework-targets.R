@@ -42,8 +42,13 @@ targets_homework05 <- c(
     iter = 2000,
     cores = 4,
     save_model = NULL
-  )
+  ),
   
+  # save output for homework question
+  tar_target(
+    frog_summ, 
+    write.csv(as.data.frame(posterior_summary(frog_model_brms_sample))[9:12, ], "outputs/homework-06_q02_summ.csv")
+  )
   
   # Question 03 -------------------------------------------------------------
 

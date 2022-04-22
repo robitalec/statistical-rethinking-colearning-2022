@@ -45,6 +45,41 @@ and size, including how size might modify the effect of predation. An
 easy approach is to estimate an effect for each combination of pred and
 size. Justify your model with a DAG of this experiment.
 
+NOTE: Need help with the priors on this question but got to the
+interaction effect with each level of predation and size using this brms
+formula:
+
+``` r
+brm(bf(surv | trials(density) ~ 1 + (1 | predind*sizind) + (1 | tank)),
+    prior = c(prior(normal(0, 1), class = Intercept),
+               prior(exponential(1), class = sd)),
+    family = binomial,
+    data = frog_data,
+    chains = 4,
+    iter = 2000,
+    cores = 4,
+    save_model = NULL)
+```
+
+| X                                   |   Estimate | Est.Error |       Q2.5 |     Q97.5 |
+|:------------------------------------|-----------:|----------:|-----------:|----------:|
+| r\_predind:sizind\[1\_1,Intercept\] |  0.3192165 | 0.8020751 | -0.8651349 | 2.4062155 |
+| r\_predind:sizind\[1\_2,Intercept\] |  0.5363877 | 0.8239596 | -0.5568038 | 2.7386810 |
+| r\_predind:sizind\[2\_1,Intercept\] |  0.0987737 | 0.6265035 | -1.3889908 | 1.3777650 |
+| r\_predind:sizind\[2\_2,Intercept\] | -0.4302259 | 0.6626777 | -2.1191880 | 0.5836853 |
+
+We see a negative effect when there is high predation and large sizes,
+which is interesting.
+
+The DAG of this system/model can be visualized as:
+
+![](week-06_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+In Richard’s DAG he has them as all independent causal effects but I
+think that in a tank (finite sized habitat), wouldn’t density affect
+size? You can’t be 35 huge fish inside a tank? Unless the tank is
+massive I guess…
+
 **Question 3:** Now estimate the causal effect of density on survival.
 Consider whether pred modifies the effect of density. There are several
 good ways to include density in your Binomial GLM. You could treat it as
