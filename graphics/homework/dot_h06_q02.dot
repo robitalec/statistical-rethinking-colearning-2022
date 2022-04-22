@@ -1,0 +1,12 @@
+digraph {
+Density
+Predation
+Size
+Survival [style=filled; color="#ffe0bd"]
+Tank
+Density -> Survival
+Predation -> Survival
+Size -> Survival
+Tank -> Survival
+rankdir=LR}
+
