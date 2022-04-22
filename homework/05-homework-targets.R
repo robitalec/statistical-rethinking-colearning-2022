@@ -1,7 +1,19 @@
 targets_homework_05 <- c(
-  # Question 1 --------------------------------------------------------------
   # Data
+  tar_target(
+    DT_grants,
+    data_grants()
+  ),
+  
+  # Question 1 --------------------------------------------------------------
   # Model
+  zar_brms(
+    h05_q01,
+    awards | trials(applications) ~ gender,
+    priors = NULL,
+    family = binomial(),
+    data = DT
+  ),
   
   
   # Question 2 --------------------------------------------------------------
