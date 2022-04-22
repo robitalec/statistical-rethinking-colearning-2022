@@ -7,6 +7,7 @@ data_grants <- function() {
   DT[, index_discipline := .GRP, discipline]
   
   DT[, gender := factor(gender)]
+  DT[, discipline := factor(discipline)]
 
   return(DT)
 }
