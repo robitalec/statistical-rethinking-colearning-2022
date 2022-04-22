@@ -15,9 +15,10 @@ targets_homework_06 <- c(
   # Model
   zar_brms(
     h06_q02,
-    surv | trials(density) ~ 1 | tank + pred:size,
-    priors = c(prior(normal(0, 1.5), class = Intercept),
-               prior(exponential(1), class = sd)),
+    surv | trials(density) ~ pred:size + (1 | tank),
+    priors = c(prior(normal(0, 1), class = b),
+               prior(exponential(1), class = sd),
+               prior(normal(0, 1.5), class = Intercept)),
     family = binomial,
     data = DT_reedfrogs
   ),
@@ -27,8 +28,9 @@ targets_homework_06 <- c(
   zar_brms(
     h06_q03,
     surv | trials(density) ~ pred:size + scale_density + (1 | tank),
-    priors = c(prior(normal(0, 1.5), class = Intercept),
-               prior(exponential(1), class = sd)),
+    priors = c(prior(normal(0, 1), class = b),
+               prior(exponential(1), class = sd),
+               prior(normal(0, 1), class = Intercept)),
     family = binomial,
     data = DT_reedfrogs
   ),
