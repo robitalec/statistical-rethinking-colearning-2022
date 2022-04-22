@@ -13,13 +13,14 @@ targets_homework_06 <- c(
   
   # Question 2 --------------------------------------------------------------
   # Model
-  # zar_brms(
-  #   h06_q01,
-  #   formula = ,
-  #   priors = ,
-  #   family = ,
-  #   data = DT_reedfrogs
-  # ),
+  zar_brms(
+    h06_q01,
+    surv | trials(density) ~ 1 | tank + pred:size,
+    priors = c(prior(normal(0, 1.5), class = Intercept),
+               prior(exponential(1), class = sd)),
+    family = binomial,
+    data = DT_reedfrogs
+  ),
   
   # Question 3 --------------------------------------------------------------
   
