@@ -148,6 +148,12 @@ pterms defines the effects that are assumed to be the same across observations,
 # https://community.rstudio.com/t/set-x-y-intercept-to-zero/101018/2
 -->
 
+
+<!-- pterms: interactions
+: vs *
+a*b is equivalent to a+b+a:b
+-->
+
 #### pterms: non-linear
 
 Flexible non-linear smooth terms can be modeled using the 
