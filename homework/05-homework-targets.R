@@ -15,10 +15,17 @@ targets_homework_05 <- c(
     data = DT_grants
   ),
   
-  
   # Question 2 --------------------------------------------------------------
   # Model
-
+  # Model
+  zar_brms(
+    h05_q02,
+    awards | trials(applications) ~ gender + discipline,
+    c(prior(normal(0, 1), class = 'b')),
+    family = binomial(),
+    data = DT_grants
+  ),
+  
   # Question 3 --------------------------------------------------------------
   
   
