@@ -13,7 +13,11 @@ Alec L. Robitaille
 > this sample and then use one or more binomial GLMs to estimate the
 > TOTAL causal effect of gender on grant awards.
 
-![](../graphics/homework/unnamed-chunk-3-1.png)<!-- -->
+![](../graphics/homework/dag_h05_q01-1.png)<!-- -->
+
+    ## Setting all 'trials' variables to 1 by default if not specified otherwise.
+
+![](../graphics/homework/model_h05_q01-1.png)<!-- -->
 
 ## Question 2
 
@@ -21,6 +25,27 @@ Alec L. Robitaille
 > Compute the average direct causal effect of gender, weighting each
 > discipline in proportion to the number of applications in the sample.
 > Refer to the marginal effect example in Lecture 9 for help.
+
+    ## Setting all 'trials' variables to 1 by default if not specified otherwise.
+
+![](../graphics/homework/model_h05_q02-1.png)<!-- -->
+
+    ## Setting all 'trials' variables to 1 by default if not specified otherwise.
+
+![](../graphics/homework/model_h05_q02-2.png)<!-- -->
+
+    ## Setting all 'trials' variables to 1 by default if not specified otherwise.
+
+![](../graphics/homework/model_h05_q02-3.png)<!-- -->![](../graphics/homework/model_h05_q02-4.png)<!-- -->![](../graphics/homework/model_h05_q02-5.png)<!-- -->
+
+    ## $x
+    ## [1] "f - m"
+    ## 
+    ## $y
+    ## [1] ""
+    ## 
+    ## attr(,"class")
+    ## [1] "labels"
 
 ## Question 3
 
