@@ -10,9 +10,9 @@ targets_homework_05 <- c(
   zar_brms(
     h05_q01,
     awards | trials(applications) ~ gender,
-    priors = NULL,
+    c(prior(normal(0, 1), class = 'b')),
     family = binomial(),
-    data = DT
+    data = DT_grants
   ),
   
   
