@@ -17,6 +17,7 @@ knitr::opts_knit$set(root.dir = '../.')
 source('R/packages.R')
 source('R/dag_plot.R')
 source('R/plot_halfeye.R')
+source('R/plot_rvars.R')
 
 knitr::opts_chunk$set(
 	echo = FALSE,
@@ -62,6 +63,10 @@ experiment.
 
 
 ```{r h06_q02}
+mod_q2 <- tar_read(h06_q01_brms_sample)
+summary(mod_q2, prior = TRUE)
+
+plot_rvars(mod_q2, 'r_pred:')
 ```
 
 
