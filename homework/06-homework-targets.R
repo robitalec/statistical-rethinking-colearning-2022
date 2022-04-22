@@ -33,8 +33,9 @@ targets_homework05 <- c(
   # model
   zar_brms(
     frog_model,
-    formula = surv | trials(density) ~ 1 + (1 | predind*sizind) + (1 | tank),
+    formula = surv | trials(density) ~ pred:size + (1 | tank),
     priors = c(prior(normal(0, 1), class = Intercept),
+               prior(normal(0, 1), class = 'b'),
                prior(exponential(1), class = sd)),
     family = binomial(),
     data = frog_data,
@@ -47,7 +48,7 @@ targets_homework05 <- c(
   # save output for homework question
   tar_target(
     frog_summ, 
-    write.csv(as.data.frame(posterior_summary(frog_model_brms_sample))[9:12, ], "outputs/homework-06_q02_summ.csv")
+    write.csv(as.data.frame(posterior_summary(frog_model_brms_sample))[1:5, ], "outputs/homework-06_q02_summ.csv")
   )
   
   # Question 03 -------------------------------------------------------------

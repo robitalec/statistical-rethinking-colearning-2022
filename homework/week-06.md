@@ -61,12 +61,13 @@ brm(bf(surv | trials(density) ~ 1 + (1 | predind*sizind) + (1 | tank)),
     save_model = NULL)
 ```
 
-| X                                   |   Estimate | Est.Error |       Q2.5 |     Q97.5 |
-|:------------------------------------|-----------:|----------:|-----------:|----------:|
-| r\_predind:sizind\[1\_1,Intercept\] |  0.3192165 | 0.8020751 | -0.8651349 | 2.4062155 |
-| r\_predind:sizind\[1\_2,Intercept\] |  0.5363877 | 0.8239596 | -0.5568038 | 2.7386810 |
-| r\_predind:sizind\[2\_1,Intercept\] |  0.0987737 | 0.6265035 | -1.3889908 | 1.3777650 |
-| r\_predind:sizind\[2\_2,Intercept\] | -0.4302259 | 0.6626777 | -2.1191880 | 0.5836853 |
+| X                     |   Estimate | Est.Error |       Q2.5 |      Q97.5 |
+|:----------------------|-----------:|----------:|-----------:|-----------:|
+| b\_Intercept          |  1.3424268 | 0.5343581 |  0.2761981 |  2.3784548 |
+| b\_predno:sizebig     |  1.2573315 | 0.5710650 |  0.1466788 |  2.3644423 |
+| b\_predpred:sizebig   | -1.6959645 | 0.5595327 | -2.7225160 | -0.5699628 |
+| b\_predno:sizesmall   |  1.1199062 | 0.5850184 | -0.0278747 |  2.2754255 |
+| b\_predpred:sizesmall | -0.8224661 | 0.5640100 | -1.9164072 |  0.2834241 |
 
 We see a negative effect when there is high predation and large sizes,
 which is interesting.
