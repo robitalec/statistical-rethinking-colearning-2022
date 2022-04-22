@@ -14,7 +14,7 @@ targets_homework_06 <- c(
   # Question 2 --------------------------------------------------------------
   # Model
   zar_brms(
-    h06_q01,
+    h06_q02,
     surv | trials(density) ~ 1 | tank + pred:size,
     priors = c(prior(normal(0, 1.5), class = Intercept),
                prior(exponential(1), class = sd)),
@@ -23,7 +23,15 @@ targets_homework_06 <- c(
   ),
   
   # Question 3 --------------------------------------------------------------
-  
+  # Model
+  zar_brms(
+    h06_q03,
+    surv | trials(density) ~ pred:size + scale_density + (1 | tank),
+    priors = c(prior(normal(0, 1.5), class = Intercept),
+               prior(exponential(1), class = sd)),
+    family = binomial,
+    data = DT_reedfrogs
+  ),
   
   # Render ------------------------------------------------------------------
   tar_render(render_h06,
