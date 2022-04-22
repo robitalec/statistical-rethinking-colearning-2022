@@ -87,7 +87,7 @@ x <- pred[gender == 'f', .prediction / applications] -
   pred[gender == 'm', .prediction / applications]
 ggplot(data.frame(x = x)) + 
   stat_halfeye(aes(x)) + 
-  geom_vline(xintercept = 0, color = 'grey')
+  geom_vline(xintercept = 0, color = 'grey') + 
   labs(x = 'f - m', y = '')
 ```
 
@@ -100,6 +100,31 @@ in award rate in this sample? It is not necessary to say whether or not there is
 evidence of discrimination. Simply explain how the direct effects you have
 estimated make sense (or not) of the total effect.
 
+Above the horizontal line indicate higher proportion of men were accepted,
+below the line indicates the reverse. The color of the point indicates
+the discipline specific, proportion of female applications.
+
+```{r h05_q03}
+DT[, total_apps := sum(applications), gender]
+DT_f_rates <- DT[, .(award_rate = awards / applications, 
+                     app_rate_gender = applications / total_apps), 
+                 by = .(gender, discipline)][gender == 'f']
+
+cast <- dcast(
+  pred[, .(discipline, gender, award = .prediction / applications)],
+  formula = discipline ~ gender,
+  fun.aggregate = mean,
+  value.var = 'award'
+)
+
+ggplot(cast[DT_f_rates, on = 'discipline']) + 
+  geom_point(size = 6, color = 'black', shape = 21, 
+             aes(f, m, fill = app_rate_gender)) + 
+  geom_abline(slope = 1, intercept = 0) + 
+  scale_fill_scico() +
+  labs(fill = 'Proportion of\nfemale \napplications') + 
+  coord_equal(xlim = c(0.1, 0.3), ylim = c(0.1, 0.3))
+```
 
 <!-- 
 ## Question 4
