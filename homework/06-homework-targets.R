@@ -20,14 +20,33 @@ targets_homework05 <- c(
   tar_target(
     save_plot,
     ggsave("graphics/homework-06_q1.png", plot_sim)
-  )
+  ),
   
   # Question 02 -----------------------------------------------------------
   
-  # direct effect binomial GLM
-
+  # load reed frogs data
+  tar_target(
+    frog_data,
+    data_frog()
+  ),
   
+  # model
+  zar_brms(
+    frog_model,
+    formula = surv ~ 1 + predind*sizind + (1 | tank),
+    priors = c(prior(normal(0, sd), class = Intercept),
+               prior(normal(0,1), class = b),
+               prior(exponential(1), class = sd)),
+    family = binomial(),
+    data = frog_data,
+    chains = 4,
+    iter = 2000,
+    cores = 4,
+    save_model = NULL
+  )
   
+  brm(surv ~ 1 + predind*sizind + (1 | tank), data = frog_data, 
+      prior = c())
   
   # Question 04 -----------------------------------------------------------
   
