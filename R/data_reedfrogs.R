@@ -12,5 +12,7 @@ data_reedfrogs <- function() {
   DT[, size := factor(size)]
   DT[, tank := factor(tank)]
   
+  DT[, scale_density := scale(density)]
+  
   return(DT)
 }
