@@ -71,10 +71,11 @@ dag_plot(dag, 'graphics/homework/dot_h06_q02')
 
 
 ```{r h06_q02}
-mod_q2 <- tar_read(h06_q01_brms_sample)
-summary(mod_q2, prior = TRUE)
+mod_q02 <- tar_read(h06_q02_brms_sample)
+summary(mod_q02, prior = TRUE)
 
-plot_rvars(mod_q2, 'r_pred:')
+plot_rvars(mod_q02, 'r_pred:')
+plot_rvars(mod_q02, 'r_tank')
 ```
 
 
@@ -87,4 +88,7 @@ three levels). Compare the σ (tank standard deviation) posterior distribution
 to σ from your model in Problem 2. How are they different? Why?
 
 ```{r h06_q03}
+mod_q03 <- tar_read(h06_q03_brms_sample)
+summary(mod_q03, prior = TRUE)
+
 ```
