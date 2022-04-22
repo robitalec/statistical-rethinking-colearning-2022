@@ -1,11 +1,17 @@
-plot_rvars <- function(model, variable, regex = TRUE) {
-  rv <- as_draws_rvars(model, variable = variable, regex = regex)[[1]]
+plot_rvars <- function(model, variable, regex = TRUE, nested = FALSE) {
+  rvars <- as_draws_rvars(model, variable = variable, regex = regex)
   
-  ggplot(data.frame(names = rownames(rv), rv)) + 
-    stat_halfeye(aes(xdist = Intercept, y = names)) +
+  if (nested) {
+    rvars_first <- rvars[[1]]
+    a <- data.frame(#rownames(rvars_first), 
+                    seq.int(length(rvars_first)),
+                    rvars_first)
+    colnames(a) <- c('nm', 'rv')
+  } else {
+    a <- data.frame(nm = names(rvars), 
+                    rv = do.call(rbind, rvars))
+  }
+  ggplot(a) + 
+    stat_halfeye(aes(xdist = rv, y = nm)) +
     theme_minimal()
 }
-
-# plot_rvars(mod_q02, 'r_tank')
-# Error in data.frame(names = rownames(rv), rv) : 
-#   arguments imply differing number of rows: 0, 48
