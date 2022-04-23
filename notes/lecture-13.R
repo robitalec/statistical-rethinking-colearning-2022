@@ -73,6 +73,10 @@ N <- 100
 new_data <- pred_levels[rep(seq.int(.N), N)]
 new_data[, tank := seq(48, 48 + .N - 1)]
 
+# check 
+new_data[, .N, pred]
+new_data[, .N, size]
+
 pred <- posterior_predict(
   b_f, 
   new_data, 
@@ -95,6 +99,8 @@ new_interv_data[, tank := seq(48, 48 + .N - 1)]
 new_interv_data[, size := sample(unique(DT_frogs$size), .N, 
                                  prob = c(.25, .75),
                                  replace = TRUE)]
+new_interv_data[, .N, pred]
+new_interv_data[, .N, size]
 
 pred_interv <- posterior_predict(
   b_f, 
