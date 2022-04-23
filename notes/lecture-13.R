@@ -84,7 +84,7 @@ pred <- posterior_predict(
   allow_new_levels = TRUE,
   sample_new_levels = 'uncertainty'
 )
-qplot(pred, binwidth = 1) + theme_minimal()
+qplot(pred, binwidth = 1) + theme_minimal() + stat_slabinterval()
 
 # Different distribution
 pred_interv_levels <- DT_frogs[, CJ(
@@ -109,11 +109,12 @@ pred_interv <- posterior_predict(
   allow_new_levels = TRUE,
   sample_new_levels = 'uncertainty'
 )
-qplot(pred_interv, binwidth = 1) + theme_minimal()
+qplot(pred_interv, binwidth = 1) + theme_minimal() + stat_slabinterval()
 
 
 # Contrast
 qplot(pred - pred_interv, binwidth = 1) + 
   theme_minimal() + 
-  geom_vline(xintercept = 0)
+  stat_slabinterval() #+ 
+  # geom_vline(xintercept = 0)
 
