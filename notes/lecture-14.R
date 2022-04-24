@@ -10,7 +10,6 @@ source('R/plot_rvars.R')
 # Chimps ------------------------------------------------------------------
 data(chimpanzees)
 DT <- data.table(chimpanzees)
-DT
 DT[, treatment := .GRP, .(prosoc_left, condition)]
 DT[, treatment := factor(treatment)]
 DT[, block := factor(treatment)]
@@ -32,3 +31,14 @@ b <- brm(
   family = bernoulli(),
   data = DT
 )
+
+
+draws <- data.table(spread_draws(b, r_actor[id,treatment]))
+
+draws[, index_treatment := .GRP, treatment]
+
+ggplot(draws) + 
+  stat_pointinterval(aes(index_treatment, 
+                         inv_logit(r_actor))) + 
+  facet_wrap(~index_id) + 
+  ylim(0, 1)
