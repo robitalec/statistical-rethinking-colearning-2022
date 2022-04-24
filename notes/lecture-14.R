@@ -17,7 +17,7 @@ DT[, block := factor(treatment)]
 DT[, actor := factor(actor)]
 
 default <- get_prior(
-  pulled_left ~ (actor | treatment) + (treatment | block),
+  pulled_left ~ (treatment | actor) + (treatment | block),
   family = bernoulli(),
   data = DT
 )
@@ -27,7 +27,7 @@ p <- c(prior(exponential(1), class = sd),
        prior(lkj(4), class = cor))
 
 b <- brm(
-  pulled_left ~ (actor | treatment) + (treatment | block),
+  pulled_left ~ (treatment | actor) + (treatment | block),
   prior = p,
   family = bernoulli(),
   data = DT
