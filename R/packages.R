@@ -6,6 +6,7 @@ library(conflicted)
 library(targets)
 library(tarchetypes)
 library(renv)
+conflict_prefer('autoload', 'renv')
 
 library(zarg)
 
@@ -14,10 +15,12 @@ library(data.table)
 library(stantargets)
 library(cmdstanr)
 library(loo)
+conflict_prefer('compare', 'loo')
 library(distributional)
 library(rethinking)
 library(brms)
 conflict_prefer_all('brms', 'stats', quiet = TRUE)
+conflict_prefer('dstudent_t', 'brms')
 
 library(tidybayes)
 
