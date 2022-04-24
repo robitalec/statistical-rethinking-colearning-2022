@@ -17,6 +17,7 @@ library(loo)
 library(distributional)
 library(rethinking)
 library(brms)
+conflict_prefer_all('brms', 'stats', quiet = TRUE)
 
 library(tidybayes)
 
