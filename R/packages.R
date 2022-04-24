@@ -7,6 +7,8 @@ library(targets)
 library(tarchetypes)
 library(renv)
 conflict_prefer('autoload', 'renv')
+conflict_prefer('embed', 'renv')
+conflict_prefer('history', 'renv')
 
 library(zarg)
 
