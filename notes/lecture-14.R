@@ -21,3 +21,14 @@ default <- get_prior(
   family = bernoulli(),
   data = DT
 )
+
+p <- c(prior(exponential(1), class = sd),
+       prior(normal(0, 1), class = Intercept),
+       prior(lkj(4), class = cor))
+
+b <- brm(
+  pulled_left ~ (actor | treatment) + (treatment | block),
+  prior = p,
+  family = bernoulli(),
+  data = DT
+)
