@@ -24,6 +24,7 @@ p <- c(prior(normal(0, 1.5), class = b),
        prior(exponential(1), class = sd),
        prior(normal(0, 1), class = Intercept))
 
+# Interaction
 b <- brm(
   pulled_left ~ treatment:block + (1 | actor),
   prior = p,
@@ -40,7 +41,7 @@ plot_cond +
   ylim(0, 1)
 
 
-# More levels
+# As levels
 default <- get_prior(
   pulled_left ~ 1 + (1 | treatment) + (1 | block) + (1 | actor),
   family = bernoulli(),
@@ -51,19 +52,19 @@ p <- c(prior(exponential(1), class = sd),
        prior(normal(0, 1), class = Intercept))
 
 # 1 = alpha bar
-b <- brm(
+b_m <- brm(
   pulled_left ~ (1 | treatment) + (1 | block) + (1 | actor),
   prior = p,
   family = bernoulli(),
   data = DT
 )
 
-b$prior
+b_m$prior
 
-summarise_draws(b)
-plot_rvars(b, 'r_actor', nested = TRUE)
-plot_rvars(b, 'r_block', nested = TRUE) + xlim(-2, 2)
-plot_rvars(b, 'r_treatment', nested = TRUE) + xlim(-2, 2)
+summarise_draws(b_m)
+plot_rvars(b_m, 'r_actor', nested = TRUE)
+plot_rvars(b_m, 'r_block', nested = TRUE) + xlim(-2, 2)
+plot_rvars(b_m, 'r_treatment', nested = TRUE) + xlim(-2, 2)
 
 
 # Frogs -------------------------------------------------------------------
