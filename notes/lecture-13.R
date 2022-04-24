@@ -4,7 +4,7 @@
 
 # Packages ----------------------------------------------------------------
 source('R/packages.R')
-
+source('R/plot_rvars.R')
 
 # Chimps ------------------------------------------------------------------
 data(chimpanzees)
@@ -17,7 +17,7 @@ DT[, actor := factor(actor)]
 default <- get_prior(
   pulled_left ~ treatment:block + (1 | actor),
   family = bernoulli(),
-  data = d
+  data = DT
 )
 
 p <- c(prior(normal(0, 1.5), class = b),
