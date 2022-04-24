@@ -35,6 +35,9 @@ b$prior
 
 summarise_draws(b)
 plot_rvars(b, 'r_actor', nested = TRUE)
+plot_cond <- plot(conditional_effects(b, 'treatment:block'), plot = FALSE)[[1]]
+plot_cond + 
+  ylim(0, 1)
 
 
 
