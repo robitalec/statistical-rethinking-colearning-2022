@@ -67,12 +67,17 @@ rules of d-separation (the elemental confounds) correctly to the DAG you design.
 
 ```{r dag_h07_q02}
 dag <- dagify(
-  Use ~ Age + District + Urban,
-  NumbKids ~ Age + Urban + Use,
+  Use ~ Age + District + Urban + NumbKids,
+  NumbKids ~ Age + Urban,
   NumbKids ~ Age,
+  Urban ~ District,
+  exposure = 'Urban',
   outcome = 'Use'
 )
 dag_plot(dag, 'graphics/homework/dot_h07_q02')
+
+adjustmentSets(dag, effect = 'total')
+adjustmentSets(dag, effect = 'direct')
 ```
 
 
