@@ -90,6 +90,10 @@ living by district. If you do, think carefully about how to do this
 statistically.
 
 
+```{r plot_h07_q03}
+tar_read(plot_compare_total_direct)
+```
+
 <!--
 4-OPTIONAL CHALLENGE. Can you also go beyond the parameter estimates
 from problem 3 and compute a marginal causal effect of urban living for each dis-
