@@ -45,6 +45,9 @@ in indexing the parameters. The simplest fix is just to tell ulam manually how
 long the vector should be, like this: vector[61]:a ~ normal(abar,sigma). Pay
 special attention to district number 54’s estimate
 
+```{r h07_q01}
+tar_read(plot_district_contraception)
+```
 
 ## Question 2
 > First, draw a DAG that includes all five variables: (1) Uses contraception C
@@ -62,6 +65,15 @@ urban living on contraceptive use.
 analysis. There is no firm right answer. Just apply the backdoor criterion and
 rules of d-separation (the elemental confounds) correctly to the DAG you design.
 
+```{r dag_h07_q02}
+dag <- dagify(
+  Use ~ Age + District + Urban,
+  NumbKids ~ Age + Urban + Use,
+  NumbKids ~ Age,
+  outcome = 'Use'
+)
+dag_plot(dag, 'graphics/homework/dot_h07_q02')
+```
 
 
 ## Question 3

@@ -1,0 +1,14 @@
+digraph {
+Age
+District
+NumbKids
+Urban
+Use [style=filled; color="#ffe0bd"]
+Age -> NumbKids
+Age -> Use
+District -> Use
+Urban -> NumbKids
+Urban -> Use
+Use -> NumbKids
+rankdir=LR}
+
