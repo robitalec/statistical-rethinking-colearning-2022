@@ -17,6 +17,12 @@ targets_homework_07 <- c(
     data = DT_bangladesh,
     family = bernoulli()
   ),
+  
+  # Plot
+  tar_target(
+    plot_district_contraception,
+    plot_h07_q01(h07_q01_brms_sample, DT_bangladesh)
+  ),
   # Question 2 --------------------------------------------------------------
 
   
