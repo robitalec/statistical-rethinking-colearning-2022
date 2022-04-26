@@ -2,13 +2,14 @@ digraph {
 Age
 District
 NumbKids
-Urban
+Urban [style=filled; color="#dfc9de"]
 Use [style=filled; color="#ffe0bd"]
 Age -> NumbKids
 Age -> Use
+District -> Urban
 District -> Use
+NumbKids -> Use
 Urban -> NumbKids
 Urban -> Use
-Use -> NumbKids
 rankdir=LR}
 
