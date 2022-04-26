@@ -105,3 +105,6 @@ stan/compiled
 
 ## HTML
 homework/03-homework.html
+
+# brms model Rds files
+models/
