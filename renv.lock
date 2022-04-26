@@ -1890,9 +1890,9 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "robitalec",
       "RemoteRepo": "zarg",
-      "RemoteRef": "main",
-      "RemoteSha": "f545f2e00386ad0f121b74a60dacd26a1bb6e513",
-      "Hash": "b104ab95f6f737db1f73be2a2ef0bc3c",
+      "RemoteRef": "d41cceeb3480ced291e5d1d7941a430f188d2186",
+      "RemoteSha": "d41cceeb3480ced291e5d1d7941a430f188d2186",
+      "Hash": "8a6b396479e59a5254c5eee803c50e3b",
       "Requirements": [
         "brms",
         "qs",
