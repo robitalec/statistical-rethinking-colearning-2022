@@ -40,6 +40,22 @@ targets_homework_07 <- c(
     family = bernoulli()
   ),
   
+  # Model
+  zar_brms(
+    name = h07_q03_direct,
+    formula = use_contraception ~ urban + age_centered + mo(living_children) + 
+      (1 | district),
+    prior = c(
+      prior(normal(0, 1.5), Intercept),
+      prior(normal(0, 1), b),
+      prior(exponential(1), sd),
+      prior(dirichlet(2), simo)
+    ),
+    data = DT_bangladesh,
+    family = bernoulli()
+  ),
+  
+  
   # Render ------------------------------------------------------------------
   tar_render(render_h07,
              'homework/07-homework.Rmd')
