@@ -1,0 +1,41 @@
+---
+output: 
+  github_document:
+    # html_preview: false
+title: Homework Week 07
+author: Alec L. Robitaille
+date: 2022-04-25
+---
+
+```{r}
+#| include = FALSE
+knitr::opts_knit$set(root.dir = '../.')
+```
+
+```{r}
+#| include = FALSE
+source('R/packages.R')
+source('R/dag_plot.R')
+source('R/plot_halfeye.R')
+source('R/plot_rvars.R')
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.path = '../graphics/homework/'
+)
+
+
+theme_set(theme_bw(base_size = 16))
+```
+
+
+## Question 1
+> 
+
+
+## Question 2
+> 
+
+
+## Question 3
+> 
