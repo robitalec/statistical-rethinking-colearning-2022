@@ -39,13 +39,13 @@ plot_h07_q03 <- function(model_direct, model_total, data) {
   
   
   p_u0 <- posterior_linpred(model_total, TRUE, 
-                            newdata = DT_bangladesh[, CJ(urban = 0, district)])
+                            newdata = data[, CJ(urban = 0, district)])
   p_u1 <- posterior_linpred(model_total, TRUE, 
-                            newdata = DT_bangladesh[, CJ(urban = 1, district)])
+                            newdata = data[, CJ(urban = 1, district)])
   
   gdiff <- qplot(p_u0 - p_u1) + 
     labs(x = 'predicted urban = 0 - predicted urban = 1') + 
-    theme_bw()
+    theme_minimal()
   
   g_total / g_direct / gdiff
   

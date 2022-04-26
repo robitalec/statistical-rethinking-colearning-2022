@@ -90,7 +90,7 @@ living by district. If you do, think carefully about how to do this
 statistically.
 
 
-```{r plot_h07_q03}
+```{r plot_h07_q03, fig.height = 10}
 tar_read(plot_compare_total_direct)
 ```
 
