@@ -43,6 +43,7 @@ source(file.path('homework', '03-homework-targets.R'))
 source(file.path('homework', '04-homework-targets.R'))
 source(file.path('homework', '05-homework-targets.R'))
 source(file.path('homework', '06-homework-targets.R'))
+source(file.path('homework', '07-homework-targets.R'))
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
