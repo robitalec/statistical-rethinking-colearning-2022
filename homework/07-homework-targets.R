@@ -49,10 +49,20 @@ targets_homework_07 <- c(
       prior(normal(0, 1.5), Intercept),
       prior(normal(0, 1), b),
       prior(exponential(1), sd),
-      prior(dirichlet(2), simo)
+      prior(dirichlet(2), simo, moliving_children1)
     ),
     data = DT_bangladesh,
     family = bernoulli()
+  ),
+  
+  # Plot
+  tar_target(
+    plot_compare_total_direct,
+    plot_h07_q03(
+      model_direct = h07_q03_direct_brms_sample, 
+      model_total = h07_q03_total_brms_sample, 
+      data = DT_bangladesh
+    )
   ),
   
   
