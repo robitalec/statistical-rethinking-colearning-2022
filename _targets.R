@@ -10,8 +10,7 @@ lapply(dir('R', '*.R', full.names = TRUE), source)
 
 # Options -----------------------------------------------------------------
 # Targets
-tar_option_set(format = 'qs',
-               workspace_on_error = TRUE)
+tar_option_set(format = 'qs')
 
 # Stan
 options(mc.cores = 2,
