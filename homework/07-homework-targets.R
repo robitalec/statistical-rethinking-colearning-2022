@@ -7,8 +7,16 @@ targets_homework_07 <- c(
   
   # Question 1 --------------------------------------------------------------
   # Model
-  # zar_brms(
-  # ),
+  zar_brms(
+    name = h07_q01,
+    formula = use_contraception ~ (1 | district),
+    prior = c(
+      prior(normal(0, 1.5), Intercept),
+      prior(exponential(1), sd)
+    ),
+    data = DT_bangladesh,
+    family = bernoulli()
+  ),
   # Question 2 --------------------------------------------------------------
 
   
