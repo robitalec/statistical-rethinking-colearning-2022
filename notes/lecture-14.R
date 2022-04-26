@@ -33,7 +33,7 @@ b <- brm(
   family = bernoulli(),
   data = DT,
   cores = 4,
-  file = 'l14.Rds',
+  file = 'models/l14.Rds',
   file_refit = 'on_change'
 )
 
@@ -52,7 +52,7 @@ b2 <- brm(
   family = bernoulli(),
   data = DT,
   cores = 4,
-  file = 'l14-ab.Rds',
+  file = 'models/l14-ab.Rds',
   file_refit = 'on_change'
 )
 
@@ -77,7 +77,7 @@ b3 <- brm(
   family = bernoulli(),
   data = DT,
   cores = 4,
-  file = 'l14-t-ab.Rds',
+  file = 'models/l14-t-ab.Rds',
   file_refit = 'on_change'
 )
 
