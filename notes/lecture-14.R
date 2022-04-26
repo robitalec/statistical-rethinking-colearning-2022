@@ -86,12 +86,13 @@ fixef(b3)
 mcmc_areas(b3)
 mcmc_areas(b3, regex_pars = 'r_actor', transformations = inv_logit)
 
-pred <- data.table(add_predicted_draws(DT, b3))
+pred <- data.table(add_linpred_draws(DT, b3, transform = TRUE))
 
-pred[, mean_pred := mean(.prediction), .(actor, treatment, block)]
-pred[, mean_obs := mean(pulled_left), .(actor, treatment, block)]
+mean_obs <- DT[, .(mean_pl = mean(pulled_left)), .(actor, treatment, block)]
 
-ggplot(unique(pred[, .(actor, treatment, block, mean_pred, mean_obs)])) + 
-  geom_point(aes(interaction(treatment, actor), mean_obs)) + 
-  geom_point(aes(interaction(treatment, actor), mean_pred), color = 'blue') +
+ggplot() + 
+  stat_pointinterval(aes(interaction(treatment, actor), .linpred), 
+                     color = 'blue', alpha = 0.3, data = pred) +
+  geom_point(aes(interaction(treatment, actor), mean_pl), data = mean_obs) +
+  labs(y = 'proportion pulled left') + 
   theme_minimal()
