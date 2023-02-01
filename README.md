@@ -5,6 +5,7 @@ Statistical Rethinking colearning 2022
 -   [Resources](#resources)
 -   [Installation](#installation)
 -   [Project structure](#project-structure)
+-   [Branches](#branches)
 -   [Thanks](#thanks)
 -   [Code of Conduct](#code-of-conduct)
 
@@ -17,20 +18,20 @@ from the [Statistical Rethinking
 
 ## Schedule
 
-Adjusting from Richard’s schedule for our pace:
+Adjusting from Richard’s schedule for our pace. Note these are meeting
+dates indicating when lectures, readings and homework are **assigned**,
+to be discussed on/completed by the next meeting.
 
-| Meeting date | Lectures                                                                                                                                                                       | Reading               | Homework   |
-|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|------------|
-| 2022-01-13   | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2) | Chapters 1, 2 and 3   | Homework 1 |
-|              | \(3\) Basic Regression, (4) Categories & Curves                                                                                                                                | Chapter 4             |            |
-|              | \(5\) Confounding, (6) Even Worse Confounding                                                                                                                                  | Chapters 5 and 6      |            |
-|              | \(7\) Overfitting, (8) Interactions                                                                                                                                            | Chapters 7 and 8      |            |
-|              | \(9\) Markov chain Monte Carlo, (10) Binomial GLMs                                                                                                                             | Chapters 9, 10 and 11 |            |
-|              | \(11\) Poisson GLMs, (12) Ordered Categories                                                                                                                                   | Chapters 11 and 12    |            |
-|              | \(13\) Multilevel Models, (14) Multi-Multilevel Models                                                                                                                         | Chapter 13            |            |
-|              | \(15\) Varying Slopes, (16) Gaussian Processes                                                                                                                                 | Chapter 14            |            |
-|              | \(17\) Measurement Error, (18) Missing Data                                                                                                                                    | Chapter 15            |            |
-|              | \(19\) Beyond GLMs: State-space Models, ODEs, (19) Horoscopes                                                                                                                  | Chapters 16 and 17    |            |
+| Meeting date | Lectures                                                                                                                                                                                                                                        | Reading             | Homework                                                                                       |
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|------------------------------------------------------------------------------------------------|
+| 2022-01-13   | [(1) The Golem of Prague](https://youtu.be/cclUd_HoRlo), [(2) Bayesian Inference](https://www.youtube.com/watch?v=guTdrfycW2Q&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=2)                                                                  | Chapters 1, 2 and 3 | [Homework 1](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week01.pdf) |
+| 2022-01-26   | [(3) Basic Regression](https://www.youtube.com/watch?v=zYYBtxHWE0A), [(4) Categories & Curves](https://youtu.be/QiHKdvAbYII)                                                                                                                    | Chapter 4           | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week02.pdf) |
+| 2022-02-11   | [(5) Confounding](https://youtu.be/UpP-_mBvECI), [(6) Even Worse Confounding](https://www.youtube.com/watch?v=NSuTaeW6Orc)                                                                                                                      | Chapters 5 and 6    | [Homework 3](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week03.pdf) |
+| 2022-02-24   | [(7) Overfitting](https://www.youtube.com/watch?v=odGAAJDlgp8&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=7)                                                                                                                                  | Chapter 7           |                                                                                                |
+| 2022-03-11   | [(8) Markov Chain Monte Carlo](https://www.youtube.com/watch?v=Qqz5AJjyugM&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=8&pp=sAQB)                                                                                                             | Chapter 8, 9        | [Homework 4](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week04.pdf) |
+| 2022-03-25   | [(9) Logistic and Binomial GLMs](https://www.youtube.com/watch?v=nPi5yGbfxuo&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=9), [(10) Sensitivity and Poisson GLMs](https://www.youtube.com/watch?v=YrwL6t0kW2I)                                 | Chapters 10, 11     | [Homework 5](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week05.pdf) |
+| 2022-04-06   | [(11) Ordered Categories](https://www.youtube.com/watch?v=-397DMPooR8&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=11), [(12) Multilevel Models](https://www.youtube.com/watch?v=SocRgsf202M&list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN&index=12) | Chapters 12, 13     | [Homework 6](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week06.pdf) |
+| 2022-04-22   | [(13) Multi-Multilevel Models](https://youtu.be/n2aJYtuGu54), [(14) Correlated varying effects](https://youtu.be/XDoAglqd7ss)                                                                                                                   | Chapters 13, 14     | [Homework 7](https://github.com/rmcelreath/stat_rethinking_2022/blob/main/homework/week07.pdf) |
 
 ## Resources
 
@@ -117,6 +118,20 @@ dag_plot(dag)
 ```
 
 ![](graphics/readme_dag-1.png)<!-- -->
+
+## Branches
+
+See the full list of
+[branches](https://github.com/robitalec/statistical-rethinking-colearning-2022/branches).
+
+-   [Matteo](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/matteo)
+-   [Jillian](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/jillian)
+-   [Alec](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/alec)
+-   [Levi](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/levi)
+-   [Katrien](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/katrien)
+-   [Bella](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/bella)
+-   [Hannah](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/hannah)
+-   [Frankie](https://github.com/robitalec/statistical-rethinking-colearning-2022/tree/frankie)
 
 ## Thanks
 
