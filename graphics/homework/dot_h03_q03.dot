@@ -1,0 +1,16 @@
+digraph {
+A
+S
+U
+X [style=filled; color="#dfc9de"]
+Y [style=filled; color="#ffe0bd"]
+A -> S
+A -> X
+A -> Y
+S -> X
+S -> Y
+U -> S
+U -> Y
+X -> Y
+rankdir=LR}
+

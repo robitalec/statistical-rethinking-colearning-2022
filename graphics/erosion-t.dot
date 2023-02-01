@@ -1,0 +1,15 @@
+digraph {
+Erosion_t1
+Erosion_t2 [style=filled; color="#ffe0bd"]
+Rain
+Slope [style=filled; color="#dfc9de"]
+Veg_loss_t1
+Veg_loss_t2
+Erosion_t1 -> Erosion_t2
+Erosion_t1 -> Veg_loss_t2
+Rain -> Erosion_t2
+Slope -> Erosion_t2
+Veg_loss_t1 -> Erosion_t2
+Veg_loss_t1 -> Veg_loss_t2
+rankdir=LR}
+

@@ -1,0 +1,9 @@
+digraph {
+A [style=filled; color="#dfc9de"]
+H
+W [style=filled; color="#ffe0bd"]
+A -> H
+A -> W
+H -> W
+rankdir=TB}
+

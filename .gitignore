@@ -97,6 +97,17 @@ po/*~
 /*_files/
 
 
+## Targets
 _targets/
+
+## Stan
+stan/compiled
+
+## HTML
+homework/03-homework.html
+
+# brms model Rds files
+models/
+
+## Renv
 renv/
-stan/compiled/

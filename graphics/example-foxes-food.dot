@@ -1,0 +1,11 @@
+digraph {
+Area
+Food [style=filled; color="#dfc9de"]
+Groupsize
+Weight [style=filled; color="#ffe0bd"]
+Area -> Food
+Food -> Groupsize
+Food -> Weight
+Groupsize -> Weight
+rankdir=LR}
+

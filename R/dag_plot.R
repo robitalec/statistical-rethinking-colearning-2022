@@ -1,22 +1,24 @@
-#' DAG plot
+#' DAG plot through dot graphviz
 #' @author Alec L. Robitaille
 #'
 #' @param dag 
+#' @param output_path without extension
 #'
 #' @return
 #' @export
 #'
 #' @examples
-dag_plot <- function(dag) {
-	stat <- node_status(dag, FALSE)
-	stat$data$status[is.na(stat$data$status)] <- 'intermediate'
-	ggplot(stat, aes(x = x, y = y, xend = xend, yend = yend)) +
-		geom_dag_point(aes(color = status), alpha = 0.5, size = 15) +
-		geom_dag_edges() +
-		labs(color = '') +
-		geom_dag_text(color = 'black') +
-		scale_color_manual(values = list('exposure' = '#35608DFF',
-																		 'outcome' = '#22A884FF',
-																		 'intermediate' = 'grey50')) +
-		theme_void()
+dag_plot <- function(dag, output_path) {
+  dag <- gsub('exposure', 'style=filled; color="#dfc9de"', dag)
+  dag <- gsub('outcome', 'style=filled; color="#ffe0bd"', dag)
+  dag <- gsub('dag', 'digraph', dag)
+  dag <- gsub('}', 'rankdir=LR}', dag)
+
+  dot_path <- paste0(output_path, '.dot')
+  png_path <- paste0(output_path, '.png')
+  writeLines(dag, dot_path)
+  system(paste0('dot -Gdpi=300 -Tpng ', dot_path, ' > ', png_path)) 
+  p <- readPNG(png_path)
+  grid.newpage()
+  return(grid.raster(p))
 }

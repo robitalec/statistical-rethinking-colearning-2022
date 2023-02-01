@@ -1,0 +1,11 @@
+digraph {
+Area
+Food
+Groupsize
+Weight
+Area -> Food
+Food -> Groupsize
+Food -> Weight
+Groupsize -> Weight
+rankdir=LR}
+

@@ -1,0 +1,9 @@
+digraph {
+Award [style=filled; color="#ffe0bd"]
+Discipline
+Gender [style=filled; color="#dfc9de"]
+Discipline -> Award
+Gender -> Award
+Gender -> Discipline
+rankdir=LR}
+

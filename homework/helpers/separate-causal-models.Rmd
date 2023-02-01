@@ -1,0 +1,113 @@
+---
+output: github_document
+---
+
+# Separate causal models
+
+## Setup
+```{r}
+#| include = FALSE
+knitr::opts_knit$set(root.dir = here::here())
+options(scipen = 999, digits = 2)
+```
+
+```{r}
+#| include = FALSE
+source('R/packages.R')
+source('R/dag_plot.R')
+source('R/data_foxes.R')
+```
+
+```{r foxes-dag}
+library(rethinking)
+
+data(foxes)
+
+dag <- dagify(
+    Food ~ Area,
+    Groupsize ~ Food,
+    Weight ~ Food + Groupsize
+)
+dag_plot(dag, 'graphics/example-foxes')
+
+DT <- data_foxes(scale = TRUE)
+```
+
+
+## Causal influence of food on weight
+
+```{r foxes-food}
+dag_food <- dagify(
+    Food ~ Area,
+    Groupsize ~ Food,
+    Weight ~ Food + Groupsize,
+    exposure = 'Food',
+    outcome = 'Weight'
+)
+dag_plot(dag_food, 'graphics/example-foxes-food')
+
+adjustmentSets(dag_food, effect = 'total')
+
+m_food <- quap(alist(
+  scale_weight ~ dnorm(mu , sigma),
+  mu <- intercept + beta_scale_area * scale_area,
+  intercept ~ dnorm(0, 0.2),
+  beta_scale_area ~ dnorm(0, 0.5),
+  sigma ~ dexp(1)
+),
+data = DT)
+plot(precis(m_food))
+```
+
+
+## Causal influence of group size on weight
+
+```{r foxes-groupsize}
+dag_groupsize <- dagify(
+    Food ~ Area,
+    Groupsize ~ Food,
+    Weight ~ Food + Groupsize,
+    exposure = 'Groupsize',
+    outcome = 'Weight'
+)
+dag_plot(dag_groupsize, 'graphics/example-foxes-groupsize')
+
+adjustmentSets(dag_groupsize, effect = 'total')
+
+m_groupsize <- quap(alist(
+  scale_weight ~ dnorm(mu , sigma),
+  mu <- intercept + beta_group_size * scale_groupsize + beta_scale_food * scale_food,
+  intercept ~ dnorm(0, 0.2),
+  beta_group_size ~ dnorm(0, 0.5),
+  beta_scale_food ~ dnorm(0, 0.5),
+  sigma ~ dexp(1)
+),
+data = DT)
+plot(precis(m_groupsize))
+```
+
+
+## Causal influence of area on weight
+
+```{r foxes-area}
+dag_area <- dagify(
+    Food ~ Area,
+    Groupsize ~ Food,
+    Weight ~ Food + Groupsize,
+    exposure = 'Area',
+    outcome = 'Weight'
+)
+dag_plot(dag_area, 'graphics/example-foxes-area')
+
+adjustmentSets(dag_area, effect = 'total')
+
+m_area <- quap(alist(
+  scale_weight ~ dnorm(mu , sigma),
+  mu <- intercept + beta_area * scale_area,
+  intercept ~ dnorm(0, 0.2),
+  beta_area ~ dnorm(0, 0.5),
+  sigma ~ dexp(1)
+),
+data = DT)
+plot(precis(m_area))
+```

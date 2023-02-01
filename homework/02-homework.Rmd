@@ -1,0 +1,116 @@
+---
+output: 
+  github_document:
+    html_preview: false
+title: Homework Week 02
+author: Alec L. Robitaille
+date: 2022-02-07
+---
+
+
+```{r}
+#| include = FALSE
+knitr::opts_knit$set(root.dir = '../.')
+```
+
+```{r}
+#| include = FALSE
+source('R/packages.R')
+source('R/dag_plot.R')
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.path = '../graphics/homework/'
+)
+
+
+theme_set(theme_bw(base_size = 16))
+```
+
+# Question 1
+
+> Construct a linear regression of weight as predicted by height, using the adults
+(age 18 or greater) from the Howell1 dataset. The heights listed below were
+recorded in the !Kung census, but weights were not recorded for these
+individuals. Provide predicted weights and 89% compatibility intervals for each
+of these individuals. That is, fill in the table below, using model-based
+predictions.
+
+
+```{r predict_h02_q01}
+ggplot(tar_read(predict_h02_q01), 
+       aes(x = factor(height), y = weight)) +
+  labs(x = 'height', y = 'predicted weight') + 
+  guides(fill = "none") + 
+  stat_halfeye(aes(fill = stat(cut_cdf_qi(cdf, .width = c(.89, 1))))) + 
+  scale_fill_grey(start = 0.4, end = 0.6)
+```
+
+
+
+# Question 2
+
+> From the Howell1 dataset, consider only the people younger than 13 years old.
+Estimate the causal association between age and weight. Assume that age
+influences weight through two paths. First, age influences height, and height
+influences weight. Second, age directly influences weight through age- related
+changes in muscle growth and body proportions. All of this implies this causal
+model (DAG):
+
+```{r dag_h02_q02}
+dag <- dagify(
+    W ~ A + H,
+    H ~ A,
+    exposure = 'A',
+    outcome = 'W'
+)
+```
+
+```{r}
+dag_plot(dag, 'graphics/homework/dot_h02_q02')
+```
+
+![](../graphics/homework/dot_h02_q02)
+
+```{r}
+print('Variables to include to measure total effect of age on weight:')
+adjustmentSets(dag, effect = 'total')
+```
+
+
+> Use a linear regression to estimate the total (not just direct) causal effect
+of each year of growth on weight. Be sure to carefully consider the priors. Try
+using prior predictive simulation to assess what they imply.
+
+
+```{r priors_h02_q02}
+ggplot(tar_read(DT_priors_h02_q02), aes(age, weight)) + 
+  xlim(0, 14) + ylim(0, 50) + 
+  geom_abline(aes(intercept = age, slope = beta_age))
+```
+
+```{r h02_q02_summary}
+tar_load(q02_summary_h02_q02)
+setDT(q02_summary_h02_q02)
+q02_summary_h02_q02[variable != 'lp__', .(variable, mean, q5, q95)]
+```
+
+
+# Question 3 
+
+> Now suppose the causal association between age and weight might be different
+for boys and girls. Use a single linear regression, with a categorical variable
+for sex, to estimate the total causal effect of age on weight separately for
+boys and girls. How do girls and boys differ? Provide one or more posterior
+contrasts as a summary.
+
+
+
+```{r h02_q03_contrast}
+ggplot(tar_read(q03_contrast),
+         aes(sim_age, predict_wt)) + 
+    stat_halfeye() +
+    scale_x_continuous(breaks = c(0, 5, 10), labels = c(0, 5, 10)) + 
+    labs(x = 'age', y = 'posterior weight contrast', 
+         title = 'Posterior predicted weight contrast (male - female)')
+```

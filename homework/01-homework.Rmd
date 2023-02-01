@@ -1,15 +1,29 @@
-Homework Week 01
-================
-Alec L. Robitaille
-2022-01-26
+---
+output: github_document
+title: Homework Week 01
+author: Alec L. Robitaille
+date: 2022-01-26
+---
+
+```{r}
+#| include = FALSE
+
+knitr::opts_chunk$set(
+	fig.path = '../graphics/homework/'
+)
+```
+
+
+
 
 # Question 1
 
-> Suppose the globe tossing data had turned out to be 4 water and 11
-> land. Construct the posterior distribution, using grid approximation.
-> Use the same flat prior as in the book.
+> Suppose the globe tossing data had turned out to be 4 water and 11 land.
+Construct the posterior distribution, using grid approximation. Use the same
+flat prior as in the book.
 
-``` r
+
+```{r w01_q01}
 # Packages --------------------------------------------------------------------
 library(data.table)
 
@@ -45,16 +59,16 @@ DT_q01[, posterior := posterior_num / sum(posterior_num)]
 plot(DT_q01$prop_water, DT_q01$posterior, type = 'l')
 ```
 
-![](../graphics/homework/w01_q01-1.png)<!-- -->
 
 ## Question 2
 
-> Now suppose the data are 4 water and 2 land. Compute the posterior
-> again, but this time use a prior that is zero below p = 0.5 and a
-> constant above p = 0.5. This corresponds to prior information that a
-> majority of the Earth’s surface is water.
+>  Now suppose the data are 4 water and 2 land. Compute the posterior again, but
+this time use a prior that is zero below p = 0.5 and a constant above p = 0.5.
+This corresponds to prior information that a majority of the Earth’s surface is
+water.
 
-``` r
+
+```{r w01_q02}
 # Process ---------------------------------------------------------------------
 # Size of grid for grid approximation
 gridsize <- 1000
@@ -87,63 +101,19 @@ DT_q02[, posterior := posterior_num / sum(posterior_num)]
 plot(DT_q02$prop_water, DT_q02$posterior, type = 'l')
 ```
 
-![](../graphics/homework/w01_q02-1.png)<!-- -->
 
 ## Question 3
 
 > For the posterior distribution from 2, compute 89% percentile and HPDI
-> intervals. Compare the widths of these intervals. Which is wider? Why?
-> If you had only the information in the interval, what might you
-> misunderstand about the shape of the posterior distribution?
+intervals. Compare the widths of these intervals. Which is wider? Why? If you
+had only the information in the interval, what might you misunderstand about the
+shape of the posterior distribution?
 
-``` r
+
+
+```{r w01_q03}
 # Packages ---------------------------------------------------------------------
 library(rethinking)
-```
-
-    ## Loading required package: rstan
-
-    ## Loading required package: StanHeaders
-
-    ## Loading required package: ggplot2
-
-    ## rstan (Version 2.21.3, GitRev: 2e1f913d3ca3)
-
-    ## For execution on a local, multicore CPU with excess RAM we recommend calling
-    ## options(mc.cores = parallel::detectCores()).
-    ## To avoid recompilation of unchanged Stan programs, we recommend calling
-    ## rstan_options(auto_write = TRUE)
-
-    ## Loading required package: cmdstanr
-
-    ## This is cmdstanr version 0.4.0.9001
-
-    ## - CmdStanR documentation and vignettes: mc-stan.org/cmdstanr
-
-    ## - CmdStan path: /home/alecr/.cmdstan/cmdstan-2.27.0
-
-    ## - CmdStan version: 2.27.0
-
-    ## 
-    ## A newer version of CmdStan is available. See ?install_cmdstan() to install it.
-    ## To disable this check set option or environment variable CMDSTANR_NO_VER_CHECK=TRUE.
-
-    ## Loading required package: parallel
-
-    ## rethinking (Version 2.21)
-
-    ## 
-    ## Attaching package: 'rethinking'
-
-    ## The following object is masked from 'package:rstan':
-    ## 
-    ##     stan
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     rstudent
-
-``` r
 library(ggplot2)
 
 
@@ -151,25 +121,9 @@ library(ggplot2)
 # Sample from posterior
 samples <- DT_q02[, sample(prop_water, size = gridsize, prob = posterior, replace = TRUE)]
 mean(samples)
-```
-
-    ## [1] 0.6867237
-
-``` r
 PI(samples, 0.89)
-```
-
-    ##        5%       94% 
-    ## 0.5295295 0.8729279
-
-``` r
 HPDI(samples, 0.89)
-```
 
-    ##     |0.89     0.89| 
-    ## 0.5055055 0.8388388
-
-``` r
 DT_q03 <- data.table(rbind(t(PI(samples, 0.89)), t(HPDI(samples, 0.89))), c('PI', 'HDPI'))
 setnames(DT_q03, c('low', 'high', 'type'))
 
@@ -185,11 +139,9 @@ ggplot() +
                      name = 'Interval type')
 ```
 
-![](../graphics/homework/w01_q03-1.png)<!-- -->
+* PI: percentile intervals
+* HDPI: highest posterior density interval 
 
--   PI: percentile intervals
--   HDPI: highest posterior density interval
-
-Percentile intervals assign equal probability mass to each tail whereas
-highest posterior density intervals return the interval with the highest
-posterior probability.
+Percentile intervals assign equal probability mass to each tail whereas 
+highest posterior density intervals return the interval with the highest posterior
+probability. 
